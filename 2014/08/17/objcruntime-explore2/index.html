@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言接上次的话题,继续就objc/runtime进行讨论.经过今晚的探究,基本掌握了运行时的函数规则,总的有如下几种函数前缀.在后边的文章中我会就一些问题再次讨论,本文权当做API的速查手册使用.  objc_ class_ object_ method_ property_ protocol_ ivar_ ,sel_     ,imp_  1.objc_xxx 系列函数   函数名称 函数作用">
+<meta name="keywords" content="objc,runtime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="objc&#x2F;runtime 探索(二)">
+<meta property="og:url" content="http://geek5nan.github.io/2014/08/17/objcruntime-explore2/index.html">
+<meta property="og:site_name" content="Geek5Nan">
+<meta property="og:description" content="前言接上次的话题,继续就objc/runtime进行讨论.经过今晚的探究,基本掌握了运行时的函数规则,总的有如下几种函数前缀.在后边的文章中我会就一些问题再次讨论,本文权当做API的速查手册使用.  objc_ class_ object_ method_ property_ protocol_ ivar_ ,sel_     ,imp_  1.objc_xxx 系列函数   函数名称 函数作用">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-11T14:04:51.806Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="objc&#x2F;runtime 探索(二)">
+<meta name="twitter:description" content="前言接上次的话题,继续就objc/runtime进行讨论.经过今晚的探究,基本掌握了运行时的函数规则,总的有如下几种函数前缀.在后边的文章中我会就一些问题再次讨论,本文权当做API的速查手册使用.  objc_ class_ object_ method_ property_ protocol_ ivar_ ,sel_     ,imp_  1.objc_xxx 系列函数   函数名称 函数作用">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://geek5nan.github.io/2014/08/17/objcruntime-explore2/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>objc/runtime 探索(二) | Geek5Nan</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49244994-2"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-49244994-2');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Geek5Nan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://geek5nan.github.io/2014/08/17/objcruntime-explore2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Geek5Nan">
+      <meta itemprop="description" content="每天进步一点。">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Geek5Nan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">objc/runtime 探索(二)
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2014-08-17 00:00:00" itemprop="dateCreated datePublished" datetime="2014-08-17T00:00:00+08:00">2014-08-17</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-12-11 22:04:51" itemprop="dateModified" datetime="2019-12-11T22:04:51+08:00">2019-12-11</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/develop/" itemprop="url" rel="index"><span itemprop="name">develop</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2014/08/17/objcruntime-explore2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/08/17/objcruntime-explore2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          
+
+          <br>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">3.4k</span>
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">3 分钟</span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>接上次的话题,继续就<code>objc/runtime</code>进行讨论.<br>经过今晚的探究,基本掌握了运行时的函数规则,总的有如下几种函数前缀.<br>在后边的文章中我会就一些问题再次讨论,本文权当做API的速查手册使用.</p>
+<ul>
+<li>objc_</li>
+<li>class_</li>
+<li>object_</li>
+<li>method_</li>
+<li>property_</li>
+<li>protocol_</li>
+<li>ivar_ ,sel_     ,imp_</li>
+</ul>
+<h3 id="1-objc-xxx-系列函数"><a href="#1-objc-xxx-系列函数" class="headerlink" title="1.objc_xxx 系列函数"></a>1.objc_xxx 系列函数</h3><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>函数作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em><code>objc_getClass</code></em></td>
+<td>获取Class对象</td>
+</tr>
+<tr>
+<td><em><code>objc_getMetaClass</code></em></td>
+<td>获取MetaClass对象</td>
+</tr>
+<tr>
+<td><em><code>objc_allocateClassPair</code></em></td>
+<td>分配空间,创建类(仅在 创建之后,注册之前 能够添加成员变量)</td>
+</tr>
+<tr>
+<td><em><code>objc_registerClassPair</code></em></td>
+<td>注册一个类(注册后方可使用该类创建对象)</td>
+</tr>
+<tr>
+<td><em><code>objc_disposeClassPair</code></em></td>
+<td>注销某个类</td>
+</tr>
+<tr>
+<td><em><code>objc_allocateProtocol</code></em></td>
+<td>开辟空间创建协议</td>
+</tr>
+<tr>
+<td><em><code>objc_registerProtocol</code></em></td>
+<td>注册一个协议</td>
+</tr>
+<tr>
+<td><em><code>objc_constructInstance</code></em></td>
+<td>构造一个实例对象(ARC下无效)</td>
+</tr>
+<tr>
+<td><em><code>objc_destructInstance</code></em></td>
+<td>析构一个实例对象(ARC下无效)</td>
+</tr>
+<tr>
+<td><em><code>objc_setAssociatedObject</code></em></td>
+<td>为实例对象关联对象</td>
+</tr>
+<tr>
+<td><em><code>objc_getAssociatedObje*ct</code></em></td>
+<td>获取实例对象的关联对象</td>
+</tr>
+<tr>
+<td><em><code>objc_removeAssociatedObjects</code></em></td>
+<td>清空实例对象的所有关联对象</td>
+</tr>
+<tr>
+<td><em><code>objc_msgSend</code></em></td>
+<td>发送ObjC消息</td>
+</tr>
+</tbody></table>
+<p>-</p>
+<p><strong><code>objc_</code>系列函数关注于宏观使用,如类与协议的空间分配,注册,注销等操作</strong></p>
+<h3 id="2-class-xxx-系列函数"><a href="#2-class-xxx-系列函数" class="headerlink" title="2.class_xxx 系列函数"></a>2.class_xxx 系列函数</h3><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>函数作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em><code>class_addIvar</code></em></td>
+<td>为类添加实例变量</td>
+</tr>
+<tr>
+<td><em><code>class_addProperty</code></em></td>
+<td>为类添加属性</td>
+</tr>
+<tr>
+<td><em><code>class_addMethod</code></em></td>
+<td>为类添加方法</td>
+</tr>
+<tr>
+<td><em><code>class_addProtocol</code></em></td>
+<td>为类遵循协议</td>
+</tr>
+<tr>
+<td><em><code>class_replaceMethod</code></em></td>
+<td>替换类某方法的实现</td>
+</tr>
+<tr>
+<td><em><code>class_getName</code></em></td>
+<td>获取类名</td>
+</tr>
+<tr>
+<td><em><code>class_isMetaClass</code></em></td>
+<td>判断是否为元类</td>
+</tr>
+<tr>
+<td><em><code>objc_getProtocol</code></em></td>
+<td>获取某个协议</td>
+</tr>
+<tr>
+<td><em><code>objc_copyProtocolList</code></em></td>
+<td>拷贝在运行时中注册过的协议列表</td>
+</tr>
+<tr>
+<td><em><code>class_getSuperclass</code></em></td>
+<td>获取某类的父类</td>
+</tr>
+<tr>
+<td><em><code>class_setSuperclass</code></em></td>
+<td>设置某类的父类</td>
+</tr>
+<tr>
+<td><em><code>class_getProperty</code></em></td>
+<td>获取某类的属性</td>
+</tr>
+<tr>
+<td><em><code>class_getInstanceVariable</code></em></td>
+<td>获取实例变量</td>
+</tr>
+<tr>
+<td><em><code>class_getClassVariable</code></em></td>
+<td>获取类变量</td>
+</tr>
+<tr>
+<td><em><code>class_getInstanceMethod</code></em></td>
+<td>获取实例方法</td>
+</tr>
+<tr>
+<td><em><code>class_getClassMethod</code></em></td>
+<td>获取类方法</td>
+</tr>
+<tr>
+<td><em><code>class_getMethodImplementation</code></em></td>
+<td>获取方法的实现</td>
+</tr>
+<tr>
+<td><em><code>class_getInstanceSize</code></em></td>
+<td>获取类的实例的大小</td>
+</tr>
+<tr>
+<td><em><code>class_respondsToSelector</code></em></td>
+<td>判断类是否实现某方法</td>
+</tr>
+<tr>
+<td><em><code>class_conformsToProtocol</code></em></td>
+<td>判断类是否遵循某协议</td>
+</tr>
+<tr>
+<td><em><code>class_createInstance</code></em></td>
+<td>创建类的实例</td>
+</tr>
+<tr>
+<td><em><code>class_copyIvarList</code></em></td>
+<td>拷贝类的实例变量列表</td>
+</tr>
+<tr>
+<td><em><code>class_copyMethodList</code></em></td>
+<td>拷贝类的方法列表</td>
+</tr>
+<tr>
+<td><em><code>class_copyProtocolList</code></em></td>
+<td>拷贝类遵循的协议列表</td>
+</tr>
+<tr>
+<td><em><code>class_copyPropertyList</code></em></td>
+<td>拷贝类的属性列表</td>
+</tr>
+</tbody></table>
+<p>-</p>
+<p><strong><code>class_</code>系列函数关注于类的内部,如实例变量,属性,方法,协议等相关问题</strong></p>
+<h3 id="3-object-xxx-系列函数"><a href="#3-object-xxx-系列函数" class="headerlink" title="3.object_xxx 系列函数"></a>3.object_xxx 系列函数</h3><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>函数作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em><code>object_copy</code></em></td>
+<td>对象copy(ARC无效)</td>
+</tr>
+<tr>
+<td><em><code>object_dispose</code></em></td>
+<td>对象释放(ARC无效)</td>
+</tr>
+<tr>
+<td><em><code>object_getClassName</code></em></td>
+<td>获取对象的类名</td>
+</tr>
+<tr>
+<td><em><code>object_getClass</code></em></td>
+<td>获取对象的Class</td>
+</tr>
+<tr>
+<td><em><code>object_setClass</code></em></td>
+<td>设置对象的Class</td>
+</tr>
+<tr>
+<td><em><code>object_getIvar</code></em></td>
+<td>获取对象中实例变量的值</td>
+</tr>
+<tr>
+<td><em><code>object_setIvar</code></em></td>
+<td>设置对象中实例变量的值</td>
+</tr>
+<tr>
+<td><em><code>object_getInstanceVariable</code></em></td>
+<td>获取对象中实例变量的值 (ARC中无效,使用<code>object_getIvar</code>)</td>
+</tr>
+<tr>
+<td><em><code>object_setInstanceVariable</code></em></td>
+<td>设置对象中实例变量的值 (ARC中无效,使用<code>object_setIvar</code>)</td>
+</tr>
+</tbody></table>
+<p>-</p>
+<p><strong><code>objcet_</code>系列函数关注于对象的角度,如实例变量</strong></p>
+<h3 id="4-method-xxx-系列函数"><a href="#4-method-xxx-系列函数" class="headerlink" title="4.method_xxx 系列函数"></a>4.method_xxx 系列函数</h3><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>函数作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em><code>method_getName</code></em></td>
+<td>获取方法名</td>
+</tr>
+<tr>
+<td><em><code>method_getImplementation</code></em></td>
+<td>获取方法的实现</td>
+</tr>
+<tr>
+<td><em><code>method_getTypeEncoding</code></em></td>
+<td>获取方法的类型编码</td>
+</tr>
+<tr>
+<td><em><code>method_getNumberOfArguments</code></em></td>
+<td>获取方法的参数个数</td>
+</tr>
+<tr>
+<td><em><code>method_copyReturnType</code></em></td>
+<td>拷贝方法的返回类型</td>
+</tr>
+<tr>
+<td><em><code>method_getReturnType</code></em></td>
+<td>获取方法的返回类型</td>
+</tr>
+<tr>
+<td><em><code>method_copyArgumentType</code></em></td>
+<td>拷贝方法的参数类型</td>
+</tr>
+<tr>
+<td><em><code>method_getArgumentType</code></em></td>
+<td>获取方法的参数类型</td>
+</tr>
+<tr>
+<td><em><code>method_getDescription</code></em></td>
+<td>获取方法的描述</td>
+</tr>
+<tr>
+<td><em><code>method_setImplementation</code></em></td>
+<td>设置方法的实现</td>
+</tr>
+<tr>
+<td><em><code>method_exchangeImplementations</code></em></td>
+<td>替换方法的实现</td>
+</tr>
+</tbody></table>
+<p>-</p>
+<p><strong><code>method_</code>系列函数关注于方法内部,如果方法的参数及返回值类型和方法的实现</strong></p>
+<h3 id="5-property-xxx-系列函数"><a href="#5-property-xxx-系列函数" class="headerlink" title="5.property_xxx 系列函数"></a>5.property_xxx 系列函数</h3><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>函数作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em><code>property_getName</code></em></td>
+<td>获取属性名</td>
+</tr>
+<tr>
+<td><em><code>property_getAttributes</code></em></td>
+<td>获取属性的特性列表</td>
+</tr>
+<tr>
+<td><em><code>property_copyAttributeList</code></em></td>
+<td>拷贝属性的特性列表</td>
+</tr>
+<tr>
+<td><em><code>property_copyAttributeValue</code></em></td>
+<td>拷贝属性中某特性的值</td>
+</tr>
+</tbody></table>
+<p>-</p>
+<p><strong><code>property_</code>系类函数关注与属性*内部,如属性的特性等</strong></p>
+<h3 id="6-protocol-xxx-系列函数"><a href="#6-protocol-xxx-系列函数" class="headerlink" title="6.protocol_xxx 系列函数"></a>6.protocol_xxx 系列函数</h3><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>函数作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em><code>protocol_conformsToProtocol</code></em></td>
+<td>判断一个协议是否遵循另一个协议</td>
+</tr>
+<tr>
+<td><em><code>protocol_isEqual</code></em></td>
+<td>判断两个协议是否一致</td>
+</tr>
+<tr>
+<td><em><code>protocol_getName</code></em></td>
+<td>获取协议名称</td>
+</tr>
+<tr>
+<td><em><code>protocol_copyPropertyList</code></em></td>
+<td>拷贝协议的属性列表</td>
+</tr>
+<tr>
+<td><em><code>protocol_copyProtocolList</code></em></td>
+<td>拷贝某协议所遵循的协议列表</td>
+</tr>
+<tr>
+<td><em><code>protocol_copyMethodDescriptionList</code></em></td>
+<td>拷贝协议的方法列表</td>
+</tr>
+<tr>
+<td><em><code>protocol_addProtocol</code></em></td>
+<td>为一个协议遵循另一协议</td>
+</tr>
+<tr>
+<td><em><code>protocol_addProperty</code></em></td>
+<td>为协议添加属性</td>
+</tr>
+<tr>
+<td><em><code>protocol_getProperty</code></em></td>
+<td>获取协议中的某个属性</td>
+</tr>
+<tr>
+<td><em><code>protocol_addMethodDescription</code></em></td>
+<td>为协议添加方法描述</td>
+</tr>
+<tr>
+<td><em><code>protocol_getMethodDescription</code></em></td>
+<td>获取协议中某方法的描述</td>
+</tr>
+</tbody></table>
+<h3 id="7-ivar-xxx-系列函数"><a href="#7-ivar-xxx-系列函数" class="headerlink" title="7.ivar_xxx 系列函数"></a>7.ivar_xxx 系列函数</h3><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>函数作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em><code>ivar_getName</code></em></td>
+<td>获取Ivar名称</td>
+</tr>
+<tr>
+<td><em><code>ivar_getTypeEncoding</code></em></td>
+<td>获取类型编码</td>
+</tr>
+<tr>
+<td><em><code>ivar_getOffset</code></em></td>
+<td>获取偏移量</td>
+</tr>
+</tbody></table>
+<h3 id="8-sel-xxx-系列函数"><a href="#8-sel-xxx-系列函数" class="headerlink" title="8.sel_xxx 系列函数"></a>8.sel_xxx 系列函数</h3><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>函数作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em><code>sel_getName</code></em></td>
+<td>获取名称</td>
+</tr>
+<tr>
+<td><em><code>sel_getUid</code></em></td>
+<td>注册方法</td>
+</tr>
+<tr>
+<td><em><code>sel_registerName</code></em></td>
+<td>注册方法</td>
+</tr>
+<tr>
+<td><em><code>sel_isEqual</code></em></td>
+<td>判断方法是否相等</td>
+</tr>
+</tbody></table>
+<h3 id="9-imp-xxx-系列函数"><a href="#9-imp-xxx-系列函数" class="headerlink" title="9.imp_xxx 系列函数"></a>9.imp_xxx 系列函数</h3><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>函数作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em><code>imp_implementationWithBlock</code></em></td>
+<td>通过代码块创建IMP</td>
+</tr>
+<tr>
+<td><em><code>imp_getBlock</code></em></td>
+<td>获取函数指针中的代码块</td>
+</tr>
+<tr>
+<td><em><code>imp_removeBlock</code></em></td>
+<td>移除IMP中的代码块</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Geek5Nan</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://geek5nan.github.io/2014/08/17/objcruntime-explore2/" title="objc/runtime 探索(二)">http://geek5nan.github.io/2014/08/17/objcruntime-explore2/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/objc/" rel="tag"># objc</a>
+          
+            <a href="/tags/runtime/" rel="tag"># runtime</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/08/15/objcruntime-explore1/" rel="next" title="objc/runtime 探索(一)">
+                <i class="fa fa-chevron-left"></i> objc/runtime 探索(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/08/18/objcruntime-explore3/" rel="prev" title="objc/runtime 探索(三)">
+                objc/runtime 探索(三) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Geek5Nan">
+            
+              <p class="site-author-name" itemprop="name">Geek5Nan</p>
+              <div class="site-description motion-element" itemprop="description">每天进步一点。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dlZWs1bmFu" title="GitHub &rarr; https://github.com/geek5nan"><i class="fa fa-fw fa-github"></i></span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vZ2VlazVuYW4=" title="Weibo &rarr; https://weibo.com/geek5nan"><i class="fa fa-fw fa-weibo"></i></span>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-objc-xxx-系列函数"><span class="nav-number">2.</span> <span class="nav-text">1.objc_xxx 系列函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-class-xxx-系列函数"><span class="nav-number">3.</span> <span class="nav-text">2.class_xxx 系列函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-object-xxx-系列函数"><span class="nav-number">4.</span> <span class="nav-text">3.object_xxx 系列函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-method-xxx-系列函数"><span class="nav-number">5.</span> <span class="nav-text">4.method_xxx 系列函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-property-xxx-系列函数"><span class="nav-number">6.</span> <span class="nav-text">5.property_xxx 系列函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-protocol-xxx-系列函数"><span class="nav-number">7.</span> <span class="nav-text">6.protocol_xxx 系列函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-ivar-xxx-系列函数"><span class="nav-number">8.</span> <span class="nav-text">7.ivar_xxx 系列函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-sel-xxx-系列函数"><span class="nav-number">9.</span> <span class="nav-text">8.sel_xxx 系列函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-imp-xxx-系列函数"><span class="nav-number">10.</span> <span class="nav-text">9.imp_xxx 系列函数</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2013 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Geek5Nan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">131k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">1:59</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.2"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+  <script src="/js/js.cookie.js?v=7.1.2"></script>
+  <script src="/js/scroll-cookie.js?v=7.1.2"></script>
+
+
+  
+  <script src="/js/exturl.js?v=7.1.2"></script>
+
+
+  
+
+  
+  
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://geek5nan.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://geek5nan.github.io/2014/08/17/objcruntime-explore2/";
+    this.page.identifier = "2014/08/17/objcruntime-explore2/";
+    this.page.title = 'objc/runtime 探索(二)';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://geek5nan.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script>pangu.spacingPage();</script>
+
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

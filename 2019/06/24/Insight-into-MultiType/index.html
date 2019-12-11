@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="MultiType 是一个为 RecycleView 创建多种 Item 的 Android 库，它的设计简洁优雅，源码阅读体验也很好，本文记录了笔者研读此项目源码的感悟。 MultiType 的简单使用开始之前，先来看下 MultiType 的总体类图  图中左侧 MultiTypeAdapter 是供外部访问的主要类，它的使用方式如下。 1234567891011121314151617181">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MultiType 源码学习小结">
+<meta property="og:url" content="http://geek5nan.github.io/2019/06/24/Insight-into-MultiType/index.html">
+<meta property="og:site_name" content="Geek5Nan">
+<meta property="og:description" content="MultiType 是一个为 RecycleView 创建多种 Item 的 Android 库，它的设计简洁优雅，源码阅读体验也很好，本文记录了笔者研读此项目源码的感悟。 MultiType 的简单使用开始之前，先来看下 MultiType 的总体类图  图中左侧 MultiTypeAdapter 是供外部访问的主要类，它的使用方式如下。 1234567891011121314151617181">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://geek5nan.github.io/uploads/MultiType-Class-Diagram.png">
+<meta property="og:image" content="http://geek5nan.github.io/uploads/MultiType-2.png">
+<meta property="og:image" content="http://geek5nan.github.io/uploads/MultiType-3.png">
+<meta property="og:image" content="http://geek5nan.github.io/uploads/One2ManySample_Expected.png">
+<meta property="og:updated_time" content="2019-12-11T14:04:51.808Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MultiType 源码学习小结">
+<meta name="twitter:description" content="MultiType 是一个为 RecycleView 创建多种 Item 的 Android 库，它的设计简洁优雅，源码阅读体验也很好，本文记录了笔者研读此项目源码的感悟。 MultiType 的简单使用开始之前，先来看下 MultiType 的总体类图  图中左侧 MultiTypeAdapter 是供外部访问的主要类，它的使用方式如下。 1234567891011121314151617181">
+<meta name="twitter:image" content="http://geek5nan.github.io/uploads/MultiType-Class-Diagram.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://geek5nan.github.io/2019/06/24/Insight-into-MultiType/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>MultiType 源码学习小结 | Geek5Nan</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49244994-2"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-49244994-2');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Geek5Nan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://geek5nan.github.io/2019/06/24/Insight-into-MultiType/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Geek5Nan">
+      <meta itemprop="description" content="每天进步一点。">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Geek5Nan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">MultiType 源码学习小结
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-24 22:26:26" itemprop="dateCreated datePublished" datetime="2019-06-24T22:26:26+08:00">2019-06-24</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-12-11 22:04:51" itemprop="dateModified" datetime="2019-12-11T22:04:51+08:00">2019-12-11</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/开源项目源码解析/" itemprop="url" rel="index"><span itemprop="name">开源项目源码解析</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/06/24/Insight-into-MultiType/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/24/Insight-into-MultiType/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          
+
+          <br>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">29k</span>
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">27 分钟</span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2RyYWtlZXQvTXVsdGlUeXBl" title="https://github.com/drakeet/MultiType">MultiType<i class="fa fa-external-link"></i></span> 是一个为 RecycleView 创建多种 Item 的 Android 库，它的设计简洁优雅，源码阅读体验也很好，本文记录了笔者研读此项目源码的感悟。</p>
+<h2 id="MultiType-的简单使用"><a href="#MultiType-的简单使用" class="headerlink" title="MultiType 的简单使用"></a>MultiType 的简单使用</h2><p>开始之前，先来看下 <strong>MultiType</strong> 的总体类图</p>
+<p><img src="/uploads/MultiType-Class-Diagram.png" alt="MultiType 类图"></p>
+<p>图中左侧 <code>MultiTypeAdapter</code> 是供外部访问的主要类，它的使用方式如下。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SampleActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> adapter: MultiTypeAdapter</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> items: MutableList&lt;Any&gt;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">    setContentView(R.layout.activity_list)</span><br><span class="line">    <span class="keyword">val</span> recyclerView = findViewById&lt;RecyclerView&gt;(R.id.list)</span><br><span class="line">    <span class="comment">// 实例化MultiTypeAdapter</span></span><br><span class="line">    adapter = MultiTypeAdapter()</span><br><span class="line">    <span class="comment">// 注册三种类型的 Item </span></span><br><span class="line">    adapter.register(TextItemViewBinder())</span><br><span class="line">    adapter.register(ImageItemViewBinder())</span><br><span class="line">    adapter.register(RichItemViewBinder())</span><br><span class="line">    recyclerView.adapter = adapter</span><br><span class="line">    <span class="comment">// 模拟数据</span></span><br><span class="line">    <span class="keyword">val</span> textItem = TextItem(<span class="string">"world"</span>)</span><br><span class="line">    <span class="keyword">val</span> imageItem = ImageItem(R.mipmap.ic_launcher)</span><br><span class="line">    <span class="keyword">val</span> richItem = RichItem(<span class="string">"小艾大人赛高"</span>, R.drawable.img_11)</span><br><span class="line">    items = ArrayList()</span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">0.</span><span class="number">.19</span>) &#123;</span><br><span class="line">      items.add(textItem)</span><br><span class="line">      items.add(imageItem)</span><br><span class="line">      items.add(richItem)</span><br><span class="line">    &#125;</span><br><span class="line">    adapter.items = items</span><br><span class="line">    adapter.notifyDataSetChanged()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>图中<code>ItemViewBinder</code> 是一个负责创建 ItemView 与填充 Item 数据的抽象类，上述代码中的 <code>TextItemViewBinder</code> 、<code>ImageItemViewBinder</code> 与 <code>RichItemViewBinder</code> 均为<code>ItemViewBinder</code>的实现类。</p>
+<p><code>ItemViewBinder</code>的代码看起来很直观，以<code>ImageItemViewBinder</code>为例，它的实现如下。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageItemViewBinder</span> : <span class="type">ItemViewBinder</span>&lt;<span class="type">ImageItem, ImageItemViewBinder.ImageHolder</span>&gt;</span>() &#123;</span><br><span class="line">  inner <span class="class"><span class="keyword">class</span> <span class="title">ImageHolder</span></span>(itemView: View) : RecyclerView.ViewHolder(itemView) &#123;</span><br><span class="line">    <span class="keyword">val</span> image: ImageView = itemView.findViewById(R.id.image)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateViewHolder</span><span class="params">(inflater: <span class="type">LayoutInflater</span>, parent: <span class="type">ViewGroup</span>)</span></span>: ImageHolder &#123;</span><br><span class="line">    <span class="keyword">return</span> ImageHolder(inflater.inflate(R.layout.item_image, parent, <span class="literal">false</span>))</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBindViewHolder</span><span class="params">(holder: <span class="type">ImageHolder</span>, item: <span class="type">ImageItem</span>)</span></span> &#123;</span><br><span class="line">    holder.image.setImageResource(item.resId)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，MultiType 将 Item 视图创建与数据填充的工作交给了 <code>ItemViewBinder</code>来完成。当有新类型的 ItemView 需求时，只需先创建一个继承于 <code>ItemViewBinder</code>的具体类，再将其注册到 <code>MultiTypeAdapter</code> 中即可。</p>
+<h2 id="MultiType-源码解析"><a href="#MultiType-源码解析" class="headerlink" title="MultiType 源码解析"></a>MultiType 源码解析</h2><span id="segment1">
+
+<h3 id="1-MultiTypeAdaprer-的-register-过程"><a href="#1-MultiTypeAdaprer-的-register-过程" class="headerlink" title="1. MultiTypeAdaprer 的 register 过程"></a>1. MultiTypeAdaprer 的 register 过程</h3><p>从 <code>MultiTypeAdapter</code> 入手，它有如下三个 成员变量。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="keyword">var</span> items: List&lt;Any&gt; = emptyList() <span class="comment">//  Adapter 内的 item 数据列表</span></span><br><span class="line"><span class="keyword">open</span> <span class="keyword">val</span> initialCapacity: <span class="built_in">Int</span> = <span class="number">0</span>       <span class="comment">//  MutableTypes 的初始容量</span></span><br><span class="line"><span class="keyword">open</span> <span class="keyword">var</span> types: Types = MutableTypes(initialCapacity) <span class="comment">// 表示多种 Item 类型的容器</span></span><br></pre></td></tr></table></figure>
+
+<p>以文章开头处的代码为例，先来看一下 <code>MultiTypeAdapter</code>的成员函数 <strong>register</strong> 的执行流程</p>
+<div id="sequence-0"></div>
+
+
+<h4 id="1-1-register-binder-ItemViewBinder-lt-T-gt"><a href="#1-1-register-binder-ItemViewBinder-lt-T-gt" class="headerlink" title="1.1 register(binder: ItemViewBinder&lt;T, *&gt;)"></a>1.1 register(binder: ItemViewBinder&lt;T, *&gt;)</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T : Any&gt;</span> <span class="title">register</span><span class="params">(binder: <span class="type">ItemViewBinder</span>&lt;<span class="type">T</span>, *&gt;)</span></span> &#123;</span><br><span class="line">  register(T::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>, <span class="type">binder)</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数中将 <code>T</code> 声明为 <strong>refied</strong> ，表示 <code>T</code> 是一个具体的类型，随后在函数内部调用了同名重载函数 <code>register(clazz: Class&lt;T&gt;, binder: ItemViewBinder&lt;T, *&gt;)</code></p>
+<h4 id="1-2-register-clazz-Class-binder-ItemViewBinder-lt-T-gt"><a href="#1-2-register-clazz-Class-binder-ItemViewBinder-lt-T-gt" class="headerlink" title="1.2 register(clazz: Class, binder: ItemViewBinder&lt;T, *&gt;)"></a>1.2 register(clazz: Class<t>, binder: ItemViewBinder&lt;T, *&gt;)</t></h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">register</span><span class="params">(clazz: <span class="type">Class</span>&lt;<span class="type">T</span>&gt;, binder: <span class="type">ItemViewBinder</span>&lt;<span class="type">T</span>, *&gt;)</span></span> &#123;</span><br><span class="line">  unregisterAllTypesIfNeeded(clazz)</span><br><span class="line">  register(Type(clazz, binder, DefaultLinker()))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>若已使用 <strong>clazz</strong> 注册过，则先对其进行清除。接着将前面传递来的参数 <strong>clazz</strong> 、<strong>binder</strong> 与新建的<strong>DefaultLinker 对象</strong> 一起作为 <code>Type</code> 构造函数的参数，构建 <code>Type</code> 对象。然后调用同名重载函数<code>register(type:Type&lt;T&gt;)</code>。</p>
+<span id="Type">
+
+<p><code>Type</code> 是一个只有三个属性的 <strong>data class</strong>，它的实现如下</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Type</span>&lt;<span class="type">T</span>&gt;</span>(</span><br><span class="line">  <span class="keyword">val</span> clazz: Class&lt;<span class="keyword">out</span> T&gt;,</span><br><span class="line">  <span class="keyword">val</span> binder: ItemViewBinder&lt;T, *&gt;,</span><br><span class="line">  <span class="keyword">val</span> linker: Linker&lt;T&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-register-type-Type"><a href="#1-3-register-type-Type" class="headerlink" title="1.3 register(type: Type)"></a>1.3 register(type: Type<t>)</t></h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">register</span><span class="params">(type: <span class="type">Type</span>&lt;<span class="type">T</span>&gt;)</span></span> &#123;</span><br><span class="line">  types.register(type)</span><br><span class="line">  type.binder._adapter = <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此处将上一步传来的 <strong>type对象</strong> 注册到 <code>MutableTypes</code>类型的成员变量 <strong>types</strong> 中，同时将 <code>MultiTypeAdapter</code> 自身的引用赋值给 <strong>type对象</strong> 中成员变量 <strong>binder</strong> 的属性 <strong>_adapter</strong>  ，便于后续的使用。</p>
+<p>接下来看 <code>MutableTypes</code> 中 <strong>register</strong> 函数的实现</p>
+<h4 id="1-4-MutableTypes-register-type-Type"><a href="#1-4-MutableTypes-register-type-Type" class="headerlink" title="1.4 MutableTypes.register(type:Type)"></a>1.4 MutableTypes.register(type:Type<t>)</t></h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">MutableTypes</span> <span class="keyword">constructor</span></span>(</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">val</span> initialCapacity: <span class="built_in">Int</span> = <span class="number">0</span>,</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">val</span> types: MutableList&lt;Type&lt;*&gt;&gt; = ArrayList(initialCapacity)</span><br><span class="line">) : Types &#123;</span><br><span class="line">......</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">register</span><span class="params">(type: <span class="type">Type</span>&lt;<span class="type">T</span>&gt;)</span></span> &#123;</span><br><span class="line">    types.add(type)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">unregister</span><span class="params">(clazz: <span class="type">Class</span>&lt;*&gt;)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> types.removeAll &#123; it.clazz == clazz &#125;</span><br><span class="line">  &#125;</span><br><span class="line">......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>MutabaleTypes</code> 有属性 <strong>initialCapacity</strong> 、 <strong>types</strong> ，前者表示后者的默认容器大小，<strong>types</strong> 则是一个可变列表。另外还可以看到，<strong>MutbaleTypes</strong> 实现了 <strong>Types</strong> 接口，并重写了<strong>register</strong> 函数，此函数是将传入的参数 <strong>type</strong> 添加到 <strong>types</strong> 列表中。与 <strong>register</strong> 函数相反的还有另一个重写函数 <strong>unregister</strong> ，它是将某个指定的 <code>Class</code> 所对应的全部 <strong>Type 对象</strong>从 <strong>types</strong> 列表中移除。</p>
+<h4 id="1-5小结"><a href="#1-5小结" class="headerlink" title="1.5小结"></a>1.5小结</h4><p>结合以上四步操作，可知 <code>MultiTypeAdapter</code> 的 <strong>register</strong> 函数实际是将待注册的 <strong>数据模型 Class 信息</strong>、<strong>数据模型对应的 ItemViewBinder</strong>、<strong>数据模型对应的 Linker（默认为 DefaultLinker）</strong> 组合为 <code>Type</code> 对象，然后将其添加到 <code>MultiTypeAdapter</code> 的属性 <strong>types</strong> 对应的<code>MutableTypes</code> 对象的属性 <strong>types</strong> 可变数组中，以供后续使用。</p>
+<h3 id="2-MultiTypeAdapter-中-ViewHolder-创建与数据填充的过程"><a href="#2-MultiTypeAdapter-中-ViewHolder-创建与数据填充的过程" class="headerlink" title="2. MultiTypeAdapter  中 ViewHolder 创建与数据填充的过程"></a>2. MultiTypeAdapter  中 ViewHolder 创建与数据填充的过程</h3><p><code>MultiTypeAdapter</code> 是 <code>RecyclerView.Adapter</code> 的实现类，<code>RecyclerView.Adapter</code> 中与 ViewHolder 创建及数据填充的相关的函数主要有以下四个：</p>
+<ol>
+<li><strong>getItemViewType(position: Int): Int</strong> // 获取每一个 Item 对应的 View 类型</li>
+<li><strong>onCreateViewHolder(parent: ViewGroup, indexViewType: Int): ViewHolder</strong> // 为特定类型的 Item 创建 ViewHolder</li>
+<li><strong>onBindViewHolder(holder: ViewHolder, position: Int)</strong>  //为每一个 Item 进行数据填充</li>
+<li><strong>getItemCount(): Int</strong>  // 获取 Adapter 内 Item 的数量</li>
+</ol>
+<p>我们主要观察 <code>MultiTypeAdapter</code> 中前三个函数的实现</p>
+<h4 id="2-1-getItemViewType-position-Int-Int"><a href="#2-1-getItemViewType-position-Int-Int" class="headerlink" title="2.1 getItemViewType(position: Int): Int"></a>2.1 getItemViewType(position: Int): Int</h4><div id="sequence-1"></div>
+
+
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiTypeAdapter</span> <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span></span>(</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">var</span> items: List&lt;Any&gt; = emptyList(),</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">val</span> initialCapacity: <span class="built_in">Int</span> = <span class="number">0</span>,</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">var</span> types: Types = MutableTypes(initialCapacity)</span><br><span class="line">) : RecyclerView.Adapter&lt;ViewHolder&gt;() &#123;</span><br><span class="line">  ......</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getItemViewType</span><span class="params">(position: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> indexInTypesOf(position, items[position])</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">  <span class="meta">@Throws(BinderNotFoundException::class)</span></span><br><span class="line">  <span class="keyword">internal</span> <span class="function"><span class="keyword">fun</span> <span class="title">indexInTypesOf</span><span class="params">(position: <span class="type">Int</span>, item: <span class="type">Any</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">    <span class="keyword">val</span> index = types.firstIndexOf(item.javaClass)</span><br><span class="line">    <span class="keyword">if</span> (index != <span class="number">-1</span>) &#123;</span><br><span class="line">      <span class="keyword">val</span> linker = types.getType&lt;Any&gt;(index).linker</span><br><span class="line">      <span class="keyword">return</span> index + linker.index(position, item)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> BinderNotFoundException(item.javaClass)</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>先来看 <strong>getItemViewType</strong> 函数， 第8行代码，调用了 <strong>indexInTypesOf</strong> 函数，传递给后者的参数为当前 item 在列表中的位置 <strong>position</strong> 以及这个 <strong>item</strong> 对象。</p>
+<p>再来看 <strong>indexInTypesOf</strong> 函数，第13行代码，成员变量 <strong>types</strong> 的 <strong>firstIndexOf</strong> 函数通过 item 的 <code>Class</code> 信息查询这个 <strong>item</strong> 在 <strong>types</strong> 中首次出现的索引值，若得到的索引值不是 -1 ，则表示表示与此 item 的 <code>Class</code> 信息相关联的 <code>Type</code> 对象已注册到 <code>MutbleTypes</code> 中；若得到的索引值是 -1 ，则表示与此 item 的 <code>Class</code> 想关联的 <code>Type</code> 对象未注册，并在第18行抛出自定义的运行时异常<code>BinderNotFoundException</code>。<strong>types</strong> 是类型为 <code>MutableTypes</code>的对象，<code>MutableTypes</code> 的 <strong>firstIndexOf</strong> 函数的实现如下。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">MutableTypes</span> <span class="keyword">constructor</span></span>(</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">val</span> initialCapacity: <span class="built_in">Int</span> = <span class="number">0</span>,</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">val</span> types: MutableList&lt;Type&lt;*&gt;&gt; = ArrayList(initialCapacity)</span><br><span class="line">) : Types &#123;</span><br><span class="line">  ......</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">firstIndexOf</span><span class="params">(clazz: <span class="type">Class</span>&lt;*&gt;)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">    <span class="keyword">val</span> index = types.indexOfFirst &#123; it.clazz == clazz &#125;</span><br><span class="line">    <span class="keyword">if</span> (index != <span class="number">-1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> index</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> types.indexOfFirst &#123; it.clazz.isAssignableFrom(clazz) &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>MutbaleTypes</strong> 的 <strong>firstIndexOf</strong> 函数的形参是 <code>Class</code> 类型的 <code>clazz</code> 对象，第7行代码，在成员变量 <strong>types</strong> 列表中查找与 <strong>clazz</strong> 属性与形参一致的首个 <code>Type</code> 对象的索引值。若能查到（不为 -1），则直接返回此索引；若未查到，则尝试使用入参 <strong>clazz</strong> 的继承关系重新在成员变量 <strong>types</strong> 内查询一次，其中 <code>A.isAssignableFrom(B)</code> 表示判断<code>A</code>的 <code>Class</code> 信息是否为 <code>B</code> 的 <code>Class</code> 信息的接口或父类。</p>
+<p>回到 <strong>indexInTypesOf</strong> 函数，第16行代码，返回上一步得到的索引值 <strong>index</strong> 与 <strong>linker.index(posotion,item)</strong> 相加的值，linker 的默认实现为 <code>DefaultLinker</code>，其 index 函数的返回值始终为 0 ，因此此处相加的值即为上一步得到的索引值 index，对于 linker 的特殊实现我们稍后在<a href="#one2many">第三小节</a>单独分析，此处暂且不表。</p>
+<p>至此，我们知道 <strong>getItemViewType</strong> 函数的返回值 viewType 即为当前 item 的 <code>Class</code> 信息在 <code>MutableTypes</code> 的成员变量 <strong>types</strong> 列表中索引值。</p>
+<h4 id="2-2-onCreateViewHolder-parent-ViewGroup-indexViewType-Int-ViewHolder"><a href="#2-2-onCreateViewHolder-parent-ViewGroup-indexViewType-Int-ViewHolder" class="headerlink" title="2.2 onCreateViewHolder(parent: ViewGroup, indexViewType: Int): ViewHolder"></a>2.2 onCreateViewHolder(parent: ViewGroup, indexViewType: Int): ViewHolder</h4><div id="sequence-2"></div>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiTypeAdapter</span> <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span></span>(</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">var</span> items: List&lt;Any&gt; = emptyList(),</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">val</span> initialCapacity: <span class="built_in">Int</span> = <span class="number">0</span>,</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">var</span> types: Types = MutableTypes(initialCapacity)</span><br><span class="line">) : RecyclerView.Adapter&lt;ViewHolder&gt;() &#123;</span><br><span class="line">  ......</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateViewHolder</span><span class="params">(parent: <span class="type">ViewGroup</span>, indexViewType: <span class="type">Int</span>)</span></span>: ViewHolder &#123;</span><br><span class="line">    <span class="keyword">val</span> inflater = LayoutInflater.from(parent.context)</span><br><span class="line">    <span class="keyword">val</span> binder = types.getType&lt;Any&gt;(indexViewType).binder</span><br><span class="line">    <span class="keyword">return</span> binder.onCreateViewHolder(inflater, parent)</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当 RecyclerView 需要一个新的 ViewHolder 时，<strong>onCreateViewHolder</strong> 函数会被调用，传入的 parent 表示RecycleView ，indexViewType 表示这个 item 对应的视图类型，即在 <code>getItemViewType</code> 函数的返回值</p>
+<p> 第8行代码从传入的 <code>ViewGroup</code> 类型的 <strong>parent</strong> 参数中获取 <strong>context</strong> 对象，然后将此  <strong>context</strong> 作为参数调用 <code>LayoutInflater</code> 的静态方法 <strong>from</strong> ，得到 <code>Inflater</code> 类型 <strong>inflater</strong> 的对象。</p>
+<p>第9行代码，通过传入的 <strong>indexViewType</strong> 参数，先调用属性 <strong>types</strong> 的 <strong>getType</strong> 函数获取 <code>Type</code> 类型的对象，然后得到 <code>Type</code> 对象的属性 <strong>binder</strong> 。  <strong>getType</strong> 函数的实现如下所示，只是将 index 对应的 <code>Type</code> 从 types 列表中取出，这个 <code>Type</code> 对象是在初始化时通过 <strong>register 函数</strong>添加到 <strong>types</strong> 列表中的，我们在第一小节中有介绍。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">MutableTypes</span> <span class="keyword">constructor</span></span>(</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">val</span> initialCapacity: <span class="built_in">Int</span> = <span class="number">0</span>,</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">val</span> types: MutableList&lt;Type&lt;*&gt;&gt; = ArrayList(initialCapacity)</span><br><span class="line">) : Types &#123;</span><br><span class="line">  ......</span><br><span class="line">  <span class="meta">@Suppress(<span class="meta-string">"UNCHECKED_CAST"</span>)</span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">getType</span><span class="params">(index: <span class="type">Int</span>)</span></span>: Type&lt;T&gt; = types[index] <span class="keyword">as</span> Type&lt;T&gt;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第10行代码，调用上一步得到的 <strong>binder 对象</strong>的成员函数 <strong>onCreateViewHolder</strong> 来完成 ViewHolder 的创建。</p>
+<p>至此，我们了解了 ViewHolder 的创建过程。</p>
+<h4 id="2-3-onBindViewHolder-holder-ViewHolder-position-Int"><a href="#2-3-onBindViewHolder-holder-ViewHolder-position-Int" class="headerlink" title="2.3 onBindViewHolder(holder: ViewHolder, position: Int)"></a>2.3 onBindViewHolder(holder: ViewHolder, position: Int)</h4><div id="sequence-3"></div>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiTypeAdapter</span> <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span></span>(</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">var</span> items: List&lt;Any&gt; = emptyList(),</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">val</span> initialCapacity: <span class="built_in">Int</span> = <span class="number">0</span>,</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">var</span> types: Types = MutableTypes(initialCapacity)</span><br><span class="line">) : RecyclerView.Adapter&lt;ViewHolder&gt;() &#123;</span><br><span class="line">  ......</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBindViewHolder</span><span class="params">(holder: <span class="type">ViewHolder</span>, position: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    onBindViewHolder(holder, position, emptyList())</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBindViewHolder</span><span class="params">(holder: <span class="type">ViewHolder</span>, position: <span class="type">Int</span>, payloads: <span class="type">List</span>&lt;<span class="type">Any</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> item = items[position]</span><br><span class="line">    getOutBinderByViewHolder(holder).onBindViewHolder(holder, item, payloads)</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getOutBinderByViewHolder</span><span class="params">(holder: <span class="type">ViewHolder</span>)</span></span>: ItemViewBinder&lt;Any, ViewHolder&gt; &#123;</span><br><span class="line">    <span class="meta">@Suppress(<span class="meta-string">"UNCHECKED_CAST"</span>)</span></span><br><span class="line">    <span class="keyword">return</span> types.getType&lt;Any&gt;(holder.itemViewType).binder <span class="keyword">as</span> ItemViewBinder&lt;Any, ViewHolder&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当 RecyclerView 需要显示指定 position 位置的 Item 时，<code>MultiTypeAdapter</code> 的 <strong>onBindViewHolder</strong> 函数会被调用。</p>
+<p>第7-9行代码，函数的形参 <strong>holder</strong> 是在 <strong>onCreateViewHolder</strong> 函数中创建的，<strong>position</strong> 是当前 Item 对应的位置。第8行代码调用了同名重载函数。</p>
+<p>第11-14行代码，函数的形参中多了一个用于优化数据填充的 <strong>payloads</strong> 参数。第12行，先获取 position 对应的 item 对象。第13行，先通过成员函数 <strong>getOutBinderByViewHolder</strong> 获取具体的 <code>ItemViewBinder</code> 对象。</p>
+<p><strong>getOutBinderByViewHolder</strong> 函数的实现也很直观。第19行代码，先通过<code>MultiTypes</code>类型的属性 <strong>types</strong> 的成员函数 <strong>getType</strong> 得到函数形参传递而来的 <strong>holder</strong> 对象的 <strong>itemViewType</strong> 属性所对应的 <code>Type</code>对象，然后将此<code>Type</code>对象的 <strong>binder</strong> 属性强转为 <code>ItemVIewBinder</code> 返回给调用方。</p>
+<p>回到 <strong>onCreateViewHolder</strong> 函数，第13行代码，在得到当前 <strong>holder</strong> 对应的<code>ItemViewBinder</code>之后，接着便调用了这个<code>ItemViewBinder</code>对象的成员函数 <strong>onBindViewHolder</strong>，伴随的参数的是 <strong>holder</strong>，<strong>item</strong>与上一步传来的 <strong>payloads</strong>，从而完成了这个 ViewHolder 的数据填充。</p>
+<h4 id="2-4-小结"><a href="#2-4-小结" class="headerlink" title="2.4 小结"></a>2.4 小结</h4><p><a href="#segment1">第一小节</a>中，<code>MultiTypeAdapter</code> 的  <strong>register</strong> 函数先将<strong>数据模型的 Class 信息</strong>、<strong>具体的 ItemViewBinder</strong> 以及 <strong>linker</strong> 封装为 <code>Type</code> 对象并添加到 <code>MutbaleTypes</code> 的成员变量 <strong>types</strong> 列表中。</p>
+<p>本小节中解析的三个函数，均与第一小节中介绍的 <code>MutableTypes</code> 有关。</p>
+<ul>
+<li><strong>getItemViewType</strong> 函数根据当前 item 的 Class 信息获取其所对应的 Type 对象在 types 列表中的索引值；</li>
+<li><strong>onCreateViewHolder</strong> 函数根据 getItemViewType 计算出的索引值在 types 列表中获取具体 ItemViewBinder， 然后使用调用这个 ItemViewBinder 的 onCreateViewHolder 函数创建具体的 ViewHolder；</li>
+<li><strong>onBindViewHolder</strong> 函数根据 onCreateViewHolder 中创建的 holder 对象的成员变量 itemViewType 获取这个 holder 对应的 Type 对象的成员变量 binder，然后调用 binder 的 onBindViewHolder 完成数据填充。</li>
+</ul>
+<p><span id="one2many"></span></p>
+<h3 id="3-MultiType-一对多"><a href="#3-MultiType-一对多" class="headerlink" title="3. MultiType 一对多"></a>3. MultiType 一对多</h3><p>MultiType 中的一对多是指 RecyclerView 中的同一份数据模型，对应多种 ViewHolder。如下所示，电商 App 的搜索结果页就属这种情况。</p>
+<table>
+<thead>
+<tr>
+<th>列表模式</th>
+<th>大图模式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="/uploads/MultiType-2.png" alt></td>
+<td><img src="/uploads/MultiType-3.png" alt></td>
+</tr>
+</tbody></table>
+<h4 id="3-1-one2many-简单实用"><a href="#3-1-one2many-简单实用" class="headerlink" title="3.1 one2many 简单实用"></a>3.1 one2many 简单实用</h4><p>下边以 MultiType 中的sample one2many 为入口，来了解一下 MultiType 是如何实现一对多的。开始之前，先来看一下 one2many 的运行截图。</p>
+<img src="/uploads/One2ManySample_Expected.png" width="40%" height="40%">
+
+<p>one2many sample 中包含以下四个类，其中 <code>Data</code> 是数据模型类，它有 <code>DataType1ViewBinder</code> 和 <code>DataType2ViewBinder</code> 两种样式。<code>OneDataToManyActivity</code> 是这个 sample 的 Activity。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">one2many</span><br><span class="line">  Data.kt</span><br><span class="line">  DataType1ViewBinder.kt</span><br><span class="line">  DataType2ViewBinder.kt</span><br><span class="line">  OneDataToManyActivity.kt</span><br></pre></td></tr></table></figure>
+
+<p><code>Data</code> 类的代码如下，它有 <strong>title</strong> 和 <strong>type</strong> 两个成员变量，前者用来显示，后者表示其对应的 <code>ViewBinder</code> 类型。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Data</span></span>(</span><br><span class="line">  <span class="meta">@field:SerializedName</span>(<span class="string">"title"</span>) <span class="keyword">var</span> title: String,</span><br><span class="line">  <span class="meta">@field:SerializedName</span>(<span class="string">"type"</span>) <span class="keyword">var</span> type: <span class="built_in">Int</span></span><br><span class="line">) &#123;</span><br><span class="line">  <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">    const <span class="keyword">val</span> TYPE_1 = <span class="number">1</span></span><br><span class="line">    const <span class="keyword">val</span> TYPE_2 = <span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>DataType1ViewBinder</code> 和 <code>DataType2ViewBinder</code> 的区别仅是 layout 不同，如下所示。</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- class DataType1ViewBinder : ItemViewBinder&lt;Data, DataType1ViewBinder.ViewHolder&gt;() &#123;</span></span><br><span class="line"><span class="addition">+ class DataType2ViewBinder : ItemViewBinder&lt;Data, DataType2ViewBinder.ViewHolder&gt;() &#123;</span></span><br><span class="line"></span><br><span class="line">  override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder &#123;</span><br><span class="line"><span class="deletion">-    return ViewHolder(inflater.inflate(R.layout.item_data_type1, parent, false))</span></span><br><span class="line"><span class="addition">+    return ViewHolder(inflater.inflate(R.layout.item_data_type2, parent, false))    </span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  override fun onBindViewHolder(holder: ViewHolder, item: Data) &#123;</span><br><span class="line">    holder.setTitle(item.title)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) &#123;</span><br><span class="line"></span><br><span class="line">    private var titleView: TextView = itemView.findViewById(android.R.id.title)</span><br><span class="line"></span><br><span class="line">    fun setTitle(title: String) &#123;</span><br><span class="line">      titleView.text = title</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>R.layout.item_data_type1 与 R.layout.item_data_type2 的区别仅是 gravity 不同，如下所示。</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;LinearLayout</span><br><span class="line">    xmlns:android="http://schemas.android.com/apk/res/android"</span><br><span class="line">    xmlns:tools="http://schemas.android.com/tools"</span><br><span class="line">    android:layout_width="match_parent"</span><br><span class="line">    android:layout_height="wrap_content"</span><br><span class="line">    android:orientation="vertical"</span><br><span class="line"><span class="deletion">-    android:gravity="start"&gt; //R.layout.item_data_type1</span></span><br><span class="line"><span class="addition">+    android:gravity="end"&gt;   //R.layout.item_data_type2</span></span><br><span class="line"></span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:id="@android:id/title"</span><br><span class="line">        android:layout_width="wrap_content"</span><br><span class="line">        android:layout_height="wrap_content"</span><br><span class="line">        android:padding="12dp"</span><br><span class="line">        android:hint="right"</span><br><span class="line">        tools:text="title"/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>OneDataToManyActivity</code> 中的代码如下，其 register 部分与<a href="#segment1">第一小节</a>有明显不同。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OneDataToManyActivity</span> : <span class="type">MenuBaseActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@VisibleForTesting</span></span><br><span class="line">  <span class="keyword">lateinit</span> <span class="keyword">var</span> recyclerView: RecyclerView</span><br><span class="line">  <span class="meta">@VisibleForTesting</span></span><br><span class="line">  <span class="keyword">lateinit</span> <span class="keyword">var</span> adapter: MultiTypeAdapter</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> dataFromService: List&lt;Data&gt;</span><br><span class="line">    <span class="meta">@VisibleForTesting</span></span><br><span class="line">    <span class="keyword">get</span>() &#123;</span><br><span class="line">      <span class="keyword">val</span> list = ArrayList&lt;Data&gt;()</span><br><span class="line">      <span class="keyword">var</span> i = <span class="number">0</span></span><br><span class="line">      <span class="keyword">while</span> (i &lt; <span class="number">30</span>) &#123;</span><br><span class="line">        list.add(Data(<span class="string">"title: <span class="variable">$i</span>"</span>, Data.TYPE_1))</span><br><span class="line">        list.add(Data(<span class="string">"title: <span class="subst">$&#123; i + <span class="number">1</span> &#125;</span>"</span>, Data.TYPE_2))</span><br><span class="line">        i += <span class="number">2</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> list</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">    setContentView(R.layout.activity_list)</span><br><span class="line">    recyclerView = findViewById(R.id.list)</span><br><span class="line">    adapter = MultiTypeAdapter()</span><br><span class="line"></span><br><span class="line">    adapter.register(Data::<span class="class"><span class="keyword">class</span>).<span class="title">to</span></span>(</span><br><span class="line">      DataType1ViewBinder(),</span><br><span class="line">      DataType2ViewBinder()</span><br><span class="line">    ).withKotlinClassLinker(<span class="keyword">object</span> :KotlinClassLinker&lt;Data&gt;&#123;</span><br><span class="line">      <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">index</span><span class="params">(position: <span class="type">Int</span>, <span class="keyword">data</span>: <span class="type">Data</span>)</span></span>: KClass&lt;<span class="keyword">out</span> ItemViewBinder&lt;Data, *&gt;&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">when</span> (<span class="keyword">data</span>.type) &#123;</span><br><span class="line">          Data.TYPE_2 -&gt; DataType2ViewBinder::<span class="class"><span class="keyword">class</span></span></span><br><span class="line">          <span class="keyword">else</span> -&gt; DataType1ViewBinder::<span class="class"><span class="keyword">class</span></span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    adapter.items = dataFromService</span><br><span class="line">    adapter.notifyDataSetChanged()</span><br><span class="line">    recyclerView.adapter = adapter</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-one2many-的-register-过程"><a href="#3-2-one2many-的-register-过程" class="headerlink" title="3.2 one2many 的 register 过程"></a>3.2 one2many 的 register 过程</h4><div id="sequence-4"></div>
+
+<p><code>MultiTypeAdapter</code> 一对多的 <strong>register</strong> 函数实现如下。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiTypeAdapter</span> <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span></span>(</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">var</span> items: List&lt;Any&gt; = emptyList(),</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">val</span> initialCapacity: <span class="built_in">Int</span> = <span class="number">0</span>,</span><br><span class="line">  <span class="keyword">open</span> <span class="keyword">var</span> types: Types = MutableTypes(initialCapacity)</span><br><span class="line">) : RecyclerView.Adapter&lt;ViewHolder&gt;() &#123;</span><br><span class="line">  ......</span><br><span class="line">  <span class="meta">@CheckResult</span></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T : Any&gt;</span> <span class="title">register</span><span class="params">(clazz: <span class="type">KClass</span>&lt;<span class="type">T</span>&gt;)</span></span>: OneToManyFlow&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> register(clazz.java)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@CheckResult</span></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">register</span><span class="params">(clazz: <span class="type">Class</span>&lt;<span class="type">T</span>&gt;)</span></span>: OneToManyFlow&lt;T&gt; &#123;</span><br><span class="line">    unregisterAllTypesIfNeeded(clazz)</span><br><span class="line">    <span class="keyword">return</span> OneToManyBuilder(<span class="keyword">this</span>, clazz)</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>register</strong> 函数，第9行代码，获取调用方传来的 <code>KClass</code> 对象的 javaClass 变量，然后调用同名重载函数。第14行代码，尝试移除此 javaClass 已经关联的 <code>Type</code>。第15行代码，创建 <code>OneToManyBuilder</code> 对象并返回给调用方。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">adapter.register(Data::<span class="class"><span class="keyword">class</span>).<span class="title">to</span></span>(</span><br><span class="line">  DataType1ViewBinder(),</span><br><span class="line">  DataType2ViewBinder()</span><br><span class="line">).withKotlinClassLinker(<span class="keyword">object</span> :KotlinClassLinker&lt;Data&gt;&#123;</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">index</span><span class="params">(position: <span class="type">Int</span>, <span class="keyword">data</span>: <span class="type">Data</span>)</span></span>: KClass&lt;<span class="keyword">out</span> ItemViewBinder&lt;Data, *&gt;&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">when</span> (<span class="keyword">data</span>.type) &#123;</span><br><span class="line">      Data.TYPE_2 -&gt; DataType2ViewBinder::<span class="class"><span class="keyword">class</span></span></span><br><span class="line">      <span class="keyword">else</span> -&gt; DataType1ViewBinder::<span class="class"><span class="keyword">class</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>回到 <strong>OneDataToManyActivity</strong> 的 <strong>onCreate</strong> 方法。第1行代码，在调用 <code>MultiTypeAdapter</code> 的 <strong>register</strong> 函数后得到了 <code>OneToManyBulder</code> 对象，紧接着调用该对象的 <strong>to</strong> 函数，并将 <code>DataType1ViewBinder()</code>, <code>DataType2ViewBinder()</code> 作为参数传入。第30-37行代码，调用 <code>OneToManyBulder</code> 对象的 <strong>withKotlinClassLinker</strong> 函数，并新建了一个 <code>KotlinClassLinker</code> 的匿名内部类的对象作为此函数的实际参数。</p>
+<p>接下来我们来看下 <code>OneToManyBulder</code> 的代码，它实现了 <code>OneToManyFlow</code> 和 <code>OneToManyEndpoint</code> 这两个接口。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="class"><span class="keyword">class</span> <span class="title">OneToManyBuilder</span>&lt;<span class="type">T</span>&gt;</span>(</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> adapter: MultiTypeAdapter,</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> clazz: Class&lt;T&gt;</span><br><span class="line">) : OneToManyFlow&lt;T&gt;, OneToManyEndpoint&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">var</span> binders: Array&lt;ItemViewBinder&lt;T, *&gt;&gt;? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">@SafeVarargs</span></span><br><span class="line">  <span class="meta">@CheckResult(suggest = <span class="meta-string">"#withLinker(Linker)"</span>)</span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">to</span><span class="params">(<span class="keyword">vararg</span> binders: <span class="type">ItemViewBinder</span>&lt;<span class="type">T</span>, *&gt;)</span></span> = apply &#123;</span><br><span class="line">    <span class="meta">@Suppress(<span class="meta-string">"UNCHECKED_CAST"</span>)</span></span><br><span class="line">    <span class="keyword">this</span>.binders = binders <span class="keyword">as</span> Array&lt;ItemViewBinder&lt;T, *&gt;&gt;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">withLinker</span><span class="params">(linker: <span class="type">Linker</span>&lt;<span class="type">T</span>&gt;)</span></span> &#123;</span><br><span class="line">    doRegister(linker)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">withJavaClassLinker</span><span class="params">(javaClassLinker: <span class="type">JavaClassLinker</span>&lt;<span class="type">T</span>&gt;)</span></span> &#123;</span><br><span class="line">    withLinker(ClassLinkerBridge.toLinker(javaClassLinker, binders!!))</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">doRegister</span><span class="params">(linker: <span class="type">Linker</span>&lt;<span class="type">T</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (binder <span class="keyword">in</span> binders!!) &#123;</span><br><span class="line">      adapter.register(Type(clazz, binder, linker))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-----------------接口代码--------------------</span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">OneToManyFlow</span>&lt;<span class="type">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="meta">@CheckResult</span></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">to</span><span class="params">(<span class="keyword">vararg</span> binders: <span class="type">ItemViewBinder</span>&lt;<span class="type">T</span>, *&gt;)</span></span>: OneToManyEndpoint&lt;T&gt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">OneToManyEndpoint</span>&lt;<span class="type">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">withLinker</span><span class="params">(linker: <span class="type">Linker</span>&lt;<span class="type">T</span>&gt;)</span></span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">withLinker</span><span class="params">(linker: (<span class="type">position</span>: <span class="type">Int</span>, item: <span class="type">T</span>)</span></span> -&gt; <span class="built_in">Int</span>) &#123;</span><br><span class="line">    withLinker(<span class="keyword">object</span> : Linker&lt;T&gt; &#123;</span><br><span class="line">      <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">index</span><span class="params">(position: <span class="type">Int</span>, item: <span class="type">T</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> linker(position, item)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">withJavaClassLinker</span><span class="params">(javaClassLinker: <span class="type">JavaClassLinker</span>&lt;<span class="type">T</span>&gt;)</span></span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">withJavaClassLinker</span><span class="params">(classLinker: (<span class="type">position</span>: <span class="type">Int</span>, item: <span class="type">T</span>)</span></span> -&gt; Class&lt;<span class="keyword">out</span> ItemViewBinder&lt;T, *&gt;&gt;) &#123;</span><br><span class="line">    withJavaClassLinker(<span class="keyword">object</span> : JavaClassLinker&lt;T&gt; &#123;</span><br><span class="line">      <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">index</span><span class="params">(position: <span class="type">Int</span>, item: <span class="type">T</span>)</span></span>: Class&lt;<span class="keyword">out</span> ItemViewBinder&lt;T, *&gt;&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> classLinker(position, item)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">withKotlinClassLinker</span><span class="params">(classLinker: <span class="type">KotlinClassLinker</span>&lt;<span class="type">T</span>&gt;)</span></span> &#123;</span><br><span class="line">    withJavaClassLinker &#123; position, item -&gt; classLinker.index(position, item).java &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">withKotlinClassLinker</span><span class="params">(classLinker: (<span class="type">position</span>: <span class="type">Int</span>, item: <span class="type">T</span>)</span></span> -&gt; KClass&lt;<span class="keyword">out</span> ItemViewBinder&lt;T, *&gt;&gt;) &#123;</span><br><span class="line">    withJavaClassLinker &#123; position, item -&gt; classLinker(position, item).java &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>OneToManyBuilder 有 <strong>adapter</strong>，<strong>clazz</strong> 两个属性，如之前所述，这两个属性在 <code>MultiTypeAdapter</code> 的 <strong>register</strong> 函数中被赋值。</p>
+<p>第10行代码，<code>to(vararg binders: ItemViewBinder&lt;T, *&gt;)</code> 函数声明中的的 <code>vararg</code>关键字，对应 Java 中的可变参数符号 <code>…</code>，此处表示 <strong>to</strong> 函数可以接受一个或多个 <code>ItemViewBinder</code> 类型的对象作为参数。<strong>to</strong> 函数的实现是将调用方传入的参数 <strong>binders</strong> 赋值给 <code>OneToManyBuilder</code> 的属性 <strong>binders</strong>。</p>
+<p><span id="withKotlinClassLinker"><code>OneToManyBuilder</code>并未重写 <strong>withKotlinClassLinker</strong> 函数，因此当调用方调用此函数时，会调用到<code>OneToManyEndpoint</code>接口内的默认函数 <strong>withKotlinClassLinker</strong>。此函数有两个重载版本，一个接受 <code>KotlinClassLinker</code> 类型的对象作为参数，另一个接受<code>(position: Int, item: T) -&gt; KClass&lt;out ItemViewBinder&lt;T, *&gt;&gt;)</code>类型的 <strong>lambda</strong> 变量作为参数，这两个默认函数内部都会调用第48行的默认函数 <strong>withJavaClassLinker</strong> 来将上层调用方传来的 <code>KotlinClassLinker</code> 类型的对象转换为 <code>JavaClassLinker</code> 类型的对象。</span></p>
+<p>默认函数 <strong>withJavaClassLinker</strong> 内部又调用了同名重载函数 <strong>withJavaClassLinker</strong> ，并将新建的<code>JavaClassLinker</code> 对象作为参数传递过去。</p>
+<p><code>OneToManyBuilder</code>重写了这个重载的 <strong>withJavaClassLinker</strong> 函数，第19行代码，先将上一步传来的 <strong>javaClassLinker</strong> 与它的 <strong>binders</strong> 属性作为参数，调用了 <code>ClassLinkerBridge</code> 的静态函数 <strong>toLinker</strong> 将其转化为<code>ClassLinkerBridge</code> 类型的对象，<code>ClassLinkderBridge</code>的实现如下。<span id="ClassLinkerBridge"></span></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLinkerBridge</span>&lt;<span class="type">T</span>&gt; <span class="keyword">private</span> <span class="keyword">constructor</span></span>(</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> javaClassLinker: JavaClassLinker&lt;T&gt;,</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> binders: Array&lt;ItemViewBinder&lt;T, *&gt;&gt;</span><br><span class="line">) : Linker&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">index</span><span class="params">(position: <span class="type">Int</span>, item: <span class="type">T</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">    <span class="keyword">val</span> indexedClass = javaClassLinker.index(position, item)</span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> binders.indices) &#123;</span><br><span class="line">      <span class="keyword">if</span> (binders[i].javaClass == indexedClass) &#123;</span><br><span class="line">        <span class="keyword">return</span> i</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> IndexOutOfBoundsException(</span><br><span class="line">      <span class="string">"The binders'(<span class="subst">$&#123;binders.contentToString()&#125;</span>) you registered do not contain this <span class="subst">$&#123;indexedClass.name&#125;</span>."</span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">toLinker</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">      javaClassLinker: <span class="type">JavaClassLinker</span>&lt;<span class="type">T</span>&gt;,</span></span></span><br><span class="line"><span class="function"><span class="params">      binders: <span class="type">Array</span>&lt;<span class="type">ItemViewBinder</span>&lt;<span class="type">T</span>, *&gt;&gt;</span></span></span><br><span class="line"><span class="function"><span class="params">    )</span></span>: Linker&lt;T&gt; &#123;</span><br><span class="line">      <span class="keyword">return</span> ClassLinkerBridge(javaClassLinker, binders)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ClassLinkerBridge</code>实现了 <code>Linker</code> 接口并重写了此接口的 <strong>index</strong> 函数。第7行代码，通过调用方传入的 <strong>javaClssLinker</strong> 参数，获取 <strong>position</strong> 与 <strong>item</strong> 所对应的 <code>ItemViewBinder</code> 的 <code>Class</code> 信息。第8-12 行代码，获取这个<code>Class</code> 对应的 <code>ItemViewBinder</code> 在属性 <strong>binders</strong> 列表中的索引值，若查找不到，则抛出自定义异常 <code>IndexOutOfBoundsException</code>。</p>
+<p>回到<code>OneToManyBuilder</code>中，第19行代码，将上一步得到 <code>ClassLinkerBridge</code> 对象作为参数调用了第15行的<strong>withLinker</strong> 函数，此函数内部调用了第23行的 <strong>doRegister</strong> 函数。<strong>doRegister</strong> 函数内对<code>OneToManyBuilder</code>的属性 <strong>binders</strong> 进行遍历，并将其中的每一个 <strong>binder</strong>与 <strong>clazz</strong> 属性和传入的参数<strong>linker</strong>组合为 <code>Type</code> 对象，注册到 <code>MutableTypes</code> 中。因此对于同一份数据模型，会在 <code>MutableTypes</code> 中注册多个 <code>Type</code>。此处索引值的设计思路非常巧妙，随后会单独讨论。</p>
+<h4 id="3-3-one2many-中-ViewHolder-的创建"><a href="#3-3-one2many-中-ViewHolder-的创建" class="headerlink" title="3.3 one2many 中 ViewHolder 的创建"></a>3.3 one2many 中 ViewHolder 的创建</h4><div id="sequence-5"></div>
+
+<p>通过前面的分析我们知道，<code>RecyclerView</code> 中 ViewHolder 的创建与 ItemViewType 有关，而 ItemViewType 源于 Adapter 中的 getItemViewType 函数，我们再来看一下<code>MultiTypeAdapter</code> 中 <strong>getItemViewType</strong> 的实现。<span id="indexInTypesOf"></span></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getItemViewType</span><span class="params">(position: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> indexInTypesOf(position, items[position])</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Throws(BinderNotFoundException::class)</span></span><br><span class="line"><span class="keyword">internal</span> <span class="function"><span class="keyword">fun</span> <span class="title">indexInTypesOf</span><span class="params">(position: <span class="type">Int</span>, item: <span class="type">Any</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">  <span class="keyword">val</span> index = types.firstIndexOf(item.javaClass)</span><br><span class="line">  <span class="keyword">if</span> (index != <span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="keyword">val</span> linker = types.getType&lt;Any&gt;(index).linker</span><br><span class="line">    <span class="keyword">return</span> index + linker.index(position, item)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">throw</span> BinderNotFoundException(item.javaClass)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第8行代码，根据当前索引得到在 <code>MutableTypes</code>中注册的 <code>Type</code> 对象的属性 <strong>linker</strong> ，这个 <strong>linker</strong> 便是我们在 <strong>3.2</strong>中见到过的<a href="#ClassLinkerBridge">ClassLinkerBridge</a>。第9行代码，调用这个 <strong>linker</strong> 对象的 <strong>index</strong> 函数，<strong>index</strong> 的实现如下。<span id="ClassLinkerBridge_index"></span></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLinkerBridge</span>&lt;<span class="type">T</span>&gt; <span class="keyword">private</span> <span class="keyword">constructor</span></span>(</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> javaClassLinker: JavaClassLinker&lt;T&gt;,</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> binders: Array&lt;ItemViewBinder&lt;T, *&gt;&gt;</span><br><span class="line">) : Linker&lt;T&gt; &#123;</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">index</span><span class="params">(position: <span class="type">Int</span>, item: <span class="type">T</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">    <span class="keyword">val</span> indexedClass = javaClassLinker.index(position, item)</span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> binders.indices) &#123;</span><br><span class="line">      <span class="keyword">if</span> (binders[i].javaClass == indexedClass) &#123;</span><br><span class="line">        <span class="keyword">return</span> i</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> IndexOutOfBoundsException(</span><br><span class="line">      <span class="string">"The binders'(<span class="subst">$&#123;binders.contentToString()&#125;</span>) you registered do not contain this <span class="subst">$&#123;indexedClass.name&#125;</span>."</span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第6行代码，<strong>index</strong> 函数调用了 <code>JavaClassLinker</code> 对象的 <strong>index</strong> 函数。<code>JavaClassLinker</code> 对象是在注册过程中经 <strong>withJavaClassLinker</strong> 函数转化而来的，此函数将调用方传入的 <code>KotlinClassLinker</code>类型的对象转换为<code>JavaClassLinker</code>类型的对象，我们在 <strong>3.2</strong> 中已做过<a href="#withKotlinClassLinker">分析</a>，此处不再展开。转换前的 <strong>kotlinClassLinker</strong> 如下所示，根据传入的参数 <strong>data</strong> 的成员变量 <strong>type</strong> 来决定返回的<code>ItemViewBinder</code>的类型。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">withKotlinClassLinker(<span class="keyword">object</span> :KotlinClassLinker&lt;Data&gt;&#123;</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">index</span><span class="params">(position: <span class="type">Int</span>, <span class="keyword">data</span>: <span class="type">Data</span>)</span></span>: KClass&lt;<span class="keyword">out</span> ItemViewBinder&lt;Data, *&gt;&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">when</span> (<span class="keyword">data</span>.type) &#123;</span><br><span class="line">      Data.TYPE_2 -&gt; DataType2ViewBinder::<span class="class"><span class="keyword">class</span></span></span><br><span class="line">      <span class="keyword">else</span> -&gt; DataType1ViewBinder::<span class="class"><span class="keyword">class</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> one2many sample 中这样处理是有意演示 KotlinClass 的使用方式，平时用的话可以直接条用 withJavaClassLinker 来省略这一步的转换。</p>
+</blockquote>
+<p>回到 <code>ClassLinkerBridge</code> 的 <a href="#ClassLinkerBridge_index"><strong>index</strong> 函数</a>，第6行代码得到了当前 <strong>Item</strong> 所对应的具体的<code>Class&lt;ItemViewBinder&gt;</code>对象。第7-11行代码，得到该 <strong>class</strong> 对象在属性 <strong>binders</strong> 数组中的首次出现的索引值，然后将其返回调用方。</p>
+<p>再回头看 <code>MultiTypeAdapter</code>中 <a href="#indexInTypesOf"><strong>indexInTypesOf</strong>函数</a>的实现。第9行代码，<u><strong>将这个 item 在 Types 中首次出现的索引值与它在 linker 的 binders 列表中的索引值相加，作为<code>getItemViewType</code>函数的返回值。</strong></u></p>
+<p>接下来是我们之前分析过的 <code>onCreateViewHolder</code>，这次我们主要看第3行代码，根据 <strong>getItemViewType</strong> 获取的 indexViewType ，得到其对应的 ItemViewBinder。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateViewHolder</span><span class="params">(parent: <span class="type">ViewGroup</span>, indexViewType: <span class="type">Int</span>)</span></span>: ViewHolder &#123;</span><br><span class="line">  <span class="keyword">val</span> inflater = LayoutInflater.from(parent.context)</span><br><span class="line">  <span class="keyword">val</span> binder = types.getType&lt;Any&gt;(indexViewType).binder</span><br><span class="line">  <span class="keyword">return</span> binder.onCreateViewHolder(inflater, parent)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-小结"><a href="#3-3-小结" class="headerlink" title="3.3 小结"></a>3.3 小结</h4><p>之前说到 MultiType 中索引值的设计非常巧妙，在了解了一对多的注册、使用后，再来探索下这个巧妙之处。 one2many 的 sample 的注册过程中，在 <code>MutableTypes</code> 中注册了多个 <code>Type</code>对象，注册后 <strong>types:List&lt;Type&gt;</strong>的数据如下</p>
+<table>
+<thead>
+<tr>
+<th>index</th>
+<th>Class</th>
+<th>ItemViewBinder</th>
+<th>Linker</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>Data</td>
+<td>DataType1ViewBinder</td>
+<td>ClassLinkerBridge</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Data</td>
+<td>DataType2ViewBinder</td>
+<td>ClassLinkerBridge</td>
+</tr>
+</tbody></table>
+<p><strong>getItemViewType</strong> 中返回的索引值是当前位置的 Item 对应的 <code>Type</code> 在<code>MutableTypes</code>的属性 <strong>types</strong> 列表中首次出现的索引值 <u><strong>index</strong></u> 与 这个索引值所对应的 <code>Type</code> 对象的 <strong>linker</strong> 属性的  <strong>index</strong> 函数的返回值 <u><strong>indexFromLinker</strong></u> 的和。</p>
+<blockquote>
+<p>例1：<code>Data</code> 对应的 <code>Type</code>在 <strong>types</strong>中首次出现的索引值为 0，当<code>Data</code>对象的<strong>type</strong>属性为 <strong>TYPE_1</strong> 时，indexFromLinker 的值为 0，此时 <strong>getItemViewType</strong> 的返回值是 0。</p>
+</blockquote>
+<p><strong>onCreateViewHolder</strong> 函数的参数 <strong>indexViewType</strong> 即为上一步得到 <u>index</u> 与 <u>indexFromLinker</u> 和，此函数内调用 <code>MutbaleTypes</code> 类型属性 <strong>types</strong> 的 <strong>getType</strong> 函数，将上一步得到的和作为 <strong>getType</strong> 的参数传递过去得到 <code>Type</code>对象，然后通过得到了这个<code>Type</code>对象的 <strong>binder</strong>属性。这个 <strong>binder</strong> 刚好和上一步中 <code>ClassLinkerBridge</code> 的 <strong>index</strong> 函数中 javaClassLinker.index 所对应的 <code>ItemViewBinder</code>一致。</p>
+<blockquote>
+<p> 例2：传入的 <strong>indexViewType</strong> 值为 0，因此 <strong>types.getType(indexViewType)</strong>得到的<code>Type</code> 的即为表格中第一行的数据，它的 <strong>binder</strong> 属性即为 DataType1ViewBinder ，与例1中 <code>Data</code> 对象的 <strong>type</strong> 属性相匹配。</p>
+</blockquote>
+<h2 id="技术点拾遗"><a href="#技术点拾遗" class="headerlink" title="技术点拾遗"></a>技术点拾遗</h2><ol>
+<li><p>MultiTypeAdapter 中重写了 <code>fun onBindViewHolder(VH holder, int position, List&lt;Object&gt; payloads)</code> 函数，此函数对 ViewHolder 的 <strong>部分数据更新</strong> 进行了优化。具体表现是当 <strong>payloads</strong> 列表不为空时，仅更新 <strong>payloads</strong> 内的部分数据，减轻渲染压力达到优化效果。</p>
+</li>
+<li><p>若要在 kotlin 泛型函数中使用泛型 <code>T</code> 的 Class 信息，需在 <code>T</code> 之前增加 <code>reified</code> 关键字，同时在函数前增加 <code>inline</code> 关键字，如下所示</p>
+</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T : Any&gt;</span> <span class="title">register</span><span class="params">(binder: <span class="type">ItemViewBinder</span>&lt;<span class="type">T</span>, *&gt;)</span></span> &#123;</span><br><span class="line">  <span class="comment">// 函数内部使用 T 的 class 信息</span></span><br><span class="line">  register(T::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>, <span class="type">binder)</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>kotlin 的构造函数自带的重载效果仅限 kotlin 模块可用，若要在 Java 模块中使用 kotlin 构造函数的重载函数，可在构造函数前添加<code>@JvmOverloads</code>注解，如下所示。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//class Demo(val param1:String,val param2:Int) 这种方式仅可在 kotlin 模块调用重载构造函数</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span></span>&#123; </span><br><span class="line">  <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span>(<span class="keyword">val</span> param1:String, <span class="keyword">val</span> param2:<span class="built_in">Int</span>) </span><br><span class="line">&#125;</span><br><span class="line">-----------------------------------------------------------------</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span> <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span></span>(<span class="keyword">val</span> param1:String, <span class="keyword">val</span> param2:<span class="built_in">Int</span>)&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>kotlin 中的泛型没有表示不确定类型的符号 <code>?</code>，但有称为 <span class="exturl" data-url="aHR0cHM6Ly9rb3RsaW5sYW5nLm9yZy9kb2NzL3JlZmVyZW5jZS9nZW5lcmljcy5odG1sI3N0YXItcHJvamVjdGlvbnM=" title="https://kotlinlang.org/docs/reference/generics.html#star-projections">Star-projections<i class="fa fa-external-link"></i></span> 的符号 <code>*</code> ，直译过来为星形投影。它是更为安全及严格的泛型限定符，编译器会将 <code>&lt;*&gt;</code> 视为 <code>&lt;out Any&gt;</code>，其中的 <code>out</code> 表示该类型<strong>只能</strong>作为函数的返回值类型使用，若将其作为函数的入参使用，编译器会直接报错。具体规则如下：</p>
+<ul>
+<li><code>Function&lt;*&gt;</code>表示 <code>Function&lt;in Nothing&gt;</code>和 <code>Function&lt;out Any?&gt;</code></li>
+<li><code>Function&lt;*, String&gt;</code> 表示 <code>Function&lt;in Nothing, String&gt;</code>;</li>
+<li><code>Function&lt;Int, *&gt;</code> 表示 <code>Function&lt;Int, out Any?&gt;</code>;</li>
+<li><code>Function&lt;*, *&gt;</code> 表示 <code>Function&lt;in Nothing, out Any?&gt;</code>.</li>
+</ul>
+</li>
+</ol>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">title: MultiTypeAdapter register 工作流程
+Client->MultiTypeAdapter: 1. register(ItemViewBinder<t,*>)
+MultiTypeAdapter->MultiTypeAdapter: 2. register(Class<t>,ItemViewBinder<t,*>)
+MultiTypeAdapter->MultiTypeAdapter: 3. register(Type<t>)
+MultiTypeAdapter->MutableTypes: 4. register(Type<t>)</t></t></t,*></t></t,*></textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script><textarea id="sequence-1-code" style="display: none">MultiTypeAdapter->MultiTypeAdapter: 1.indexInTypesOf
+MultiTypeAdapter->MutableTypes: 2.firstIndexOf
+MutableTypes-->MultiTypeAdapter: index
+MultiTypeAdapter->MutableTypes: 3.getType
+MutableTypes->MutableTypes: getLinker
+MutableTypes-->MultiTypeAdapter: linker</textarea><textarea id="sequence-1-options" style="display: none">{"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-1-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-1", options);</script><textarea id="sequence-2-code" style="display: none">MultiTypeAdapter->LayoutInflater: 1. from
+LayoutInflater-->MultiTypeAdapter: inflater
+MultiTypeAdapter->MutableTypes: 2. getType
+MutableTypes->MutableTypes: 3. getBinder
+MutableTypes-->MultiTypeAdapter: binder
+MultiTypeAdapter->ItemViewBinder:4. onCreateViewBinder</textarea><textarea id="sequence-2-options" style="display: none">{"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-2-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-2-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-2", options);</script><textarea id="sequence-3-code" style="display: none">MultiTypeAdapter->MultiTypeAdapter: 1. onBindViewHolder
+MultiTypeAdapter->MultiTypeAdapter: 2. onBindViewHolder
+MultiTypeAdapter->MultiTypeAdapter: 3. getOutBinderByViewHolder
+MultiTypeAdapter->MutableTypes: 4. getType
+MutableTypes-->MultiTypeAdapter: type
+MultiTypeAdapter->Type: 5.getBinder
+Type-->MultiTypeAdapter : binder
+MultiTypeAdapter->ItemViewBinder: 6. onBindViewHolder</textarea><textarea id="sequence-3-options" style="display: none">{"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-3-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-3-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-3", options);</script><textarea id="sequence-4-code" style="display: none">Client->MultiTypeAdapter: 1. register
+MultiTypeAdapter->MultiTypeAdapter: 2. register
+MultiTypeAdapter-->Client: oneToManyBuilder
+Client->OneToManyBuilder: 3. to
+Client->OneToManyBuilder: 4. withKotlinClassLinker
+OneToManyBuilder->OneToManyEndpoint: 5. withKotlinClassLinker
+OneToManyEndpoint->OneToManyEndpoint: 6. withJavaClassLinker
+OneToManyEndpoint->OneToManyBuilder: 7. withJavaClassLinker
+OneToManyBuilder->ClassLinkerBridge: 8.toLinker
+ClassLinkerBridge-->OneToManyBuilder: linkerBridge
+OneToManyBuilder->OneToManyBuilder: 9. withLinker
+OneToManyBuilder->OneToManyBuilder: 10. doRegister
+note left of OneToManyBuilder: loop: binders
+OneToManyBuilder->MultiTypeAdapter: 11. register</textarea><textarea id="sequence-4-options" style="display: none">{"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-4-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-4-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-4", options);</script><textarea id="sequence-5-code" style="display: none">Client->MultiTypeAdpter: 1. getItemViewType
+MultiTypeAdpter->MultiTypeAdpter: 2. indexInTypesOf
+MultiTypeAdpter->MutableTypes: 3. firstIndexOf
+MutableTypes-->MultiTypeAdpter: firstIndex
+MultiTypeAdpter->MutableTypes: 4. getType
+MutableTypes->MutableTypes: getLinker
+MutableTypes-->MultiTypeAdpter: linker
+MultiTypeAdpter->ClassLinkerBridge: 5. index
+ClassLinkerBridge-->MultiTypeAdpter: linker.index
+MultiTypeAdpter-->Client: firstIndex + linker.index</textarea><textarea id="sequence-5-options" style="display: none">{"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-5-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-5-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-5", options);</script></span></span>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Geek5Nan</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://geek5nan.github.io/2019/06/24/Insight-into-MultiType/" title="MultiType 源码学习小结">http://geek5nan.github.io/2019/06/24/Insight-into-MultiType/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/23/how-to-reading-AOSP-with-Android-Studio/" rel="next" title="使用 Android Studio 阅读 AOSP 源码">
+                <i class="fa fa-chevron-left"></i> 使用 Android Studio 阅读 AOSP 源码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/31/Kotlin-Everywhere-Notes/" rel="prev" title="Kotlin/Everywhere BeijingGDG 见闻录">
+                Kotlin/Everywhere BeijingGDG 见闻录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Geek5Nan">
+            
+              <p class="site-author-name" itemprop="name">Geek5Nan</p>
+              <div class="site-description motion-element" itemprop="description">每天进步一点。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dlZWs1bmFu" title="GitHub &rarr; https://github.com/geek5nan"><i class="fa fa-fw fa-github"></i></span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vZ2VlazVuYW4=" title="Weibo &rarr; https://weibo.com/geek5nan"><i class="fa fa-fw fa-weibo"></i></span>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MultiType-的简单使用"><span class="nav-number">1.</span> <span class="nav-text">MultiType 的简单使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MultiType-源码解析"><span class="nav-number">2.</span> <span class="nav-text">MultiType 源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-MultiTypeAdaprer-的-register-过程"><span class="nav-number">2.1.</span> <span class="nav-text">1. MultiTypeAdaprer 的 register 过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-register-binder-ItemViewBinder-lt-T-gt"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1 register(binder: ItemViewBinder&lt;T, *&gt;)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-register-clazz-Class-binder-ItemViewBinder-lt-T-gt"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.2 register(clazz: Class, binder: ItemViewBinder&lt;T, *&gt;)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-register-type-Type"><span class="nav-number">2.1.3.</span> <span class="nav-text">1.3 register(type: Type)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-MutableTypes-register-type-Type"><span class="nav-number">2.1.4.</span> <span class="nav-text">1.4 MutableTypes.register(type:Type)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5小结"><span class="nav-number">2.1.5.</span> <span class="nav-text">1.5小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-MultiTypeAdapter-中-ViewHolder-创建与数据填充的过程"><span class="nav-number">2.2.</span> <span class="nav-text">2. MultiTypeAdapter  中 ViewHolder 创建与数据填充的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-getItemViewType-position-Int-Int"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1 getItemViewType(position: Int): Int</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-onCreateViewHolder-parent-ViewGroup-indexViewType-Int-ViewHolder"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2 onCreateViewHolder(parent: ViewGroup, indexViewType: Int): ViewHolder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-onBindViewHolder-holder-ViewHolder-position-Int"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.3 onBindViewHolder(holder: ViewHolder, position: Int)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-小结"><span class="nav-number">2.2.4.</span> <span class="nav-text">2.4 小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-MultiType-一对多"><span class="nav-number">2.3.</span> <span class="nav-text">3. MultiType 一对多</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-one2many-简单实用"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1 one2many 简单实用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-one2many-的-register-过程"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2 one2many 的 register 过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-one2many-中-ViewHolder-的创建"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.3 one2many 中 ViewHolder 的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-小结"><span class="nav-number">2.3.4.</span> <span class="nav-text">3.3 小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术点拾遗"><span class="nav-number">3.</span> <span class="nav-text">技术点拾遗</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2013 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Geek5Nan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">131k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">1:59</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.2"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+  <script src="/js/js.cookie.js?v=7.1.2"></script>
+  <script src="/js/scroll-cookie.js?v=7.1.2"></script>
+
+
+  
+  <script src="/js/exturl.js?v=7.1.2"></script>
+
+
+  
+
+  
+  
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://geek5nan.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://geek5nan.github.io/2019/06/24/Insight-into-MultiType/";
+    this.page.identifier = "2019/06/24/Insight-into-MultiType/";
+    this.page.title = 'MultiType 源码学习小结';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://geek5nan.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script>pangu.spacingPage();</script>
+
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

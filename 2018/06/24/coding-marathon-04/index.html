@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文将介绍三个高级排序算法  希尔排序 归并排序 快速排序  希尔排序希尔排序(Shell’s Sort)的名称源于它的发明者Donald Shell，这是一种基于插入排序算法的改进。在处理大规模乱序数组时，插入排序的速度不容乐观，因为它只能一点一点的将元素从数组的一端移动到另一端。希尔排序为了加快速度，对插入排序进行了小幅的改动，开始时将数组划分为m相邻的若干个子数组，并对每一个子数组进行插入排">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编程马拉松 Day04 希尔排序、归并排序、快速排序">
+<meta property="og:url" content="http://geek5nan.github.io/2018/06/24/coding-marathon-04/index.html">
+<meta property="og:site_name" content="Geek5Nan">
+<meta property="og:description" content="本文将介绍三个高级排序算法  希尔排序 归并排序 快速排序  希尔排序希尔排序(Shell’s Sort)的名称源于它的发明者Donald Shell，这是一种基于插入排序算法的改进。在处理大规模乱序数组时，插入排序的速度不容乐观，因为它只能一点一点的将元素从数组的一端移动到另一端。希尔排序为了加快速度，对插入排序进行了小幅的改动，开始时将数组划分为m相邻的若干个子数组，并对每一个子数组进行插入排">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://geek5nan.github.io/uploads/InsertSortExample.png">
+<meta property="og:image" content="http://geek5nan.github.io/uploads/ShellSortExample.png">
+<meta property="og:image" content="http://geek5nan.github.io/uploads/ShellSort1.gif">
+<meta property="og:image" content="http://geek5nan.github.io/uploads/mergeSortDemo.png">
+<meta property="og:image" content="http://geek5nan.github.io/uploads/MergeSort1.gif">
+<meta property="og:image" content="http://geek5nan.github.io/uploads/QuickSort1.gif">
+<meta property="og:updated_time" content="2019-12-11T14:04:51.807Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编程马拉松 Day04 希尔排序、归并排序、快速排序">
+<meta name="twitter:description" content="本文将介绍三个高级排序算法  希尔排序 归并排序 快速排序  希尔排序希尔排序(Shell’s Sort)的名称源于它的发明者Donald Shell，这是一种基于插入排序算法的改进。在处理大规模乱序数组时，插入排序的速度不容乐观，因为它只能一点一点的将元素从数组的一端移动到另一端。希尔排序为了加快速度，对插入排序进行了小幅的改动，开始时将数组划分为m相邻的若干个子数组，并对每一个子数组进行插入排">
+<meta name="twitter:image" content="http://geek5nan.github.io/uploads/InsertSortExample.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://geek5nan.github.io/2018/06/24/coding-marathon-04/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>编程马拉松 Day04 希尔排序、归并排序、快速排序 | Geek5Nan</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49244994-2"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-49244994-2');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Geek5Nan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://geek5nan.github.io/2018/06/24/coding-marathon-04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Geek5Nan">
+      <meta itemprop="description" content="每天进步一点。">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Geek5Nan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">编程马拉松 Day04 希尔排序、归并排序、快速排序
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-06-24 22:53:17" itemprop="dateCreated datePublished" datetime="2018-06-24T22:53:17+08:00">2018-06-24</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-12-11 22:04:51" itemprop="dateModified" datetime="2019-12-11T22:04:51+08:00">2019-12-11</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程马拉松/" itemprop="url" rel="index"><span itemprop="name">编程马拉松</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/06/24/coding-marathon-04/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/06/24/coding-marathon-04/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          
+
+          <br>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">5.1k</span>
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">5 分钟</span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文将介绍三个高级排序算法</p>
+<ol>
+<li>希尔排序</li>
+<li>归并排序</li>
+<li>快速排序</li>
+</ol>
+<h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><p>希尔排序(Shell’s Sort)的名称源于它的发明者<code>Donald Shell</code>，这是一种基于<strong>插入排序</strong>算法的改进。在处理大规模乱序数组时，插入排序的速度不容乐观，因为它只能一点一点的将元素从数组的一端移动到另一端。希尔排序为了加快速度，对插入排序进行了小幅的<strong>改动</strong>，开始时将数组<strong>划分</strong>为m相邻的若干个子数组，并对每一个子数组进行插入排序，然后缩小m的值再次划分并排序，循环往复直到完成<code>m = 1</code>时的最后一次插入排序，此时整个数组有序。</p>
+<p>插入排序，每次将第k个元素插入前k-1个元素之间。<br><img src="/uploads/InsertSortExample.png" alt="插入排序示例"><br>希尔排序示例，每次将第mk个元素插入到k,2k,3k…mk这m个元素之间。<br><img src="/uploads/ShellSortExample.png" alt="希尔排序示例"></p>
+<p>希尔排序的思路是使数组中任意间隔为m的元素都是有序的，这样的数组被称为m有序数组。一般m的初始值较大，以便我们可以将元素移动到很远的地方，随着希尔排序的进行，m会逐渐变小，当收敛到1时希尔排序完全退化为插入排序，从而完成最后的排序动作。<br>希尔排序高效的原因是它完全利用了<strong>插入排序的特点</strong>：</p>
+<ol>
+<li>初始时，m值较大，子数组元素个数较小（小规模数据）</li>
+<li>初始前几次，构造出了m有序子数组（部分有序）</li>
+</ol>
+<p>希尔排序的过程如下图所示<br><img src="/uploads/ShellSort1.gif" alt="希尔排序完整版"></p>
+<h4 id="希尔排序代码"><a href="#希尔排序代码" class="headerlink" title="希尔排序代码"></a>希尔排序代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(Integer arr[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> before = System.currentTimeMillis();</span><br><span class="line">    <span class="keyword">int</span> m = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//获取的m值，与数组长度相关</span></span><br><span class="line">    <span class="comment">//子数组的部分有序的程度取决于m的值，而如何选取m的值是一项数学难题，在这里我们采用`1 4 13 40 121 364`这样的序列来作为希尔排序中m的值。</span></span><br><span class="line">    <span class="keyword">while</span> (m &lt; arr.length / <span class="number">3</span>) m = <span class="number">3</span> * m + <span class="number">1</span>;<span class="comment">//1 4 13 40 121 364...</span></span><br><span class="line">    <span class="keyword">while</span> (m &gt;= <span class="number">1</span>) &#123;<span class="comment">//每轮循环结束时,m缩小3倍，直到收敛为1时，退化为插入排序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = m; i &lt; arr.length; i++) &#123;<span class="comment">//从m开始</span></span><br><span class="line">            <span class="keyword">int</span> temp = arr[i];<span class="comment">//采用temp存放待插入元素</span></span><br><span class="line">            <span class="keyword">int</span> j = i;</span><br><span class="line">            <span class="comment">//取 arr[i],arr[i-m],arr[i-2m] ... 做插入排序</span></span><br><span class="line">            <span class="keyword">while</span> (j &gt;= m &amp;&amp; temp &lt; arr[j - m]) &#123;</span><br><span class="line">                arr[j] = arr[j - m];</span><br><span class="line">                j -= m;</span><br><span class="line">            &#125;</span><br><span class="line">            arr[j] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        m = m / <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> after = System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">"希尔排序耗时："</span> + (after - before) + <span class="string">"ms"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>与上一篇文章中的优化插入排序相比，希尔排序的优势还是很明显的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">20W条数据</span><br><span class="line">插入排序耗时：   2776ms</span><br><span class="line">希尔排序耗时：     25ms</span><br></pre></td></tr></table></figure>
+
+<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>归并排序的核心是<strong>归并</strong>操作，即将两个有序的数组合并为一个有序数组，归并过程如下所示</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>sortedArr1</th>
+<th>sotedArr2</th>
+<th>resultArr</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Init</td>
+<td>1 3 5 8</td>
+<td>2 6 9 10</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Step1</td>
+<td><font color="blue"><del>1</del></font> 3 5 8</td>
+<td>2 6 9 10</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Step2</td>
+<td><font color="blue"><del>1</del></font> 3 5 8</td>
+<td><font color="red"><del>2</del></font> 6 9 10</td>
+<td>1 2</td>
+</tr>
+<tr>
+<td>Step3</td>
+<td><font color="blue"><del>1 3</del></font> 5 8</td>
+<td><font color="red"><del>2</del></font> 6 9 10</td>
+<td>1 2 3</td>
+</tr>
+<tr>
+<td>Step4</td>
+<td><font color="blue"><del>1 3 5</del></font> 8</td>
+<td><font color="red"><del>2</del></font> 6 9 10</td>
+<td>1 2 3 5</td>
+</tr>
+<tr>
+<td>Step5</td>
+<td><font color="blue"><del>1 3 5</del></font> 8</td>
+<td><font color="red"><del>2 6</del></font> 9 10</td>
+<td>1 2 3 5 6</td>
+</tr>
+<tr>
+<td>Step6</td>
+<td><font color="blue"><del>1 3 5 8</del></font></td>
+<td><font color="red"><del>2 6</del></font> 9 10</td>
+<td>1 2 3 5 6 8</td>
+</tr>
+<tr>
+<td>Step7</td>
+<td><font color="blue"><del>1 3 5 8</del></font></td>
+<td><font color="red"><del>2 6 9</del></font> 10</td>
+<td>1 2 3 5 6 8 9</td>
+</tr>
+<tr>
+<td>Step8</td>
+<td><font color="blue"><del>1 3 5 8</del></font></td>
+<td><font color="red"><del>2 6 9 10</del></font></td>
+<td>1 2 3 5 6 8 9 10</td>
+</tr>
+</tbody></table>
+<p>有了归并操作后，只需将待排序数组（递归地）<strong>划分</strong>为两半，直到每半只有一个元素时，便可将其视作有序的，从而将其合并为一个包含两个元素的有序数组，以此类推，最终将整个数组排序。<br><img src="/uploads/mergeSortDemo.png" alt="归并排序Demo"></p>
+<p>归并排序的过程如下图所示<br><img src="/uploads/MergeSort1.gif" alt="归并排序完整版"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(Integer arr[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> before = System.currentTimeMillis();</span><br><span class="line">    mergeSort(arr, <span class="number">0</span>, arr.length - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">long</span> after = System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">"归并排序耗时："</span> + (after - before) + <span class="string">"ms"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(Integer arr[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (high &lt;= low) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">    mergeSort(arr, low, mid);<span class="comment">//将左半部分排序</span></span><br><span class="line">    mergeSort(arr, mid + <span class="number">1</span>, high);<span class="comment">//将右半部分排序</span></span><br><span class="line">    merge(arr, low, mid, high);<span class="comment">//对左右两个有序数组进行归并操作</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(Integer arr[], <span class="keyword">int</span> low, <span class="keyword">int</span> mid, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = low; <span class="comment">//设i为左边有序数组的首索引</span></span><br><span class="line">    <span class="keyword">int</span> j = mid + <span class="number">1</span>;<span class="comment">//设j为右边有序数组的首索引</span></span><br><span class="line">    <span class="comment">//将原数组先拷贝一份，在合并中使用</span></span><br><span class="line">    Integer aux[] = Arrays.copyOf(arr, arr.length);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = low; k &lt;= high; k++) &#123;</span><br><span class="line">        <span class="comment">//若i的索引&gt;mid，表明左边元素均已并入新的有序数组，此时只需将右边有序数组的剩余元素并入新的有序数组</span></span><br><span class="line">        <span class="keyword">if</span> (i &gt; mid) &#123;</span><br><span class="line">            arr[k] = aux[j++];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (j &gt; high) &#123;<span class="comment">//若i的索引&gt;mid，表明左边元素均已并入新的有序数组，此时只需将右边有序数组的剩余元素并入新的有序数组</span></span><br><span class="line">            arr[k] = aux[i++];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (aux[j] &lt; aux[i]) &#123;<span class="comment">//取左右有序数组中为并入新的有新数组中的的较小元素，将其并入到新的有序数组中</span></span><br><span class="line">            arr[k] = aux[j++];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            arr[k] = aux[i++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于含有N个元素的数组，需要logN次<strong>划分</strong>，每次合并分别需比较2,4,…,N/4,N/2,N次。因此归并排序的时间复杂度为 $O(N*log_2 N))$</p>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>快速排序是应用最广泛的排序算法，在各SDK里边都有出现。与归并排序相似，快排也需要对原数组进行<strong>划分</strong>，然后对划分后的两个子数组单独的进行排序。不同的是，快排在划分时不是简单的二等分，而是与原数组有关。</p>
+<p>快速排序步骤</p>
+<ol>
+<li>取数组中的第一个元素的值作为参考值v</li>
+<li>从前向后扫描，找到第一个比v大的元素，并记录其索引为i</li>
+<li>从后向前扫描，找到第一个比v小的元素，并记录其索引为j</li>
+<li>交换i和j的位置，分别从i和j的位置继续步骤2-3，直到<code>i&gt;=j</code>时结束扫描，并交换数组首元素与索引为j的元素。此时我们将开始时的首元素调整到的j的位置，且j之前的元素均比j小，j之后的元素均比j大。而j就是我们得到的划分位置。</li>
+<li>以j为中心，将数组划分为两个子数组，分别重复步骤1-4。</li>
+</ol>
+<p>快速排序的过程如下图所示，图的红线即为每次的划分时所用的参考值。<br><img src="/uploads/QuickSort1.gif" alt="快速排序完整版"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(Integer arr[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> before = System.currentTimeMillis();</span><br><span class="line">    quickSort(arr, <span class="number">0</span>, arr.length - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">long</span> after = System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">"快速排序耗时："</span> + (after - before) + <span class="string">"ms"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(Integer arr[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (high &lt;= low) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> j = partition(arr, low, high);<span class="comment">//获取切分点</span></span><br><span class="line">    quickSort(arr, low, j - <span class="number">1</span>);<span class="comment">//对左子数组进行排序</span></span><br><span class="line">    quickSort(arr, j + <span class="number">1</span>, high);<span class="comment">//对右子数组进行排序</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(Integer arr[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> v = arr[low];<span class="comment">//将首元素作为参考值</span></span><br><span class="line">    <span class="keyword">int</span> i = low + <span class="number">1</span>;<span class="comment">//记录当前数组的起点</span></span><br><span class="line">    <span class="keyword">int</span> j = high;<span class="comment">//记录当前数组的终点</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="keyword">while</span> (arr[i] &lt;= v &amp;&amp; i &lt; high) &#123;</span><br><span class="line">            i++;<span class="comment">//若arr[i]不大于v，则向后扫描</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (arr[j] &gt;= v &amp;&amp; j &gt; low) &#123;</span><br><span class="line">            j--;<span class="comment">//若arr[j]不小于v，则向前扫描</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i &gt;= j) <span class="keyword">break</span>;</span><br><span class="line">        swap(arr, i, j);</span><br><span class="line">    &#125;</span><br><span class="line">    swap(arr, low, j);</span><br><span class="line">    <span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>以上所讲的三个排序算法中，都用到了<strong>划分</strong>这一操作。在算法学习中，我们把通过把大规模问题划分为小规模问题，分而治之的策略称为<strong>分治策略</strong>，也叫<strong>分治法</strong>。在分治法中经常会递归地求解一个问题，在每层递归中采用如下三个步骤：</p>
+<ol>
+<li><strong>分解</strong>：将问题划分为一些子问题，子问题的形式与原问题一样，只是规模更小</li>
+<li><strong>解决</strong>：递归的求解出子问题。如果子问题的规模足够小，则停止递归，直接求解</li>
+<li><strong>合并</strong>：将子问题的解组合成原问题的解</li>
+</ol>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><table>
+<thead>
+<tr>
+<th>排序算法</th>
+<th>问题规模（待排序元素个数）</th>
+<th>解题时间1</th>
+<th>解题时间2</th>
+<th>解题时间3</th>
+<th>平均解题时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>希尔排序</td>
+<td>10W</td>
+<td>30ms</td>
+<td>34ms</td>
+<td>32ms</td>
+<td>32ms</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>10W</td>
+<td>24ms</td>
+<td>23ms</td>
+<td>45ms</td>
+<td>30.6ms</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>10W</td>
+<td>4885ms</td>
+<td>4908ms</td>
+<td>4822ms</td>
+<td>4871.7ms</td>
+</tr>
+<tr>
+<td>希尔排序</td>
+<td>50W</td>
+<td>174ms</td>
+<td>183ms</td>
+<td>196ms</td>
+<td>184.3ms</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>50W</td>
+<td>117ms</td>
+<td>124ms</td>
+<td>122ms</td>
+<td>121ms</td>
+</tr>
+<tr>
+<td>希尔排序</td>
+<td>100W</td>
+<td>450ms</td>
+<td>434ms</td>
+<td>413ms</td>
+<td>432.3ms</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>100W</td>
+<td>217ms</td>
+<td>268ms</td>
+<td>235ms</td>
+<td>240ms</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Geek5Nan</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://geek5nan.github.io/2018/06/24/coding-marathon-04/" title="编程马拉松 Day04 希尔排序、归并排序、快速排序">http://geek5nan.github.io/2018/06/24/coding-marathon-04/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/23/coding-marathon-03/" rel="next" title="编程马拉松 Day03 冒泡排序、选择排序、插入排序">
+                <i class="fa fa-chevron-left"></i> 编程马拉松 Day03 冒泡排序、选择排序、插入排序
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/27/coding-marathon-05/" rel="prev" title="编程马拉松 Day05 堆、二叉堆、堆排序">
+                编程马拉松 Day05 堆、二叉堆、堆排序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Geek5Nan">
+            
+              <p class="site-author-name" itemprop="name">Geek5Nan</p>
+              <div class="site-description motion-element" itemprop="description">每天进步一点。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dlZWs1bmFu" title="GitHub &rarr; https://github.com/geek5nan"><i class="fa fa-fw fa-github"></i></span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vZ2VlazVuYW4=" title="Weibo &rarr; https://weibo.com/geek5nan"><i class="fa fa-fw fa-weibo"></i></span>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#希尔排序"><span class="nav-number">1.</span> <span class="nav-text">希尔排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#希尔排序代码"><span class="nav-number">1.1.</span> <span class="nav-text">希尔排序代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归并排序"><span class="nav-number">2.</span> <span class="nav-text">归并排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速排序"><span class="nav-number">3.</span> <span class="nav-text">快速排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2013 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Geek5Nan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">131k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">1:59</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.2"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+  <script src="/js/js.cookie.js?v=7.1.2"></script>
+  <script src="/js/scroll-cookie.js?v=7.1.2"></script>
+
+
+  
+  <script src="/js/exturl.js?v=7.1.2"></script>
+
+
+  
+
+  
+  
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://geek5nan.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://geek5nan.github.io/2018/06/24/coding-marathon-04/";
+    this.page.identifier = "2018/06/24/coding-marathon-04/";
+    this.page.title = '编程马拉松 Day04 希尔排序、归并排序、快速排序';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://geek5nan.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script>pangu.spacingPage();</script>
+
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
