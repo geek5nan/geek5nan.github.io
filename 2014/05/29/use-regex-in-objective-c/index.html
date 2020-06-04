@@ -30,8 +30,8 @@
 <meta property="article:published_time" content="2014-05-29T00:00:00.000Z">
 <meta property="article:modified_time" content="2019-12-11T14:04:51.000Z">
 <meta property="article:author" content="Geek5Nan">
-<meta property="article:tag" content="runtime">
 <meta property="article:tag" content="objc">
+<meta property="article:tag" content="runtime">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://blog.devwu.com/2014/05/29/use-regex-in-objective-c/">
@@ -258,10 +258,12 @@
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言:"></a>前言:</h3><p>编程中,对于字符串的处理是无处不在的.时常需要在一堆乱码中找到有用的信息.比如在如下的字符串中获取有效的 <strong>URL</strong> 或  <strong>Email</strong></p>
 <pre><code>ababsdbasbdabdhttp://baidu.com
-&lt;div&gt;test@test.com&lt;div&gt;</code></pre><p>诸如此类问题,我们都可以通过<a href="http://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="noopener">正则表达式</a>来解决,正则在任意编程语言都有对应实现.</p>
+&lt;div&gt;test@test.com&lt;div&gt;
+</code></pre><p>诸如此类问题,我们都可以通过<a href="http://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="noopener">正则表达式</a>来解决,正则在任意编程语言都有对应实现.</p>
 <p>iOS4 之后,Cocoa 也提供了用于正则的 <code>NSRegularExpression</code> 和 <code>NSTextCheckingResult</code> 这两个类.<br>前者用于创建正则,匹配,替换;后者是一个快速匹配对象,可用于检查拼写,URL等,也可作为正则匹配的结果,包含匹配到子串所在 range 和匹配规则.</p>
 <h3 id="创建"><a href="#创建" class="headerlink" title="创建:"></a>创建:</h3><pre><code>NSRegularExpression * regex = [NSRegularExpression regularExpressionWithPattern:@&quot;http[s]?://[A-z0-9.-]*&quot;
-options:NSRegularExpressionCaseInsensitive error:nil];</code></pre><p><strong>正则匹配模式</strong></p>
+options:NSRegularExpressionCaseInsensitive error:nil];
+</code></pre><p><strong>正则匹配模式</strong></p>
 <blockquote>
 <ul>
 <li>[] 表示集合,</li>
@@ -283,19 +285,19 @@ options:NSRegularExpressionCaseInsensitive error:nil];</code></pre><p><strong>�
 </ul>
 </blockquote>
 <h3 id="应用"><a href="#应用" class="headerlink" title="应用:"></a>应用:</h3><p><code>NSRegularExpression</code> 提供了对字符串 <strong>匹配</strong> , <strong>替换</strong> 的函数,</p>
-<p><code>NSRegularExpression (NSMatching)</code></p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//枚举在 string 的指定 range 中按 pattern 匹配到的所有子字符串,在 block 中做处理</span></span><br><span class="line">- (<span class="keyword">void</span>)enumerateMatchesInString:(<span class="built_in">NSString</span> *)string options:(<span class="built_in">NSMatchingOptions</span>)options range:(<span class="built_in">NSRange</span>)range usingBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NSTextCheckingResult</span> *result, <span class="built_in">NSMatchingFlags</span> flags, <span class="built_in">BOOL</span> *stop))block;</span><br><span class="line"><span class="comment">//获取在 string 的指定 range 中按 pattern 匹配到的所有子字符串</span></span><br><span class="line">- (<span class="built_in">NSArray</span> *)matchesInString:(<span class="built_in">NSString</span> *)string options:(<span class="built_in">NSMatchingOptions</span>)options range:(<span class="built_in">NSRange</span>)range;</span><br><span class="line"><span class="comment">//获取匹配到子串的个数</span></span><br><span class="line">- (<span class="built_in">NSUInteger</span>)numberOfMatchesInString:(<span class="built_in">NSString</span> *)string options:(<span class="built_in">NSMatchingOptions</span>)options range:(<span class="built_in">NSRange</span>)range;</span><br><span class="line"><span class="comment">//获取第一次匹配到的结果,</span></span><br><span class="line">- (<span class="built_in">NSTextCheckingResult</span> *)firstMatchInString:(<span class="built_in">NSString</span> *)string options:(<span class="built_in">NSMatchingOptions</span>)options range:(<span class="built_in">NSRange</span>)range;</span><br><span class="line"><span class="comment">//获取第一次匹配到的 range</span></span><br><span class="line">- (<span class="built_in">NSRange</span>)rangeOfFirstMatchInString:(<span class="built_in">NSString</span> *)string options:(<span class="built_in">NSMatchingOptions</span>)options range:(<span class="built_in">NSRange</span>)range;</span><br></pre></td></tr></table></figure>
-
+<p><code>NSRegularExpression (NSMatching)</code><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//枚举在 string 的指定 range 中按 pattern 匹配到的所有子字符串,在 block 中做处理</span></span><br><span class="line">- (<span class="keyword">void</span>)enumerateMatchesInString:(<span class="built_in">NSString</span> *)string options:(<span class="built_in">NSMatchingOptions</span>)options range:(<span class="built_in">NSRange</span>)range usingBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NSTextCheckingResult</span> *result, <span class="built_in">NSMatchingFlags</span> flags, <span class="built_in">BOOL</span> *stop))block;</span><br><span class="line"><span class="comment">//获取在 string 的指定 range 中按 pattern 匹配到的所有子字符串</span></span><br><span class="line">- (<span class="built_in">NSArray</span> *)matchesInString:(<span class="built_in">NSString</span> *)string options:(<span class="built_in">NSMatchingOptions</span>)options range:(<span class="built_in">NSRange</span>)range;</span><br><span class="line"><span class="comment">//获取匹配到子串的个数</span></span><br><span class="line">- (<span class="built_in">NSUInteger</span>)numberOfMatchesInString:(<span class="built_in">NSString</span> *)string options:(<span class="built_in">NSMatchingOptions</span>)options range:(<span class="built_in">NSRange</span>)range;</span><br><span class="line"><span class="comment">//获取第一次匹配到的结果,</span></span><br><span class="line">- (<span class="built_in">NSTextCheckingResult</span> *)firstMatchInString:(<span class="built_in">NSString</span> *)string options:(<span class="built_in">NSMatchingOptions</span>)options range:(<span class="built_in">NSRange</span>)range;</span><br><span class="line"><span class="comment">//获取第一次匹配到的 range</span></span><br><span class="line">- (<span class="built_in">NSRange</span>)rangeOfFirstMatchInString:(<span class="built_in">NSString</span> *)string options:(<span class="built_in">NSMatchingOptions</span>)options range:(<span class="built_in">NSRange</span>)range;</span><br></pre></td></tr></table></figure></p>
 <p><code>NSRegularExpression (NSReplacement)</code></p>
 <pre><code>//修改在 string 的指定 range 中按 pattern 匹配到的子字符串为 templ, 将修改后的字符串深 copy 后返回
 - (NSString *)stringByReplacingMatchesInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range withTemplate:(NSString *)templ;
 //修改在 可变 string 的指定 range 中按 pattern 匹配到的子字符串为 templ, 并返回所修改的子串的个数
-- (NSUInteger)replaceMatchesInString:(NSMutableString *)string options:(NSMatchingOptions)options range:(NSRange)range withTemplate:(NSString *)templ;</code></pre><h4 id="匹配示例"><a href="#匹配示例" class="headerlink" title="匹配示例"></a>匹配示例</h4><pre><code>NSMutableString * str = [@&quot;ababsdbasbdabdhttp://baidu.com&quot; mutableCopy];
+- (NSUInteger)replaceMatchesInString:(NSMutableString *)string options:(NSMatchingOptions)options range:(NSRange)range withTemplate:(NSString *)templ;
+</code></pre><h4 id="匹配示例"><a href="#匹配示例" class="headerlink" title="匹配示例"></a>匹配示例</h4><pre><code>NSMutableString * str = [@&quot;ababsdbasbdabdhttp://baidu.com&quot; mutableCopy];
 NSRegularExpression * regex = [NSRegularExpression regularExpressionWithPattern:@&quot;http[s]?://[A-z0-9.]*&quot; options:NSRegularExpressionCaseInsensitive error:nil];
 NSTextCheckingResult * r =[regex firstMatchInString:str options:NSMatchingReportCompletion range:NSMakeRange(0, str.length)];
 NSLog(@&quot;%@&quot;,[str substringWithRange:r.range]);
 输出:
-2014-05-29 11:27:05.426 RegexDemo[49294:303] http://baid-u1.com</code></pre><h3 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h3><p><a href="http://userguide.icu-project.org/strings/regexp" target="_blank" rel="noopener">http://userguide.icu-project.org/strings/regexp</a><br><a href="https://developer.apple.com/library/mac/documentation/Foundation/Reference/NSRegularExpression_Class/Reference/Reference.html" target="_blank" rel="noopener">https://developer.apple.com/library/mac/documentation/Foundation/Reference/NSRegularExpression_Class/Reference/Reference.html</a></p>
+2014-05-29 11:27:05.426 RegexDemo[49294:303] http://baid-u1.com
+</code></pre><h3 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h3><p><a href="http://userguide.icu-project.org/strings/regexp" target="_blank" rel="noopener">http://userguide.icu-project.org/strings/regexp</a><br><a href="https://developer.apple.com/library/mac/documentation/Foundation/Reference/NSRegularExpression_Class/Reference/Reference.html" target="_blank" rel="noopener">https://developer.apple.com/library/mac/documentation/Foundation/Reference/NSRegularExpression_Class/Reference/Reference.html</a></p>
 
     </div>
 
@@ -322,8 +324,8 @@ NSLog(@&quot;%@&quot;,[str substringWithRange:r.range]);
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/runtime/" rel="tag"># runtime</a>
               <a href="/tags/objc/" rel="tag"># objc</a>
+              <a href="/tags/runtime/" rel="tag"># runtime</a>
           </div>
 
         

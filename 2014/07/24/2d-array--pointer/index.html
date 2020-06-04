@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"blog.devwu.com","root":"/","scheme":"Mist","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="通过前面的学习,已知: int arr[3]&#x3D;{1,3,5}; arr[0] 可以用 *(arr+0) 表示 arr[1] 可以用 *(arr+1) 表示 arr[2] 可以用 *(arr+2) 表示现有二维数组如下:">
+  <meta name="description" content="通过前面的学习,已知: int arr[3]&#x3D;{1,3,5}; arr[0] 可以用 *(arr+0) 表示 arr[1] 可以用 *(arr+1) 表示 arr[2] 可以用 *(arr+2) 表示 现有二维数组如下:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="指针与二维数组">
 <meta property="og:url" content="http://blog.devwu.com/2014/07/24/2d-array--pointer/index.html">
 <meta property="og:site_name" content="Geek5Nan">
-<meta property="og:description" content="通过前面的学习,已知: int arr[3]&#x3D;{1,3,5}; arr[0] 可以用 *(arr+0) 表示 arr[1] 可以用 *(arr+1) 表示 arr[2] 可以用 *(arr+2) 表示现有二维数组如下:">
+<meta property="og:description" content="通过前面的学习,已知: int arr[3]&#x3D;{1,3,5}; arr[0] 可以用 *(arr+0) 表示 arr[1] 可以用 *(arr+1) 表示 arr[2] 可以用 *(arr+2) 表示 现有二维数组如下:">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2014-07-24T00:00:00.000Z">
 <meta property="article:modified_time" content="2019-12-11T14:04:51.000Z">
@@ -259,33 +259,40 @@
 <pre><code>int arr[3]={1,3,5};
 arr[0] 可以用 *(arr+0) 表示
 arr[1] 可以用 *(arr+1) 表示
-arr[2] 可以用 *(arr+2) 表示</code></pre><p>现有二维数组如下:</p>
+arr[2] 可以用 *(arr+2) 表示
+</code></pre><p>现有二维数组如下:</p>
 <pre><code>int arr[3][4]=
 {
     {1,2,3,4},
     {5,6,7,8},
     {9,10,11,12}
-};</code></pre><p>则:</p>
+};
+</code></pre><p>则:</p>
 <pre><code>arr[0] ~~~  *(arr+0)
 arr[1] ~~~  *(arr+1)
-arr[2] ~~~  *(arr+2)</code></pre><p>此处<code>arr[0]</code>即<code>*(arr+0)</code>是二维数组<code>arr</code>的第一个元素的值,该值是内层数组<code>{1,2,3,4}</code>的起始地址.</p>
+arr[2] ~~~  *(arr+2)
+</code></pre><p>此处<code>arr[0]</code>即<code>*(arr+0)</code>是二维数组<code>arr</code>的第一个元素的值,该值是内层数组<code>{1,2,3,4}</code>的起始地址.</p>
 <p>将<code>arr[0]</code>赋值给 <code>temp</code>数组</p>
 <pre><code>int temp0[4] = arr[0];
 int temp1[4] = arr[1];
-int temp2[4] = arr[2];</code></pre><p>获取最终的值:</p>
-<p><code>arr[0][0]</code> <del>~</del> 将<code>arr[0]</code>换为上边的<code>temp0</code>数组</p>
+int temp2[4] = arr[2];
+</code></pre><p>获取最终的值:</p>
+<p><code>arr[0][0]</code> ~~~~ 将<code>arr[0]</code>换为上边的<code>temp0</code>数组</p>
 <pre><code>arr[0][0] ~~~~  temp0[0] ~~~~ *(temp+0)  ~~~~ *(*(arr+0)+0)
 arr[0][1] ~~~~  temp0[1] ~~~~ *(temp+1)  ~~~~ *(*(arr+0)+1)
 arr[0][2] ~~~~  temp0[2] ~~~~ *(temp+2)  ~~~~ *(*(arr+0)+2)
-arr[0][3] ~~~~  temp0[3] ~~~~ *(temp+3)  ~~~~ *(*(arr+0)+3)</code></pre><p><code>arr[1][0]</code> <del>~</del> 将arr[1]换为上边的<code>temp1</code>数组</p>
+arr[0][3] ~~~~  temp0[3] ~~~~ *(temp+3)  ~~~~ *(*(arr+0)+3)
+</code></pre><p><code>arr[1][0]</code> ~~~~ 将arr[1]换为上边的<code>temp1</code>数组</p>
 <pre><code>arr[1][0] ~~~~  temp0[0] ~~~~ *(tmep+0)  ~~~~ *(*(arr+1)+0)
 arr[1][1] ~~~~  temp0[1] ~~~~ *(temp+1)  ~~~~ *(*(arr+1)+1)
 arr[1][2] ~~~~  temp0[2] ~~~~ *(temp+2)  ~~~~ *(*(arr+1)+2)
-arr[1][3] ~~~~  temp0[3] ~~~~ *(temp+3)  ~~~~ *(*(arr+1)+3)</code></pre><p><code>arr[2][0]</code> <del>~</del> 将arr[2]换为上边的<code>temp2</code>数组</p>
+arr[1][3] ~~~~  temp0[3] ~~~~ *(temp+3)  ~~~~ *(*(arr+1)+3)
+</code></pre><p><code>arr[2][0]</code> ~~~~ 将arr[2]换为上边的<code>temp2</code>数组</p>
 <pre><code>arr[2][0] ~~~~  temp0[0] ~~~~ *(tmep+0)  ~~~~ *(*(arr+2)+0)
 arr[2][1] ~~~~  temp0[1] ~~~~ *(temp+1)  ~~~~ *(*(arr+2)+1)
 arr[2][2] ~~~~  temp0[2] ~~~~ *(temp+2)  ~~~~ *(*(arr+2)+2)
-arr[2][3] ~~~~  temp0[3] ~~~~ *(temp+3)  ~~~~ *(*(arr+2)+3)</code></pre>
+arr[2][3] ~~~~  temp0[3] ~~~~ *(temp+3)  ~~~~ *(*(arr+2)+3)
+</code></pre>
     </div>
 
     

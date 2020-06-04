@@ -34,8 +34,8 @@
 <meta property="article:published_time" content="2019-06-10T23:15:01.000Z">
 <meta property="article:modified_time" content="2019-12-11T14:04:51.000Z">
 <meta property="article:author" content="Geek5Nan">
-<meta property="article:tag" content="Android">
 <meta property="article:tag" content="AOSP">
+<meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://blog.devwu.com/uploads/aosp1-1.png">
 
@@ -274,33 +274,24 @@
 </ol>
 <p>Xcode 9.4 安装后，在终端内输入 <code>clang -version</code> 进行验证，若出现如下输入内容，则表示 Xcode 9.4 切换成功。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Apple LLVM version 9.1.0 (clang-902.0.39.2)</span><br><span class="line">Target: x86_64-apple-darwin18.6.0</span><br><span class="line">Thread model: posix</span><br><span class="line">InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin</span><br></pre></td></tr></table></figure>
-
 <h2 id="2-macOS-大小写敏感磁盘的创建"><a href="#2-macOS-大小写敏感磁盘的创建" class="headerlink" title="2. macOS 大小写敏感磁盘的创建"></a>2. macOS 大小写敏感磁盘的创建</h2><p> macOS 文件系统的默认类型是大小写不敏感，大部分人的 macOS 文件系统类型均为大小写不敏感，然而 AOSP 项目中的代码却对大小写敏感。因此在下载 AOSP 源码之前，需要先创建一个大小写敏感的磁盘区域，创建命令如下。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdiutil create -<span class="built_in">type</span> SPARSE -fs <span class="string">'Case-sensitive Journaled HFS+'</span> -size 200g -volname AOSP /PathTo/AOSP.dmg.sparseimage</span><br></pre></td></tr></table></figure>
-
 <p>其中，<code>-size 200g</code> 表示新建磁盘空间的最大容量为200g，<code>-volname AOSP</code> 表示磁盘挂载时的名称为 AOSP，<code>/PathTo/AOSP.dmg.sparseimage</code> 是新建磁盘空间文件的存放位置。磁盘空间创建后并不会立即占用200g，而是随着该磁盘空间内数据存储的增多而扩大。当磁盘空间不足时，可在磁盘未挂载的状态下采用如下命令对原有磁盘空间进行扩容</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdiutil resize -size 220g /PathTo/AOSP.dmg.sparseimage</span><br></pre></td></tr></table></figure>
-
 <p>为了方便后续的使用，建议在终端环境下增加挂载与卸载 AOSP 磁盘空间的指令。所需函数如下，将其添加到 <code>.zshrc</code> 或 <code>.bashrc</code> 即可。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载 AOSP 磁盘空间</span></span><br><span class="line"><span class="function"><span class="title">mountAndroid</span></span>() &#123; hdiutil attach /PathTo/AOSP.dmg.sparseimage -mountpoint /Volumes/AOSP; &#125;</span><br><span class="line"><span class="comment"># 卸载 AOSP 磁盘空间</span></span><br><span class="line"><span class="function"><span class="title">umountAndroid</span></span>() &#123; hdiutil detach /Volumes/AOSP; &#125;</span><br></pre></td></tr></table></figure>
-
 <p>添加成功后，在终端内输入 <code>mountAndroid</code> 或 <code>umountAndroid</code> 即可快速挂载和卸载 AOSP 磁盘空间。</p>
 <h2 id="3-AOSP-源码下载"><a href="#3-AOSP-源码下载" class="headerlink" title="3. AOSP 源码下载"></a>3. AOSP 源码下载</h2><p>最新的 AOSP 的源码约35G，数据量较大，建议从国内镜像获取，本小节使用<a href="https://lug.ustc.edu.cn/wiki/mirrors/help/aosp" target="_blank" rel="noopener">科大镜像源</a>演示下载流程。</p>
 <h3 id="3-1-安装-repo"><a href="#3-1-安装-repo" class="headerlink" title="3.1 安装 repo"></a>3.1 安装 repo</h3><p>最新的 AOSP 项目下含有 700+ 个git仓库，若用 git-submodule，git-subtree 管理的话非常复杂，为此谷歌专门编写了 repo 工具，用来管理多个 git 仓库间的代码同步。<br><strong>0. 在当前用户目录下创建 bin 目录</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~&#x2F;bin</span><br></pre></td></tr></table></figure>
-
 <p><strong>1. 下载 repo 到当前用户下的 bin 目录</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL  &#39;https:&#x2F;&#x2F;gerrit-googlesource.proxy.ustclug.org&#x2F;git-repo&#x2F;+&#x2F;master&#x2F;repo?format&#x3D;TEXT&#39; |base64 -d &gt; ~&#x2F;bin&#x2F;repo</span><br></pre></td></tr></table></figure>
-
 <p><strong>2. 为 repo 赋予可执行权限</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x ~&#x2F;bin&#x2F;repo</span><br></pre></td></tr></table></figure>
-
 <p><strong>3. 将 bin 目录注册到终端环境</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># zsh</span><br><span class="line">echo &#39;export PATH&#x3D;~&#x2F;bin:$PATH&#39;&gt;&gt;~&#x2F;.zshrc</span><br></pre></td></tr></table></figure>
-
 <h3 id="3-2-下载-AOSP-源码"><a href="#3-2-下载-AOSP-源码" class="headerlink" title="3.2 下载 AOSP 源码"></a>3.2 下载 AOSP 源码</h3><p><strong>0. 初始化 AOSP 仓库清单</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 挂载 AOSP 磁盘空间</span></span><br><span class="line">mountAndroid</span><br><span class="line"><span class="comment"># 进入 AOSP 磁盘空间</span></span><br><span class="line"><span class="built_in">cd</span> /Volumes/AOSP</span><br><span class="line"><span class="comment"># 初始化 AOSP 仓库清单</span></span><br><span class="line">repo init -u git://mirrors.ustc.edu.cn/aosp/platform/manifest -b android-9.0.0_r42</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>首次使用 git ，需按提示填写 git.username 与 git.email 信息</p>
 </blockquote>
@@ -312,29 +303,21 @@
 <p><img src="/uploads/aosp1-4.png" alt="Manifest.git_config"></p>
 <p><code>/Volumes/AOSP/.repo/manifests/.git/config</code>是一个指向<code>/Volumes/AOSP/.repo/manifests.git/config</code>文件的软链接，config 文件记录了 AOSP 清单仓库的基本信息。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># &#x2F;Volumes&#x2F;AOSP&#x2F;.repo&#x2F;manifests&#x2F;.git&#x2F;config</span><br><span class="line">[core]</span><br><span class="line">    repositoryformatversion &#x3D; 0</span><br><span class="line">    filemode &#x3D; true</span><br><span class="line">    precomposeunicode &#x3D; true</span><br><span class="line">[filter &quot;lfs&quot;]</span><br><span class="line">    smudge &#x3D; git-lfs smudge --skip -- %f</span><br><span class="line">    process &#x3D; git-lfs filter-process --skip</span><br><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">    url &#x3D; git:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;aosp&#x2F;platform&#x2F;manifest</span><br><span class="line">    fetch &#x3D; +refs&#x2F;heads&#x2F;*:refs&#x2F;remotes&#x2F;origin&#x2F;*</span><br><span class="line">[branch &quot;default&quot;]</span><br><span class="line">    remote &#x3D; origin</span><br><span class="line">    merge &#x3D; refs&#x2F;heads&#x2F;android-9.0.0_r42</span><br></pre></td></tr></table></figure>
-
-
-
 <p><strong>1. 下载 AOSP 代码</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repo sync</span><br></pre></td></tr></table></figure>
-
 <p>执行此操作时，repo 先解析上一步得到的<strong>manifest.xml</strong>来获取仓库信息，然后对清单中的所有仓库依次执行类似 <strong>git clone (git://mirrors.ustc.edu.cn/aosp + $project.name) $project.path</strong> 类似的操作将 AOSP 源码同步到本地。</p>
 <p>clone 过程又可分为 <strong>Fetching projects</strong>（下载 bare 仓库）与 <strong>Syncing work tree</strong>（解压到工作目录）两个阶段。</p>
 <p><strong>Fetching projects</strong> 阶段会将 AOSP 中的700+个仓库陆续拉取到本地，内容暂存在 /Volumes/AOSP/.repo/projects 与 /Volumes/AOSP/.repo/project-objects 目录下的 bare 仓库内，此阶段大约需要下载 35G 的数据。下载过程中在 /Volumes/AOSP 目录内看不到明显变化，可使用磁盘命令<code>du -h -d 1</code>来查看下载进度。</p>
 <p><strong>Syncing work tree</strong>阶段会将 /Volumes/AOSP/.repo 下 bare 仓库的内容逐个取出，并放置到 /Volumes/AOSP 目录中，解压所需的空间也在35G左右。此阶段同样可以使用<code>du -h -d 1</code>来查看解压进度。</p>
 <h2 id="4-编译-AOSP"><a href="#4-编译-AOSP" class="headerlink" title="4. 编译 AOSP"></a>4. 编译 AOSP</h2><p><strong>0. 加载编译环境变量</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /Volumes/AOSP</span><br><span class="line"><span class="comment"># 设置 AOSP 编译所需的环境变量</span></span><br><span class="line"><span class="built_in">source</span> build/envsetup.sh</span><br></pre></td></tr></table></figure>
-
 <p><strong>1. 设置编译对象</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置编译对象</span></span><br><span class="line">lunch aosp_x86_64-eng</span><br></pre></td></tr></table></figure>
-
 <p>此处是将 aosp 编译为 x86 架构的 64 位版本，如需编译其他版本，可键入 <code>lunch</code> 后在列表中选择。<br><strong>2. 开始编译</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m -j16</span><br></pre></td></tr></table></figure>
-
 <p><code>-j16</code> 表示开启16个作业来同时编译，此处的数字与 CPU 相关，一般可设置为 CPU 核心数量的 2-4 倍。</p>
 <p>接下来便耐心等待，编译成功后会出现如下提示，笔者所使用的4核8线程处理器，完整编译一次大约需要三个半小时。编译产物最终存储在 /Volemes/ASOP/out 目录，大约105G。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Setting name!</span><br><span class="line">partNum is 0</span><br><span class="line">REALLY setting name!</span><br><span class="line">Warning: The kernel may <span class="built_in">continue</span> to use old or deleted partitions.</span><br><span class="line">You should reboot or remove the drive.</span><br><span class="line">The operation has completed successfully.</span><br><span class="line"></span><br><span class="line"><span class="comment">#### build completed successfully (03:35:23 (hh:mm:ss)) ####</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="5-常见问题"><a href="#5-常见问题" class="headerlink" title="5. 常见问题"></a>5. 常见问题</h2><blockquote>
 <ol>
 <li>Could not find a supported mac sdk: [“10.10” “10.11” “10.12” “10.13”]</li>
@@ -342,8 +325,8 @@
 </blockquote>
 <p>AOSP 暂只支持在 10.10-10.13 上编译，其本质是对 Xcode 编译套件 MacOS.sdk 的限定。若当前 /Application/Xcode 对应的版本为 Xcode 10，则会出现这个错误提示，因为 Xcode10 内置的 MacOS.sdk 为 10.14 。以往虽有魔改 AOSP 编译配置的方式，为其添加 “10.14” 来避免此错误。但因 Xcode10 的改动较大，不建议普通用户尝试魔改 AOSP 编译配置，最稳妥的方式还是参照步骤1中的描述进行操作。</p>
 <blockquote>
-<ol start="2">
-<li>&lt;IOKit/IOReturn.h&gt; not found</li>
+<ol>
+<li><IOKit/IOReturn.h> not found</li>
 </ol>
 </blockquote>
 <p>与问题1一样，可通过步骤1 更换 Xcode 9.4 为默认 Xcode 解决。</p>
@@ -373,8 +356,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Android/" rel="tag"># Android</a>
               <a href="/tags/AOSP/" rel="tag"># AOSP</a>
+              <a href="/tags/Android/" rel="tag"># Android</a>
           </div>
 
         

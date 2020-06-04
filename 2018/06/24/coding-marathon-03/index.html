@@ -286,17 +286,12 @@
 <p>冒泡排序的过程(剪辑版)如下图所示，你也可以<a href="/uploads/BubbleSort1.gif">点击这里查看完整的冒泡排序过程</a>。<br><img src="/uploads/BubbleSort.gif" alt="冒泡排序剪辑版"></p>
 <p>我们知道，水杯中出现气泡时，越大的气泡浮力越大，上升速度也就越快，最先到达水面，冒牌排序中每轮遴选较大元素放置末尾的行为与水中气泡上升的现象十分相似，因此得名冒泡排序。</p>
 <h4 id="冒泡排序代码"><a href="#冒泡排序代码" class="headerlink" title="冒泡排序代码"></a>冒泡排序代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(Integer arr[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> compareCount = <span class="number">0</span>;<span class="comment">//比较次数</span></span><br><span class="line">        <span class="keyword">int</span> swapCount = <span class="number">0</span>;<span class="comment">//交换次数</span></span><br><span class="line">        <span class="keyword">long</span> before = System.currentTimeMillis();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123; <span class="comment">//外层循环，与数组元素个数相关</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; arr.length - i; j++) &#123; <span class="comment">//内层循环，只需在前 n-1 个元素内进行相邻比较</span></span><br><span class="line">                compareCount++;</span><br><span class="line">                <span class="keyword">if</span> (arr[j - <span class="number">1</span>] &gt; arr[j]) &#123;</span><br><span class="line">                    swapCount++;</span><br><span class="line">                    swap(arr, j - <span class="number">1</span>, j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> after = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"冒泡排序耗时："</span>+(after-before)+<span class="string">"ms,"</span>+<span class="string">"比较次数："</span>+compareCount+<span class="string">",交换次数："</span>+swapCount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用上述代码对以下两组数据排序时，其比较次数一致，仅交换次数不同。但显而易见的是，第二组本身就是有序的，也就是说上边的代码中，存在冗余比较。<br><code>3 5 1 6 10 9 11</code><br><code>1 3 5 7 9 10 11</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">原有数组 3 5 1 6 10 9 11 </span><br><span class="line">冒泡排序耗时：0ms 比较次数：21,交换次数：3</span><br><span class="line">排序后 1 3 5 6 9 10 11 </span><br><span class="line">---</span><br><span class="line">原有数组 1 3 5 6 9 10 11 </span><br><span class="line">冒泡排序耗时：0ms 比较次数：21,交换次数：0</span><br><span class="line">排序后 1 3 5 6 9 10 11</span><br></pre></td></tr></table></figure>
-<p>针对这样的问题，我们可以采用如下思路对冒泡排序的代码进行优化。</p>
+<p>使用上述代码对以下两组数据排序时，其比较次数一致，仅交换次数不同。但显而易见的是，第二组本身就是有序的，也就是说上边的代码中，存在冗余比较。<br><code>3 5 1 6 10 9 11</code><br><code>1 3 5 7 9 10 11</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">原有数组 3 5 1 6 10 9 11 </span><br><span class="line">冒泡排序耗时：0ms 比较次数：21,交换次数：3</span><br><span class="line">排序后 1 3 5 6 9 10 11 </span><br><span class="line">---</span><br><span class="line">原有数组 1 3 5 6 9 10 11 </span><br><span class="line">冒泡排序耗时：0ms 比较次数：21,交换次数：0</span><br><span class="line">排序后 1 3 5 6 9 10 11</span><br></pre></td></tr></table></figure><br>针对这样的问题，我们可以采用如下思路对冒泡排序的代码进行优化。</p>
 <ul>
 <li>当某轮内循环没有发生元素交换时，表明数组已然有序，无需再进行后续的比较，此时可直接中止循环    </li>
 </ul>
 <h4 id="冒泡排序优化代码"><a href="#冒泡排序优化代码" class="headerlink" title="冒泡排序优化代码"></a>冒泡排序优化代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSortOpt</span><span class="params">(Integer arr[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> compareCount = <span class="number">0</span>;<span class="comment">//比较次数</span></span><br><span class="line">        <span class="keyword">int</span> swapCount = <span class="number">0</span>;<span class="comment">//交换次数</span></span><br><span class="line">        <span class="keyword">long</span> before = System.currentTimeMillis();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123; <span class="comment">//外层循环，与数组元素个数相关</span></span><br><span class="line">        	<span class="keyword">boolean</span> isSwap = <span class="keyword">false</span>; <span class="comment">//交换标记，每轮外循环开始时，将其置位false</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; arr.length - i; j++) &#123; <span class="comment">//内层循环，只需在前 n-1 个元素内进行相邻比较</span></span><br><span class="line">                compareCount++;</span><br><span class="line">                <span class="keyword">if</span> (arr[j - <span class="number">1</span>] &gt; arr[j]) &#123;</span><br><span class="line">                	isSwap = <span class="keyword">true</span>;<span class="comment">//若内循环内发生交换，则将交换标志置位true</span></span><br><span class="line">                    swapCount++;</span><br><span class="line">                    swap(arr, j - <span class="number">1</span>, j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!isSwap) &#123;<span class="comment">//判断循环标记，若未发生交换，则跳出循环</span></span><br><span class="line">            	<span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> after = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"冒泡排序耗时："</span>+(after-before)+<span class="string">"ms,"</span>+<span class="string">"比较次数："</span>+compareCount+<span class="string">",交换次数："</span>+swapCount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">原有数组 3 5 1 6 10 9 11 </span><br><span class="line">冒泡排序耗时：0ms 比较次数：15,交换次数：3</span><br><span class="line">排序后 1 3 5 6 9 10 11 </span><br><span class="line">---</span><br><span class="line">原有数组 1 3 5 6 9 10 11 </span><br><span class="line">冒泡排序耗时：0ms 比较次数：5,交换次数：0</span><br><span class="line">排序后</span><br></pre></td></tr></table></figure>
-
 <h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><p>选择排序的思路同样很简单，以对含有N个元素的数组进行升序排序为例，其步骤如下所示：</p>
 <ol>
 <li>假设首元素是最小的，并记录其索引值为minIndex，遍历数组，分别与其比较，若数组中第i个元素的数值小于第minIndex个元素的数组，则将i赋值与minIndex。</li>
@@ -304,9 +299,7 @@
 <li>经过前边两个步骤，此时数组中可分为首元素和与第2个元素开始到末尾的N-1个元素。判断N-1，若N-1&gt;0,则将第二个元素视作首元素，重复步骤1-2；若N-1=0，则表明数组已然有序，中止循环。</li>
 </ol>
 <p>选择排序的过程(剪辑版)如下图所示，你也可以<a href="/uploads/SelectionSort1.gif">点击这里查看完整的选择排序过程</a>。<br><img src="/uploads/SelectionSort.gif" alt="选择排序剪辑版"></p>
-<p>根据这个思路，不难写出其代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selectSort</span><span class="params">(Integer arr[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> compareCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> swapCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">long</span> before = System.currentTimeMillis();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> minIndex = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i+<span class="number">1</span>; j &lt; arr.length - i; j++) &#123;</span><br><span class="line">            compareCount++;</span><br><span class="line">            <span class="keyword">if</span> (arr[j]&lt;arr[minIndex])&#123;</span><br><span class="line">                minIndex = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (minIndex!=i)&#123;</span><br><span class="line">            swapCount++;</span><br><span class="line">            swap(arr,i,minIndex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> after = System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">"选择排序耗时："</span> + (after - before) + <span class="string">"ms,"</span> + <span class="string">"比较次数："</span> + compareCount + <span class="string">",交换次数："</span> + swapCount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>根据这个思路，不难写出其代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selectSort</span><span class="params">(Integer arr[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> compareCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> swapCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">long</span> before = System.currentTimeMillis();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> minIndex = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i+<span class="number">1</span>; j &lt; arr.length - i; j++) &#123;</span><br><span class="line">            compareCount++;</span><br><span class="line">            <span class="keyword">if</span> (arr[j]&lt;arr[minIndex])&#123;</span><br><span class="line">                minIndex = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (minIndex!=i)&#123;</span><br><span class="line">            swapCount++;</span><br><span class="line">            swap(arr,i,minIndex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> after = System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">"选择排序耗时："</span> + (after - before) + <span class="string">"ms,"</span> + <span class="string">"比较次数："</span> + compareCount + <span class="string">",交换次数："</span> + swapCount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>插入排序是我们需要了解是最后一个简单排序算法，其思路与我们打扑克牌时的起牌手法相似。</p>
 <ol>
 <li>假设我们用左手持牌，右手起牌，每次起牌完成后，左手中的手牌均为有序的。</li>
@@ -322,7 +315,6 @@
 <p>需要注意的是，在插入排序时，我们将数组分为了两部分，一部分是”左手”中的有序子数组，另一部分是”牌堆”中无序的子数组。初始时，我们将数组中的第一个元素视作已排序子数组，并将第二个元素至最后一个元素视作无序子数组。我们每次从无序子数组中取出首元素p，从后往前分别与有序子数组中的元素q进行比较，若p小于q的数值，则将p与q交换，并继续用p与子数组中剩下的元素进行比较和交换，直到p不小q时，完成此轮插入，此时有序子数组的长度+1，无序子数组的长度-1。</p>
 <p>插入排序的过程(剪辑版)如下图所示，你也可以<a href="/uploads/InsertSort1.gif">点击这里查看完整的插入排序过程</a>。<br><img src="/uploads/InsertSort.gif" alt="插入排序剪辑版"></p>
 <h4 id="插入排序代码"><a href="#插入排序代码" class="headerlink" title="插入排序代码"></a>插入排序代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(Integer arr[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> compareCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> swapCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">long</span> before = System.currentTimeMillis();</span><br><span class="line">    <span class="comment">//外层循环，i表示有序子数组与无序子数组间的界限，i之前的元素为有序的，i及i之后的元素为无序的</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">    	<span class="comment">//内层循环，将i到0之间的元素两两比较，若i&lt;i-1，则交换两者的位置</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt; <span class="number">0</span>; j--) &#123;</span><br><span class="line">            compareCount++;</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &lt; arr[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                swapCount++;</span><br><span class="line">                swap(arr, j, j - <span class="number">1</span>);<span class="comment">//两两交换</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> after = System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">"选择排序耗时："</span> + (after - before) + <span class="string">"ms,"</span> + <span class="string">"比较次数："</span> + compareCount + <span class="string">",交换次数："</span> + swapCount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>我们知道频繁的两两交换也是有性能损耗的，对于插入排序，我们通过如下的思路进一步优化：</p>
 <ul>
 <li>在新牌插入过程中，先在左手手牌的后方将新牌的空间给预留出来，从大到小，依次比较当前手牌与新牌。</li>
@@ -331,10 +323,10 @@
 </ul>
 <p>有了这个思路，我们便可以将此前频繁的两两交换，换为单个元素后移，从而减少了一定的性能开销。</p>
 <h4 id="优化插入排序"><a href="#优化插入排序" class="headerlink" title="优化插入排序"></a>优化插入排序</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertSortOpt</span><span class="params">(Integer arr[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> before = System.currentTimeMillis();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">    	<span class="comment">//使用临时变量保存新牌</span></span><br><span class="line">        <span class="keyword">int</span> temp  =arr[i];</span><br><span class="line">        <span class="keyword">int</span> j = i;</span><br><span class="line">        <span class="comment">//从大到小，依次取左手中的牌与temp进行比较，若左手当前手牌大于temp，则将当前手牌后移一位</span></span><br><span class="line">        <span class="keyword">while</span>(j&gt;<span class="number">0</span> &amp;&amp; temp&lt;arr[j-<span class="number">1</span>])&#123;</span><br><span class="line">        	arr[j] = arr[j -<span class="number">1</span>];</span><br><span class="line">        	j--;<span class="comment">//继续下一张较大的牌</span></span><br><span class="line">        &#125;</span><br><span class="line">        arr[j] = temp;<span class="comment">//最终将temp插入左手手牌中合适的位置</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> after = System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">"插入排序耗时："</span> + (after - before) + <span class="string">"ms"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>在规模较大的问题中，这种方式带来的好处非常明显。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">10W条数据</span><br><span class="line">   插入排序耗时：12296ms</span><br><span class="line">优化插入排序耗时：2742ms</span><br></pre></td></tr></table></figure>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><table>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>排序算法</th>
@@ -345,7 +337,8 @@
 <th>平均解题时间</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>优化冒泡排序</td>
 <td>1W</td>
 <td>293ms</td>
@@ -354,7 +347,7 @@
 <td>288ms</td>
 </tr>
 <tr>
-<td>选择排序</td>
+<td>   选择排序</td>
 <td>1W</td>
 <td>28ms</td>
 <td>43ms</td>
@@ -378,7 +371,7 @@
 <td>7748.3ms</td>
 </tr>
 <tr>
-<td>选择排序</td>
+<td>   选择排序</td>
 <td>5W</td>
 <td>603ms</td>
 <td>617ms</td>
@@ -402,7 +395,7 @@
 <td>29725.7ms</td>
 </tr>
 <tr>
-<td>选择排序</td>
+<td>   选择排序</td>
 <td>10W</td>
 <td>2609ms</td>
 <td>2649ms</td>
@@ -417,9 +410,12 @@
 <td>2685ms</td>
 <td>2696.7ms</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>经过测试，可以看到冒泡排序的耗时最多。插入排序在规模较小的数组中明显快于选择排序，在规模较大的数组中与选择排序相当，从此也证明了我们此前算法分析环节中得到的结论。</p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>本文介绍了三个基础的排序算法，在这里先对它们做一个总结，希望能让大家对排序及算法效率有一个直观的感受。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -431,7 +427,8 @@
 <th>特点</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>优化冒泡排序</td>
 <td>相邻元素两两比较并交换</td>
 <td>比较n-1次，交换0次</td>
@@ -455,7 +452,9 @@
 <td>O(n²)</td>
 <td>运行时间与原始数据强相关；对<strong>部分有序数据</strong>或<strong>小规模数据</strong>极为友好</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>选择排序和插入排序的异同点：</p>
 <ol>
 <li>插入排序与选择排序一样，当前索引左边的所有元素都是有序的。但在选择排序中，当前索引左边的元素位置是固定的(与最终位置一致)；而插入排序当前索引左边的元素位置未必固定，为了给后边更小的元素腾出空间，它们可能会被移动，当索引到达数组的右端时，排序完成。</li>

@@ -258,7 +258,6 @@
         <p>这一概念经常混淆,故写下来,以备不时之需</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> * <span class="keyword">const</span> b = &amp;a;<span class="comment">//const修饰b,b本身不可变,但是*b可变;人称常量指针,即指针是常量,地址不可改变</span></span><br><span class="line">*b = <span class="number">20</span>;<span class="comment">//更换值</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; *b &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> * bb = &amp;a;<span class="comment">//const修饰*bb,*bb不可变,但是bb可变;人称指针常量,指向常量的指针,值不可以变,地址可以改变</span></span><br><span class="line"><span class="keyword">int</span> c = <span class="number">30</span>;</span><br><span class="line">bb = &amp;c;<span class="comment">//更换指向</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; *bb &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
 
-
     </div>
 
     
@@ -292,13 +291,10 @@
 
         
     <div class="post-nav">
+      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2013/11/03/function-pointer-and-class-member-pointer/" rel="prev" title="函数指针和类成员指针">
-      <i class="fa fa-chevron-left"></i> 函数指针和类成员指针
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2014/01/14/use-block-in-iOS-dev/" rel="next" title="在iOS开发中使用block">
-      在iOS开发中使用block <i class="fa fa-chevron-right"></i>
+    <a href="/2013/11/03/function-pointer-and-class-member-pointer/" rel="next" title="函数指针和类成员指针">
+      函数指针和类成员指针 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

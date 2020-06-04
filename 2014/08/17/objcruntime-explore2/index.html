@@ -20,18 +20,18 @@
     var CONFIG = {"hostname":"blog.devwu.com","root":"/","scheme":"Mist","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言接上次的话题,继续就objc&#x2F;runtime进行讨论.经过今晚的探究,基本掌握了运行时的函数规则,总的有如下几种函数前缀.在后边的文章中我会就一些问题再次讨论,本文权当做API的速查手册使用.  objc_ class_ object_ method_ property_ protocol_ ivar_ ,sel_     ,imp_">
+  <meta name="description" content="前言接上次的话题,继续就objc&#x2F;runtime进行讨论.经过今晚的探究,基本掌握了运行时的函数规则,总的有如下几种函数前缀.在后边的文章中我会就一些问题再次讨论,本文权当做API的速查手册使用.  objc_ class_ object_ method_ property_ protocol_ ivar ,sel     ,imp_">
 <meta property="og:type" content="article">
 <meta property="og:title" content="objc&#x2F;runtime 探索(二)">
 <meta property="og:url" content="http://blog.devwu.com/2014/08/17/objcruntime-explore2/index.html">
 <meta property="og:site_name" content="Geek5Nan">
-<meta property="og:description" content="前言接上次的话题,继续就objc&#x2F;runtime进行讨论.经过今晚的探究,基本掌握了运行时的函数规则,总的有如下几种函数前缀.在后边的文章中我会就一些问题再次讨论,本文权当做API的速查手册使用.  objc_ class_ object_ method_ property_ protocol_ ivar_ ,sel_     ,imp_">
+<meta property="og:description" content="前言接上次的话题,继续就objc&#x2F;runtime进行讨论.经过今晚的探究,基本掌握了运行时的函数规则,总的有如下几种函数前缀.在后边的文章中我会就一些问题再次讨论,本文权当做API的速查手册使用.  objc_ class_ object_ method_ property_ protocol_ ivar ,sel     ,imp_">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2014-08-17T00:00:00.000Z">
 <meta property="article:modified_time" content="2019-12-11T14:04:51.000Z">
 <meta property="article:author" content="Geek5Nan">
-<meta property="article:tag" content="runtime">
 <meta property="article:tag" content="objc">
+<meta property="article:tag" content="runtime">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://blog.devwu.com/2014/08/17/objcruntime-explore2/">
@@ -264,16 +264,18 @@
 <li>method_</li>
 <li>property_</li>
 <li>protocol_</li>
-<li>ivar_ ,sel_     ,imp_</li>
+<li>ivar<em> ,sel</em>     ,imp_</li>
 </ul>
-<h3 id="1-objc-xxx-系列函数"><a href="#1-objc-xxx-系列函数" class="headerlink" title="1.objc_xxx 系列函数"></a>1.objc_xxx 系列函数</h3><table>
+<h3 id="1-objc-xxx-系列函数"><a href="#1-objc-xxx-系列函数" class="headerlink" title="1.objc_xxx 系列函数"></a>1.objc_xxx 系列函数</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>函数名称</th>
-<th>函数作用</th>
+<th>函数作用        </th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><em><code>objc_getClass</code></em></td>
 <td>获取Class对象</td>
 </tr>
@@ -314,7 +316,7 @@
 <td>为实例对象关联对象</td>
 </tr>
 <tr>
-<td><em><code>objc_getAssociatedObje*ct</code></em></td>
+<td><em>`objc_getAssociatedObje</em>ct`*</td>
 <td>获取实例对象的关联对象</td>
 </tr>
 <tr>
@@ -323,19 +325,23 @@
 </tr>
 <tr>
 <td><em><code>objc_msgSend</code></em></td>
-<td>发送ObjC消息</td>
+<td>发送ObjC消息  </td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>-</p>
 <p><strong><code>objc_</code>系列函数关注于宏观使用,如类与协议的空间分配,注册,注销等操作</strong></p>
-<h3 id="2-class-xxx-系列函数"><a href="#2-class-xxx-系列函数" class="headerlink" title="2.class_xxx 系列函数"></a>2.class_xxx 系列函数</h3><table>
+<h3 id="2-class-xxx-系列函数"><a href="#2-class-xxx-系列函数" class="headerlink" title="2.class_xxx 系列函数"></a>2.class_xxx 系列函数</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>函数名称</th>
-<th>函数作用</th>
+<th>函数作用        </th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><em><code>class_addIvar</code></em></td>
 <td>为类添加实例变量</td>
 </tr>
@@ -435,17 +441,21 @@
 <td><em><code>class_copyPropertyList</code></em></td>
 <td>拷贝类的属性列表</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>-</p>
 <p><strong><code>class_</code>系列函数关注于类的内部,如实例变量,属性,方法,协议等相关问题</strong></p>
-<h3 id="3-object-xxx-系列函数"><a href="#3-object-xxx-系列函数" class="headerlink" title="3.object_xxx 系列函数"></a>3.object_xxx 系列函数</h3><table>
+<h3 id="3-object-xxx-系列函数"><a href="#3-object-xxx-系列函数" class="headerlink" title="3.object_xxx 系列函数"></a>3.object_xxx 系列函数</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>函数名称</th>
-<th>函数作用</th>
+<th>函数作用        </th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><em><code>object_copy</code></em></td>
 <td>对象copy(ARC无效)</td>
 </tr>
@@ -481,17 +491,21 @@
 <td><em><code>object_setInstanceVariable</code></em></td>
 <td>设置对象中实例变量的值 (ARC中无效,使用<code>object_setIvar</code>)</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>-</p>
 <p><strong><code>objcet_</code>系列函数关注于对象的角度,如实例变量</strong></p>
-<h3 id="4-method-xxx-系列函数"><a href="#4-method-xxx-系列函数" class="headerlink" title="4.method_xxx 系列函数"></a>4.method_xxx 系列函数</h3><table>
+<h3 id="4-method-xxx-系列函数"><a href="#4-method-xxx-系列函数" class="headerlink" title="4.method_xxx 系列函数"></a>4.method_xxx 系列函数</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>函数名称</th>
-<th>函数作用</th>
+<th>函数作用        </th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><em><code>method_getName</code></em></td>
 <td>获取方法名</td>
 </tr>
@@ -535,17 +549,21 @@
 <td><em><code>method_exchangeImplementations</code></em></td>
 <td>替换方法的实现</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>-</p>
 <p><strong><code>method_</code>系列函数关注于方法内部,如果方法的参数及返回值类型和方法的实现</strong></p>
-<h3 id="5-property-xxx-系列函数"><a href="#5-property-xxx-系列函数" class="headerlink" title="5.property_xxx 系列函数"></a>5.property_xxx 系列函数</h3><table>
+<h3 id="5-property-xxx-系列函数"><a href="#5-property-xxx-系列函数" class="headerlink" title="5.property_xxx 系列函数"></a>5.property_xxx 系列函数</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>函数名称</th>
-<th>函数作用</th>
+<th>函数作用        </th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><em><code>property_getName</code></em></td>
 <td>获取属性名</td>
 </tr>
@@ -561,17 +579,21 @@
 <td><em><code>property_copyAttributeValue</code></em></td>
 <td>拷贝属性中某特性的值</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>-</p>
 <p><strong><code>property_</code>系类函数关注与属性*内部,如属性的特性等</strong></p>
-<h3 id="6-protocol-xxx-系列函数"><a href="#6-protocol-xxx-系列函数" class="headerlink" title="6.protocol_xxx 系列函数"></a>6.protocol_xxx 系列函数</h3><table>
+<h3 id="6-protocol-xxx-系列函数"><a href="#6-protocol-xxx-系列函数" class="headerlink" title="6.protocol_xxx 系列函数"></a>6.protocol_xxx 系列函数</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>函数名称</th>
-<th>函数作用</th>
+<th>函数作用        </th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><em><code>protocol_conformsToProtocol</code></em></td>
 <td>判断一个协议是否遵循另一个协议</td>
 </tr>
@@ -615,15 +637,19 @@
 <td><em><code>protocol_getMethodDescription</code></em></td>
 <td>获取协议中某方法的描述</td>
 </tr>
-</tbody></table>
-<h3 id="7-ivar-xxx-系列函数"><a href="#7-ivar-xxx-系列函数" class="headerlink" title="7.ivar_xxx 系列函数"></a>7.ivar_xxx 系列函数</h3><table>
+</tbody>
+</table>
+</div>
+<h3 id="7-ivar-xxx-系列函数"><a href="#7-ivar-xxx-系列函数" class="headerlink" title="7.ivar_xxx 系列函数"></a>7.ivar_xxx 系列函数</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>函数名称</th>
-<th>函数作用</th>
+<th>函数作用        </th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><em><code>ivar_getName</code></em></td>
 <td>获取Ivar名称</td>
 </tr>
@@ -635,15 +661,19 @@
 <td><em><code>ivar_getOffset</code></em></td>
 <td>获取偏移量</td>
 </tr>
-</tbody></table>
-<h3 id="8-sel-xxx-系列函数"><a href="#8-sel-xxx-系列函数" class="headerlink" title="8.sel_xxx 系列函数"></a>8.sel_xxx 系列函数</h3><table>
+</tbody>
+</table>
+</div>
+<h3 id="8-sel-xxx-系列函数"><a href="#8-sel-xxx-系列函数" class="headerlink" title="8.sel_xxx 系列函数"></a>8.sel_xxx 系列函数</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>函数名称</th>
-<th>函数作用</th>
+<th>函数作用        </th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><em><code>sel_getName</code></em></td>
 <td>获取名称</td>
 </tr>
@@ -659,15 +689,19 @@
 <td><em><code>sel_isEqual</code></em></td>
 <td>判断方法是否相等</td>
 </tr>
-</tbody></table>
-<h3 id="9-imp-xxx-系列函数"><a href="#9-imp-xxx-系列函数" class="headerlink" title="9.imp_xxx 系列函数"></a>9.imp_xxx 系列函数</h3><table>
+</tbody>
+</table>
+</div>
+<h3 id="9-imp-xxx-系列函数"><a href="#9-imp-xxx-系列函数" class="headerlink" title="9.imp_xxx 系列函数"></a>9.imp_xxx 系列函数</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>函数名称</th>
-<th>函数作用</th>
+<th>函数作用        </th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><em><code>imp_implementationWithBlock</code></em></td>
 <td>通过代码块创建IMP</td>
 </tr>
@@ -679,7 +713,9 @@
 <td><em><code>imp_removeBlock</code></em></td>
 <td>移除IMP中的代码块</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 
     </div>
 
@@ -706,8 +742,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/runtime/" rel="tag"># runtime</a>
               <a href="/tags/objc/" rel="tag"># objc</a>
+              <a href="/tags/runtime/" rel="tag"># runtime</a>
           </div>
 
         

@@ -39,8 +39,8 @@
 <meta property="article:published_time" content="2019-06-23T01:13:33.000Z">
 <meta property="article:modified_time" content="2019-12-11T14:04:51.000Z">
 <meta property="article:author" content="Geek5Nan">
-<meta property="article:tag" content="Android">
 <meta property="article:tag" content="AOSP">
+<meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://blog.devwu.com/uploads/aosp2-1.png">
 
@@ -269,14 +269,13 @@
         <p><a href="https://geek5nan.github.io/2019/06/10/build-android-pie-in-macOS-Mojave/" target="_blank" rel="noopener">上一篇文章</a>介绍了 AOSP 9 在 macOS 10.14 环境下的编译方式，本文就 Andorid Studio 环境下阅读 AOSP 源码的方式进行记录。</p>
 <h2 id="阅读前-AOSP-的准备"><a href="#阅读前-AOSP-的准备" class="headerlink" title="阅读前 AOSP 的准备"></a>阅读前 AOSP 的准备</h2><p>开始之前我们先为 AOSP 生成 IDEA 工程文件，便于稍后在 Android Studio 中载入。</p>
 <h3 id="1-为-AOSP-生成-Android-Studio-工程配置文件"><a href="#1-为-AOSP-生成-Android-Studio-工程配置文件" class="headerlink" title="1. 为 AOSP 生成 Android Studio 工程配置文件"></a>1. 为 AOSP 生成 Android Studio 工程配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /Volumes/AOSP</span><br><span class="line"><span class="comment"># 设置 AOSP 编译所需的环境变量</span></span><br><span class="line"><span class="built_in">source</span> build/envsetup.sh</span><br><span class="line"><span class="comment"># 使用 idegen.sh 脚本生成 IDEA 工程文件</span></span><br><span class="line">development/tools/idegen/idegen.sh</span><br><span class="line">-------------------------------</span><br><span class="line">Read excludes: 4ms</span><br><span class="line">Traversed tree: 68826ms</span><br></pre></td></tr></table></figure>
-
 <p>稍等片刻，即可在 AOSP 目录下看到生成的 <code>android.iml</code> 和 <code>android.ipr</code>，其中 <strong>iml 文件</strong> 表示 information of modules, 用来描述 AOSP 的模块信息。<strong>ipr 文件</strong> 表示 IDEA project configuration ，用来描述 IDEA 的工程配置信息，双击此文件时系统将直接使用 Andorid Studio 打开此项目。</p>
 <p><img src="/uploads/aosp2-1.png" alt=""></p>
 <h3 id="2-导入-Android-Studio"><a href="#2-导入-Android-Studio" class="headerlink" title="2. 导入 Android Studio"></a>2. 导入 Android Studio</h3><ol>
 <li>点击 <strong>Open an existring Android Studio project</strong> </li>
 </ol>
 <p><img src="/uploads/aosp2-2.png" alt=""></p>
-<ol start="2">
+<ol>
 <li>选中 AOSP 根目录</li>
 </ol>
 <p><img src="/uploads/aosp2-3.png" alt=""></p>
@@ -304,20 +303,19 @@
 <h3 id="5-修改-AOSP-工程配置"><a href="#5-修改-AOSP-工程配置" class="headerlink" title="5. 修改 AOSP 工程配置"></a>5. 修改 AOSP 工程配置</h3><p><strong>1.清空 Android Studio 中关联的 JDK 与 SDK</strong></p>
 <p>我们首次安装 Android Studio 时，通常会为其配置默认的 JDK 和 SDK，而 AOSP 项目中也包含 Android SDK 与 Java JDK 的源码，但在未清空 Android Studio 的默认 JDK 与 SDK 之前，Android Studio 会优先加载其默认的 JDK 与 SDK 而非 AOSP 中包含的，我们可以采用如下方式清空默认的 JDK 与 SDK 。</p>
 <ol>
-<li>点击 <strong>File</strong> &gt; <strong>Project Structure.. *<em>，也可使用快捷键 *</em>⌘</strong> + <strong>;</strong> </li>
+<li>点击 <strong>File</strong> &gt; <strong>Project Structure.. </strong>，也可使用快捷键 <strong>⌘</strong> + <strong>;</strong> </li>
 <li>选中<strong>Platform Setting</strong> &gt; <strong>SDK</strong>，然后选中所有的 SDK，最后点击上方的移除按钮 <strong>➖</strong></li>
 </ol>
 <p><img src="/uploads/aosp2-8.png" alt=""></p>
-<ol start="3">
-<li><p>点击上方的添加按钮 ➕，添加 JDK </p>
-</li>
+<ol>
+<li>点击上方的添加按钮 ➕，添加 JDK </li>
 <li><p>将新增的JDK更名为 Empty JDK </p>
 </li>
 <li><p>使用下方的移除按钮➖，依次清空 Empty JDK 下方标签栏中 <strong>Classpath</strong> 与 <strong>Sourcepath</strong>下的所有依赖项</p>
 </li>
 </ol>
 <p><img src="/uploads/aosp2-9.png" alt=""></p>
-<ol start="6">
+<ol>
 <li>点击右下方的 <strong>Apply</strong> 按钮保存更改，然后进行下一步操作。</li>
 </ol>
 <p><strong>2.移除 AOSP 内的多余依赖项</strong></p>
@@ -326,7 +324,7 @@
 <li>移除 Export 中除 <strong>Module source</strong> 、 <strong>Empty JDK</strong> 以外的所有条目，如下图所示。</li>
 </ol>
 <p><img src="/uploads/aosp2-10.png" alt=""></p>
-<ol start="3">
+<ol>
 <li>点击右下方的 <strong>OK</strong> 按钮保存修改。</li>
 </ol>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>经过以上操作，代码中的红色错误全部消失，代码间也能够进行任意跳转（除 native 代码外），总算可以舒畅的阅读 AOSP 了。</p>
@@ -336,7 +334,6 @@
 </ol>
 <p>AOSP  的工程模块描述文件 <code>/Volumes/AOSP/android.iml</code> 内容如下。</p>
 <figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line">&lt;module relativePaths="true" type="JAVA_MODULE" version="4"&gt;</span><br><span class="line">......</span><br><span class="line">  &lt;component name="NewModuleRootManager" inherit-compiler-output="true"&gt;</span><br><span class="line">    &lt;exclude-output /&gt;</span><br><span class="line">    &lt;content url="file://$MODULE_DIR$"&gt;</span><br><span class="line">......</span><br><span class="line"><span class="addition">+      &lt;sourceFolder url="file://$MODULE_DIR$/frameworks/base/core/java" type="kotlin-source" /&gt;</span></span><br><span class="line"><span class="addition">+      &lt;sourceFolder url="file://$MODULE_DIR$/frameworks/base/core/tests/benchmarks/src" type="kotlin-test" /&gt;</span></span><br><span class="line"><span class="deletion">-      &lt;excludeFolder url="file://$MODULE_DIR$/.repo" /&gt;</span></span><br><span class="line">......</span><br><span class="line">    &lt;/content&gt;</span><br><span class="line">  &lt;/component&gt;</span><br><span class="line">&lt;/module&gt;</span><br></pre></td></tr></table></figure>
-
 <p>​    其中，绿色的 <span style="color:green">sourceFolder</span> 表示已导入的模块，红色的 <span style='color:red'>excludeFolder</span> 表示需要从项目中排除的模块。我们可仅保留部分感兴趣的模块，将其他不感兴趣的模块的 xml 标签由 <span style="color:green">sourceFolder</span>  修改为 <span style="color:red">excludeFolder</span>  ，这样一来项目索引和检索的速度便会快很多。</p>
 
     </div>
@@ -364,8 +361,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Android/" rel="tag"># Android</a>
               <a href="/tags/AOSP/" rel="tag"># AOSP</a>
+              <a href="/tags/Android/" rel="tag"># Android</a>
           </div>
 
         

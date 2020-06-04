@@ -345,7 +345,8 @@
 <pre><code>int arr[3]={1,3,5};
 arr[0] 可以用 *(arr+0) 表示
 arr[1] 可以用 *(arr+1) 表示
-arr[2] 可以用 *(arr+2) 表示</code></pre><p>现有二维数组如下:</p>
+arr[2] 可以用 *(arr+2) 表示
+</code></pre><p>现有二维数组如下:</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2014/07/24/2d-array--pointer/#more" rel="contents">
@@ -442,7 +443,8 @@ arr[2] 可以用 *(arr+2) 表示</code></pre><p>现有二维数组如下:</p>
       
           <h3 id="前言"><a href="#前言" class="headerlink" title="前言:"></a>前言:</h3><p>编程中,对于字符串的处理是无处不在的.时常需要在一堆乱码中找到有用的信息.比如在如下的字符串中获取有效的 <strong>URL</strong> 或  <strong>Email</strong></p>
 <pre><code>ababsdbasbdabdhttp://baidu.com
-&lt;div&gt;test@test.com&lt;div&gt;</code></pre>
+&lt;div&gt;test@test.com&lt;div&gt;
+</code></pre>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2014/05/29/use-regex-in-objective-c/#more" rel="contents">
@@ -566,96 +568,6 @@ arr[2] 可以用 *(arr+2) 表示</code></pre><p>现有二维数组如下:</p>
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.devwu.com/2013/11/03/pointer-of-const-and-const-of-pointer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.png">
-      <meta itemprop="name" content="Geek5Nan">
-      <meta itemprop="description" content="每天进步一点。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Geek5Nan">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2013/11/03/pointer-of-const-and-const-of-pointer/" class="post-title-link" itemprop="url">指针常量和常量指针</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2013-11-03 00:00:00" itemprop="dateCreated datePublished" datetime="2013-11-03T00:00:00Z">2013-11-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-11 14:04:51" itemprop="dateModified" datetime="2019-12-11T14:04:51Z">2019-12-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/develop/" itemprop="url" rel="index"><span itemprop="name">develop</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2013/11/03/pointer-of-const-and-const-of-pointer/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/11/03/pointer-of-const-and-const-of-pointer/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>这一概念经常混淆,故写下来,以备不时之需</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> * <span class="keyword">const</span> b = &amp;a;<span class="comment">//const修饰b,b本身不可变,但是*b可变;人称常量指针,即指针是常量,地址不可改变</span></span><br><span class="line">*b = <span class="number">20</span>;<span class="comment">//更换值</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; *b &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> * bb = &amp;a;<span class="comment">//const修饰*bb,*bb不可变,但是bb可变;人称指针常量,指向常量的指针,值不可以变,地址可以改变</span></span><br><span class="line"><span class="keyword">int</span> c = <span class="number">30</span>;</span><br><span class="line">bb = &amp;c;<span class="comment">//更换指向</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; *bb &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://blog.devwu.com/2013/11/03/function-pointer-and-class-member-pointer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -727,10 +639,94 @@ arr[2] 可以用 *(arr+2) 表示</code></pre><p>现有二维数组如下:</p>
           <p>函数指针和类成员指针经常被用作参数进行传递,多态和函数重载都会用到.</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"member method Demo::show() did call"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    str = <span class="string">"str from Demo::show()"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">string</span> str;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"普通函数指针被调用"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">    <span class="comment">//普通函数指针</span></span><br><span class="line">    <span class="comment">//将普通函数show的地址赋值给pPainShow,优先级原因,必须在(*pPainShow)外加小括号,</span></span><br><span class="line">    <span class="comment">//否则编译器会将此认为是一个void* pPainShow(); 的函数声明,显然,我们不是这个意思.^_^</span></span><br><span class="line">    <span class="keyword">void</span> (*pPainShow)() = &amp;show;</span><br><span class="line">    (*pPainShow)();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//指向类成员变量的指针</span></span><br><span class="line">    <span class="comment">//将Demo::str的地址赋值给 pStr指针</span></span><br><span class="line">    <span class="built_in">string</span> Demo::*pStr = &amp;Demo::str;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//指向类成员方法的指针</span></span><br><span class="line">    <span class="comment">//将Demo::show的地址赋值给pShow,此处因为优先级问题,必须在Demo::*pShow外加小括号.</span></span><br><span class="line">    <span class="keyword">void</span> (Demo::*pShow)(<span class="comment">/*参数列表...*/</span>)=&amp;Demo::show;</span><br><span class="line">    Demo *d=<span class="keyword">new</span> Demo;</span><br><span class="line">    Demo dd;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"准备通过指向成员函数的指针调用函数"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    (d-&gt;*pShow)();</span><br><span class="line">    (dd.*pShow)();</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"准备通过指向成员变量的指针访问变量"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;d-&gt;*pStr&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;dd.*pStr&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+      
+    </div>
 
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.devwu.com/2013/11/03/pointer-of-const-and-const-of-pointer/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="Geek5Nan">
+      <meta itemprop="description" content="每天进步一点。">
+    </span>
 
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Geek5Nan">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2013/11/03/pointer-of-const-and-const-of-pointer/" class="post-title-link" itemprop="url">指针常量和常量指针</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2013-11-03 00:00:00" itemprop="dateCreated datePublished" datetime="2013-11-03T00:00:00Z">2013-11-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-11 14:04:51" itemprop="dateModified" datetime="2019-12-11T14:04:51Z">2019-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/develop/" itemprop="url" rel="index"><span itemprop="name">develop</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2013/11/03/pointer-of-const-and-const-of-pointer/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/11/03/pointer-of-const-and-const-of-pointer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这一概念经常混淆,故写下来,以备不时之需</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> * <span class="keyword">const</span> b = &amp;a;<span class="comment">//const修饰b,b本身不可变,但是*b可变;人称常量指针,即指针是常量,地址不可改变</span></span><br><span class="line">*b = <span class="number">20</span>;<span class="comment">//更换值</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; *b &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> * bb = &amp;a;<span class="comment">//const修饰*bb,*bb不可变,但是bb可变;人称指针常量,指向常量的指针,值不可以变,地址可以改变</span></span><br><span class="line"><span class="keyword">int</span> c = <span class="number">30</span>;</span><br><span class="line">bb = &amp;c;<span class="comment">//更换指向</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; *bb &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
 
       
     </div>

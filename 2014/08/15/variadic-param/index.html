@@ -264,7 +264,8 @@
         sum = sum+ *p;
     } 
     printf(&quot;%d\n&quot;,sum );
-}</code></pre><p>代码较为简单,此处不再展开.</p>
+}
+</code></pre><p>代码较为简单,此处不再展开.</p>
 <h3 id="接下来是可变参数"><a href="#接下来是可变参数" class="headerlink" title="接下来是可变参数"></a>接下来是可变参数</h3><blockquote>
 <p>可变参数需要使用 <code>&lt;stdarg.h&gt;</code> 头文件,请提前导入</p>
 </blockquote>
@@ -298,7 +299,8 @@
     //释放变长参数列表vl
     va_end(vl);
     printf(&quot;%d\n&quot;,sum );
-}</code></pre><h3 id="调用形式"><a href="#调用形式" class="headerlink" title="调用形式"></a>调用形式</h3><pre><code>int main(int argc,char * args[])
+}
+</code></pre><h3 id="调用形式"><a href="#调用形式" class="headerlink" title="调用形式"></a>调用形式</h3><pre><code>int main(int argc,char * args[])
 {    
     int arr[] = {1,2,3,4,5};
     //数组指针
@@ -307,9 +309,11 @@
     //变长参数
     test2(1,2,3,4,5,6,NULL);
     return 0;
-}</code></pre><h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><pre><code>15
+}
+</code></pre><h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><pre><code>15
 ---------
-21</code></pre><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><code>...</code> 的类型不做限定,因此在函数或方法调用时可传递任何类型,包括但不限于<code>ObjC</code>中使用的<code>id</code>等类型</p>
+21
+</code></pre><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><code>...</code> 的类型不做限定,因此在函数或方法调用时可传递任何类型,包括但不限于<code>ObjC</code>中使用的<code>id</code>等类型</p>
 <p>另外暂未查看到<code>&lt;stdarg.h&gt;</code>的源码,只能推测其中也是使用的数组指针进行的处理.如有纰漏请批评指正.</p>
 
     </div>

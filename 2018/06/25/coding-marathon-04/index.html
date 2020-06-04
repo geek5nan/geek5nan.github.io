@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://blog.devwu.com/uploads/MergeSort1.gif">
 <meta property="og:image" content="http://blog.devwu.com/uploads/QuickSort1.gif">
 <meta property="article:published_time" content="2018-06-24T22:53:17.000Z">
-<meta property="article:modified_time" content="2019-12-11T14:04:51.000Z">
+<meta property="article:modified_time" content="2020-06-04T08:49:51.750Z">
 <meta property="article:author" content="Geek5Nan">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-11 14:04:51" itemprop="dateModified" datetime="2019-12-11T14:04:51Z">2019-12-11</time>
+                <time title="修改时间：2020-06-04 08:49:51" itemprop="dateModified" datetime="2020-06-04T08:49:51Z">2020-06-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -277,11 +277,9 @@
 </ol>
 <p>希尔排序的过程如下图所示<br><img src="/uploads/ShellSort1.gif" alt="希尔排序完整版"></p>
 <h4 id="希尔排序代码"><a href="#希尔排序代码" class="headerlink" title="希尔排序代码"></a>希尔排序代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(Integer arr[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> before = System.currentTimeMillis();</span><br><span class="line">    <span class="keyword">int</span> m = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//获取的m值，与数组长度相关</span></span><br><span class="line">    <span class="comment">//子数组的部分有序的程度取决于m的值，而如何选取m的值是一项数学难题，在这里我们采用`1 4 13 40 121 364`这样的序列来作为希尔排序中m的值。</span></span><br><span class="line">    <span class="keyword">while</span> (m &lt; arr.length / <span class="number">3</span>) m = <span class="number">3</span> * m + <span class="number">1</span>;<span class="comment">//1 4 13 40 121 364...</span></span><br><span class="line">    <span class="keyword">while</span> (m &gt;= <span class="number">1</span>) &#123;<span class="comment">//每轮循环结束时,m缩小3倍，直到收敛为1时，退化为插入排序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = m; i &lt; arr.length; i++) &#123;<span class="comment">//从m开始</span></span><br><span class="line">            <span class="keyword">int</span> temp = arr[i];<span class="comment">//采用temp存放待插入元素</span></span><br><span class="line">            <span class="keyword">int</span> j = i;</span><br><span class="line">            <span class="comment">//取 arr[i],arr[i-m],arr[i-2m] ... 做插入排序</span></span><br><span class="line">            <span class="keyword">while</span> (j &gt;= m &amp;&amp; temp &lt; arr[j - m]) &#123;</span><br><span class="line">                arr[j] = arr[j - m];</span><br><span class="line">                j -= m;</span><br><span class="line">            &#125;</span><br><span class="line">            arr[j] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        m = m / <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> after = System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">"希尔排序耗时："</span> + (after - before) + <span class="string">"ms"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>与上一篇文章中的优化插入排序相比，希尔排序的优势还是很明显的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">20W条数据</span><br><span class="line">插入排序耗时：   2776ms</span><br><span class="line">希尔排序耗时：     25ms</span><br></pre></td></tr></table></figure>
-
-
+<p>与上一篇文章中的优化插入排序相比，希尔排序的优势还是很明显的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">20W条数据</span><br><span class="line">插入排序耗时：   2776ms</span><br><span class="line">希尔排序耗时：     25ms</span><br></pre></td></tr></table></figure></p>
 <h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>归并排序的核心是<strong>归并</strong>操作，即将两个有序的数组合并为一个有序数组，归并过程如下所示</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -291,7 +289,8 @@
 <th>resultArr</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Init</td>
 <td>1 3 5 8</td>
 <td>2 6 9 10</td>
@@ -345,7 +344,9 @@
 <td><font color=red><del>2 6 9 10</del></font></td>
 <td>1 2 3 5 6 8 9 10</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>有了归并操作后，只需将待排序数组（递归地）<strong>划分</strong>为两半，直到每半只有一个元素时，便可将其视作有序的，从而将其合并为一个包含两个元素的有序数组，以此类推，最终将整个数组排序。<br><img src="/uploads/mergeSortDemo.png" alt="归并排序Demo"></p>
 <p>归并排序的过程如下图所示<br><img src="/uploads/MergeSort1.gif" alt="归并排序完整版"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(Integer arr[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> before = System.currentTimeMillis();</span><br><span class="line">    mergeSort(arr, <span class="number">0</span>, arr.length - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">long</span> after = System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">"归并排序耗时："</span> + (after - before) + <span class="string">"ms"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(Integer arr[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (high &lt;= low) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">    mergeSort(arr, low, mid);<span class="comment">//将左半部分排序</span></span><br><span class="line">    mergeSort(arr, mid + <span class="number">1</span>, high);<span class="comment">//将右半部分排序</span></span><br><span class="line">    merge(arr, low, mid, high);<span class="comment">//对左右两个有序数组进行归并操作</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(Integer arr[], <span class="keyword">int</span> low, <span class="keyword">int</span> mid, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = low; <span class="comment">//设i为左边有序数组的首索引</span></span><br><span class="line">    <span class="keyword">int</span> j = mid + <span class="number">1</span>;<span class="comment">//设j为右边有序数组的首索引</span></span><br><span class="line">    <span class="comment">//将原数组先拷贝一份，在合并中使用</span></span><br><span class="line">    Integer aux[] = Arrays.copyOf(arr, arr.length);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = low; k &lt;= high; k++) &#123;</span><br><span class="line">        <span class="comment">//若i的索引&gt;mid，表明左边元素均已并入新的有序数组，此时只需将右边有序数组的剩余元素并入新的有序数组</span></span><br><span class="line">        <span class="keyword">if</span> (i &gt; mid) &#123;</span><br><span class="line">            arr[k] = aux[j++];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (j &gt; high) &#123;<span class="comment">//若i的索引&gt;mid，表明左边元素均已并入新的有序数组，此时只需将右边有序数组的剩余元素并入新的有序数组</span></span><br><span class="line">            arr[k] = aux[i++];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (aux[j] &lt; aux[i]) &#123;<span class="comment">//取左右有序数组中为并入新的有新数组中的的较小元素，将其并入到新的有序数组中</span></span><br><span class="line">            arr[k] = aux[j++];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            arr[k] = aux[i++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -361,14 +362,14 @@
 </ol>
 <p>快速排序的过程如下图所示，图的红线即为每次的划分时所用的参考值。<br><img src="/uploads/QuickSort1.gif" alt="快速排序完整版"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(Integer arr[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> before = System.currentTimeMillis();</span><br><span class="line">    quickSort(arr, <span class="number">0</span>, arr.length - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">long</span> after = System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">"快速排序耗时："</span> + (after - before) + <span class="string">"ms"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(Integer arr[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (high &lt;= low) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> j = partition(arr, low, high);<span class="comment">//获取切分点</span></span><br><span class="line">    quickSort(arr, low, j - <span class="number">1</span>);<span class="comment">//对左子数组进行排序</span></span><br><span class="line">    quickSort(arr, j + <span class="number">1</span>, high);<span class="comment">//对右子数组进行排序</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(Integer arr[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> v = arr[low];<span class="comment">//将首元素作为参考值</span></span><br><span class="line">    <span class="keyword">int</span> i = low + <span class="number">1</span>;<span class="comment">//记录当前数组的起点</span></span><br><span class="line">    <span class="keyword">int</span> j = high;<span class="comment">//记录当前数组的终点</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="keyword">while</span> (arr[i] &lt;= v &amp;&amp; i &lt; high) &#123;</span><br><span class="line">            i++;<span class="comment">//若arr[i]不大于v，则向后扫描</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (arr[j] &gt;= v &amp;&amp; j &gt; low) &#123;</span><br><span class="line">            j--;<span class="comment">//若arr[j]不小于v，则向前扫描</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i &gt;= j) <span class="keyword">break</span>;</span><br><span class="line">        swap(arr, i, j);</span><br><span class="line">    &#125;</span><br><span class="line">    swap(arr, low, j);</span><br><span class="line">    <span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>以上所讲的三个排序算法中，都用到了<strong>划分</strong>这一操作。在算法学习中，我们把通过把大规模问题划分为小规模问题，分而治之的策略称为<strong>分治策略</strong>，也叫<strong>分治法</strong>。在分治法中经常会递归地求解一个问题，在每层递归中采用如下三个步骤：</p>
 <ol>
 <li><strong>分解</strong>：将问题划分为一些子问题，子问题的形式与原问题一样，只是规模更小</li>
 <li><strong>解决</strong>：递归的求解出子问题。如果子问题的规模足够小，则停止递归，直接求解</li>
 <li><strong>合并</strong>：将子问题的解组合成原问题的解</li>
 </ol>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><table>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>排序算法</th>
@@ -379,7 +380,8 @@
 <th>平均解题时间</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>希尔排序</td>
 <td>10W</td>
 <td>30ms</td>
@@ -435,7 +437,9 @@
 <td>235ms</td>
 <td>240ms</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 
     </div>
 
@@ -684,6 +688,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
