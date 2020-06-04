@@ -72,20 +72,6 @@
   </url>
   
   <url>
-    <loc>http://blog.devwu.com/2014/08/15/objcruntime-explore1/</loc>
-    
-    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.devwu.com/2014/08/15/variadic-param/</loc>
-    
-    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.devwu.com/2014/08/17/objcruntime-explore2/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
@@ -93,14 +79,7 @@
   </url>
   
   <url>
-    <loc>http://blog.devwu.com/2014/08/18/objcruntime-explore3/</loc>
-    
-    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.devwu.com/2014/08/19/objcruntime-explore4/</loc>
+    <loc>http://blog.devwu.com/2014/08/15/variadic-param/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
     
@@ -121,6 +100,27 @@
   </url>
   
   <url>
+    <loc>http://blog.devwu.com/2014/08/15/objcruntime-explore1/</loc>
+    
+    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.devwu.com/2014/08/18/objcruntime-explore3/</loc>
+    
+    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.devwu.com/2014/08/19/objcruntime-explore4/</loc>
+    
+    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.devwu.com/2018/06/21/coding-marathon-02/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
@@ -135,13 +135,6 @@
   </url>
   
   <url>
-    <loc>http://blog.devwu.com/2018/07/08/Understand-Android-MVP-Architecture/</loc>
-    
-    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.devwu.com/2018/07/17/Android-ActivityUtil/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
@@ -149,7 +142,7 @@
   </url>
   
   <url>
-    <loc>http://blog.devwu.com/2019/06/10/build-android-pie-in-macOS-Mojave/</loc>
+    <loc>http://blog.devwu.com/2018/07/08/Understand-Android-MVP-Architecture/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
     
@@ -163,7 +156,7 @@
   </url>
   
   <url>
-    <loc>http://blog.devwu.com/2019/06/23/how-to-reading-AOSP-with-Android-Studio/</loc>
+    <loc>http://blog.devwu.com/2019/06/10/build-android-pie-in-macOS-Mojave/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
     
@@ -178,6 +171,13 @@
   
   <url>
     <loc>http://blog.devwu.com/2019/09/07/Developing-Gradle-Plugin-1/</loc>
+    
+    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.devwu.com/2019/06/23/how-to-reading-AOSP-with-Android-Studio/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
     
