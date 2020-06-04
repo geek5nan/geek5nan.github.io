@@ -1,187 +1,68 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html class="theme-next mist" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-
-
-
-
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
-
-
-
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <meta http-equiv="Cache-Control" content="no-transform">
   <meta http-equiv="Cache-Control" content="no-siteapp">
 
+<link rel="stylesheet" href="/css/main.css">
 
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"geek5nan.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-
-
-  
-  
-  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
-  
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-
-<link rel="stylesheet" href="/css/main.css?v=7.1.2">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '7.1.2',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
-    back2top: true,
-    back2top_sidebar: false,
-    fancybox: true,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
-
-  <meta name="description" content="Gradle 插件简介Gradle 插件是一个能够将 Gradle 的构建逻辑（build logic）和构建任务（build task）打包到一起，以便在多个项目的构建脚本（build.gradle）中应用（apply）的工具。 例如，build.gradle 构建脚本文件内 apply plugin: &amp;#39;java&amp;#39; 、apply plugin: &amp;#39;com.android">
-<meta name="keywords" content="Kotlin,Gradle">
+  <meta name="description" content="Gradle 插件简介Gradle 插件是一个能够将 Gradle 的构建逻辑（build logic）和构建任务（build task）打包到一起，以便在多个项目的构建脚本（build.gradle）中应用（apply）的工具。 例如，build.gradle 构建脚本文件内 apply plugin: &#39;java&#39; 、apply plugin: &#39;com.android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自定义 Gradle 插件开发(一)">
 <meta property="og:url" content="http://geek5nan.github.io/2019/09/07/Developing-Gradle-Plugin-1/index.html">
 <meta property="og:site_name" content="Geek5Nan">
-<meta property="og:description" content="Gradle 插件简介Gradle 插件是一个能够将 Gradle 的构建逻辑（build logic）和构建任务（build task）打包到一起，以便在多个项目的构建脚本（build.gradle）中应用（apply）的工具。 例如，build.gradle 构建脚本文件内 apply plugin: &amp;#39;java&amp;#39; 、apply plugin: &amp;#39;com.android">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:description" content="Gradle 插件简介Gradle 插件是一个能够将 Gradle 的构建逻辑（build logic）和构建任务（build task）打包到一起，以便在多个项目的构建脚本（build.gradle）中应用（apply）的工具。 例如，build.gradle 构建脚本文件内 apply plugin: &#39;java&#39; 、apply plugin: &#39;com.android">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://geek5nan.github.io/uploads/gradle-plugin-dev-1.png">
-<meta property="og:updated_time" content="2019-12-11T14:04:51.809Z">
+<meta property="article:published_time" content="2019-09-07T12:05:31.000Z">
+<meta property="article:modified_time" content="2019-12-11T14:04:51.000Z">
+<meta property="article:author" content="Geek5Nan">
+<meta property="article:tag" content="Kotlin">
+<meta property="article:tag" content="Gradle">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自定义 Gradle 插件开发(一)">
-<meta name="twitter:description" content="Gradle 插件简介Gradle 插件是一个能够将 Gradle 的构建逻辑（build logic）和构建任务（build task）打包到一起，以便在多个项目的构建脚本（build.gradle）中应用（apply）的工具。 例如，build.gradle 构建脚本文件内 apply plugin: &amp;#39;java&amp;#39; 、apply plugin: &amp;#39;com.android">
 <meta name="twitter:image" content="http://geek5nan.github.io/uploads/gradle-plugin-dev-1.png">
 
+<link rel="canonical" href="http://geek5nan.github.io/2019/09/07/Developing-Gradle-Plugin-1/">
 
 
-
-
-  
-  
-  <link rel="canonical" href="http://geek5nan.github.io/2019/09/07/Developing-Gradle-Plugin-1/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
   <title>自定义 Gradle 插件开发(一) | Geek5Nan</title>
   
-
-
-
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49244994-2"></script>
-  <script>
-    var host = window.location.hostname;
-    if (host !== "localhost" || !true) {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-49244994-2');
-    }
-  </script>
-
-
-
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49244994-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49244994-2');
+      }
+    </script>
 
 
 
@@ -190,7 +71,6 @@
 
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -199,9 +79,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -215,128 +94,63 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Geek5Nan</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Geek5Nan</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-tags">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-      
-    
-
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-categories">
+        <li class="menu-item menu-item-tags">
 
-    
-    
-      
-    
-
-    
-
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
+        <li class="menu-item menu-item-categories">
 
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
 
   </li>
-
-      
-      
-    </ul>
-  
-
-  
-    
-
-  
-
-  
+  </ul>
 </nav>
 
-
-
-  
 
 
 
@@ -344,179 +158,110 @@
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
-          <div id="content" class="content">
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://geek5nan.github.io/2019/09/07/Developing-Gradle-Plugin-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
       <meta itemprop="name" content="Geek5Nan">
       <meta itemprop="description" content="每天进步一点。">
-      <meta itemprop="image" content="/uploads/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Geek5Nan">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">自定义 Gradle 插件开发(一)
-
-              
-            
-          </h2>
-        
+        <h1 class="post-title" itemprop="name headline">
+          自定义 Gradle 插件开发(一)
+        </h1>
 
         <div class="post-meta">
-
-          
-          
-          
-
-          
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2019-09-07 20:05:31" itemprop="dateCreated datePublished" datetime="2019-09-07T20:05:31+08:00">2019-09-07</time>
             </span>
-          
-
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
+                <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-12-11 22:04:51" itemprop="dateModified" datetime="2019-12-11T22:04:51+08:00">2019-12-11</time>
               </span>
-            
-          
-
-          
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/develop/" itemprop="url" rel="index"><span itemprop="name">develop</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/develop/" itemprop="url" rel="index"><span itemprop="name">develop</span></a>
                 </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/09/07/Developing-Gradle-Plugin-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/07/Developing-Gradle-Plugin-1/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
+            </span>
 
           
-          
-
-          
-            <span class="post-meta-item">
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
-                 阅读次数： 
-                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
               </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
             </span>
-          
-
-          <br>
-          
-            <span class="post-meta-item">
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/09/07/Developing-Gradle-Plugin-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/07/Developing-Gradle-Plugin-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
               </span>
-              
                 <span class="post-meta-item-text">本文字数：</span>
-              
-              <span title="本文字数">12k</span>
+              <span>11k</span>
             </span>
-          
-
-          
-            <span class="post-meta-item">
+            <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
-              
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span title="阅读时长">11 分钟</span>
+              <span>10 分钟</span>
             </span>
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <h1 id="Gradle-插件简介"><a href="#Gradle-插件简介" class="headerlink" title="Gradle 插件简介"></a>Gradle 插件简介</h1><p><strong>Gradle 插件</strong>是一个能够将 Gradle 的构建逻辑（build logic）和构建任务（build task）打包到一起，以便在多个项目的构建脚本（build.gradle）中应用（apply）的工具。</p>
@@ -531,7 +276,7 @@
 </ul>
 <p>若读者的电脑中尚未安装 gradle，则可在 <span class="exturl" data-url="aHR0cHM6Ly9ncmFkbGUub3JnL3JlbGVhc2VzLw==" title="https://gradle.org/releases/">Gradle 官方<i class="fa fa-external-link"></i></span> 下载安装。</p>
 <p>以笔者使用的环境为例，gradle 命令所在目录为  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;.gradle&#x2F;wrapper&#x2F;dists&#x2F;gradle-5.4.1-all&#x2F;3221gyojl5jsh0helicew7rwx&#x2F;gradle-5.4.1&#x2F;bin</span><br></pre></td></tr></table></figure>
 
 <p>将 gradle 命令所在目录添加到环境变量中</p>
 <ul>
@@ -601,7 +346,7 @@
 <p><code>PluginBuildSrcDemo/buildSrc/build.gradle</code>的内容如下 </p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 plugins 块语法应用插件</span></span><br><span class="line">plugins &#123;</span><br><span class="line">  <span class="comment">// 应用 kotlin 插件</span></span><br><span class="line">  id <span class="string">'org.jetbrains.kotlin.jvm'</span> version <span class="string">'1.3.50'</span></span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line">  <span class="comment">// 仅在编译时使用 Grdale-API 依赖</span></span><br><span class="line">  compileOnly gradleApi()</span><br><span class="line">  <span class="comment">// 在插件源码中添加 kotlin 标准库依赖</span></span><br><span class="line">  implementation <span class="string">'org.jetbrains.kotlin:kotlin-stdlib'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h5 id="2-3-创建-buildSrc-模块的源码目录"><a href="#2-3-创建-buildSrc-模块的源码目录" class="headerlink" title="2.3 创建 buildSrc 模块的源码目录"></a>2.3 创建 <strong>buildSrc</strong> 模块的源码目录</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd PluginBuildSrcDemo/buildSrc</span><br><span class="line">mkdir -p /src/main/kotlin/com/example/plugin</span><br></pre></td></tr></table></figure>
+<h5 id="2-3-创建-buildSrc-模块的源码目录"><a href="#2-3-创建-buildSrc-模块的源码目录" class="headerlink" title="2.3 创建 buildSrc 模块的源码目录"></a>2.3 创建 <strong>buildSrc</strong> 模块的源码目录</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd PluginBuildSrcDemo&#x2F;buildSrc</span><br><span class="line">mkdir -p &#x2F;src&#x2F;main&#x2F;kotlin&#x2F;com&#x2F;example&#x2F;plugin</span><br></pre></td></tr></table></figure>
 
 <h5 id="2-4-创建插件文件PluginBuildSrc-kt"><a href="#2-4-创建插件文件PluginBuildSrc-kt" class="headerlink" title="2.4 创建插件文件PluginBuildSrc.kt"></a>2.4 创建插件文件<code>PluginBuildSrc.kt</code></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> PluginBuildSrcDemo/buildSrc/src/main/kotlin/com/example/plugin</span><br><span class="line">touch PluginBuildSrc.kt</span><br></pre></td></tr></table></figure>
 
@@ -615,11 +360,11 @@
 <h6 id="方式1-META-INF-方式"><a href="#方式1-META-INF-方式" class="headerlink" title="方式1.  META-INF 方式"></a>方式1.  META-INF 方式</h6><p>创建<code>PluginBuildSrcDemo/buildSrc/src/main/resources/META-INF/gradle-plugins</code>目录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> PluginBuildSrcDemo/buildSrc</span><br><span class="line">mkdir -p src/main/resources/META-INF/gradle-plugins</span><br></pre></td></tr></table></figure>
 
-<p>在 <code>gradle-plugins</code>目录下创建 <span style="color:red">com.example.plugin</span>.properties 属性文件，红色部分表示插件的 ID</p>
+<p>在 <code>gradle-plugins</code>目录下创建 <span style='color:red'>com.example.plugin</span>.properties 属性文件，红色部分表示插件的 ID</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> src/main/resources/META-INF/gradle-plugins</span><br><span class="line">touch com.example.plugin.properties</span><br></pre></td></tr></table></figure>
 
-<p>属性文件的内容如下，表示插件 ID 为 <span style="color:red">com.example.plugin</span> 的插件所对应的实现类为 <code>com.example.plugin.PluginBuildSrc</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementations-class=com.example.plugin.PluginBuildSrc</span><br></pre></td></tr></table></figure>
+<p>属性文件的内容如下，表示插件 ID 为 <span style='color:red'>com.example.plugin</span> 的插件所对应的实现类为 <code>com.example.plugin.PluginBuildSrc</code></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">implementations-class</span>=<span class="string">com.example.plugin.PluginBuildSrc</span></span><br></pre></td></tr></table></figure>
 
 <h6 id="方式2-java-gradle-plugin-插件方式"><a href="#方式2-java-gradle-plugin-插件方式" class="headerlink" title="方式2. java-gradle-plugin 插件方式"></a>方式2. java-gradle-plugin 插件方式</h6><p>  <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLmdyYWRsZS5vcmcvY3VycmVudC91c2VyZ3VpZGUvamF2YV9ncmFkbGVfcGx1Z2luLmh0bWwjamF2YV9ncmFkbGVfcGx1Z2lu" title="https://docs.gradle.org/current/userguide/java_gradle_plugin.html#java_gradle_plugin">java-gradle-plugin<i class="fa fa-external-link"></i></span> 是一个用于开发 Gradle 插件的辅助插件，它内置了很多辅助功能：</p>
 <ol>
@@ -652,7 +397,7 @@
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.example.plugin'</span></span><br></pre></td></tr></table></figure>
 
 <h5 id="4-2-将-SubModule-模块关联到-PluginBuildSrcDemo-项目中"><a href="#4-2-将-SubModule-模块关联到-PluginBuildSrcDemo-项目中" class="headerlink" title="4.2 将 SubModule 模块关联到 PluginBuildSrcDemo 项目中"></a>4.2 将 <strong>SubModule</strong> 模块关联到 <strong>PluginBuildSrcDemo</strong> 项目中</h5><p>在 <code>PluginBuildSrcDemo</code>目录下新建 <code>settings.gradle</code> 文件，内容如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 将SubModule 子模块添加到 PluginBuildSrcDemo 项目模块中</span><br><span class="line">include &apos;:SubModule&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 将SubModule 子模块添加到 PluginBuildSrcDemo 项目模块中</span><br><span class="line">include &#39;:SubModule&#39;</span><br></pre></td></tr></table></figure>
 
 <p>此时在 <code>PluginBuildSrcDemo</code>目录下使用<code>tree</code>命令，可以看到项目当前的目录结构如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">PluginBuildSrcDemo</span><br><span class="line">.</span><br><span class="line">├── SubModule</span><br><span class="line">│   └── build.gradle</span><br><span class="line">├── build.gradle</span><br><span class="line">├── buildSrc</span><br><span class="line">│   ├── build.gradle</span><br><span class="line">│   └── src</span><br><span class="line">│       └── main</span><br><span class="line">│           └── kotlin</span><br><span class="line">│               └── com</span><br><span class="line">│                   └── example</span><br><span class="line">│                       └── plugin</span><br><span class="line">│                           └── PluginBuildSrc.kt</span><br><span class="line">└── settings.gradle</span><br></pre></td></tr></table></figure>
@@ -675,10 +420,8 @@
 
 <p><code>StandaloneDemo/build.gradle</code> 的内容如下</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">'org.jetbrains.kotlin.jvm'</span> version <span class="string">'1.3.50'</span></span><br><span class="line">    id <span class="string">'java-gradle-plugin'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">gradlePlugin&#123;</span><br><span class="line">    plugins&#123;</span><br><span class="line">        sometag&#123;</span><br><span class="line">            id = <span class="string">'com.example.plugin'</span></span><br><span class="line">            implementationClass = <span class="string">'com.example.plugin.StandalonePlugin'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><code>StandaloneDemo/src/main/kotlin/com/example/plugin/StandalonePlugin.kt</code>的内容如下</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.plugin</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.gradle.api.Plugin</span><br><span class="line"><span class="keyword">import</span> org.gradle.api.Project</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StandalonePlugin</span> : <span class="type">Plugin</span>&lt;<span class="type">Project</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">apply</span><span class="params">(target: <span class="type">Project</span>)</span></span> &#123;</span><br><span class="line">        println(<span class="string">"hello from standalone plugin"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h4 id="2-将-gradle-插件发布到-maven-仓库"><a href="#2-将-gradle-插件发布到-maven-仓库" class="headerlink" title="2. 将 gradle 插件发布到 maven 仓库"></a>2. 将 gradle 插件发布到 maven 仓库</h4><h5 id="2-1-在StandaloneDemo-build-gradle-文件中配置发布信息"><a href="#2-1-在StandaloneDemo-build-gradle-文件中配置发布信息" class="headerlink" title="2.1 在StandaloneDemo/build.gradle 文件中配置发布信息"></a>2.1 在<code>StandaloneDemo/build.gradle</code> 文件中配置发布信息</h5><p>使用<code>maven-publish</code>插件将自定义插件发布到本地 maven 仓库中，如下所示</p>
 <figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"> plugins &#123;</span><br><span class="line">     id 'org.jetbrains.kotlin.jvm' version '1.3.50'</span><br><span class="line">     id 'java-gradle-plugin'</span><br><span class="line"><span class="addition">+    //1. 应用 maven-publish 插件</span></span><br><span class="line"><span class="addition">+    id 'maven-publish'</span></span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> gradlePlugin&#123;</span><br><span class="line">     plugins&#123;</span><br><span class="line">         sometag&#123;</span><br><span class="line">             id = 'com.example.plugin'</span><br><span class="line">             implementationClass = 'com.example.plugin.StandalonePlugin'</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="addition">+//2. 设置发布相关配置</span></span><br><span class="line"><span class="addition">+publishing &#123;</span></span><br><span class="line"><span class="addition">+    publications &#123;</span></span><br><span class="line"><span class="addition">+        //3. 将插件发布到 maven 仓库</span></span><br><span class="line"><span class="addition">+        maven(MavenPublication) &#123;</span></span><br><span class="line"><span class="addition">+						//4. 设置插件的 maven 坐标</span></span><br><span class="line"><span class="addition">+            groupId 'com.example'//组织 ID</span></span><br><span class="line"><span class="addition">+            artifactId 'plugin'  //制品 ID</span></span><br><span class="line"><span class="addition">+            version 'snapshot'   //制品版本</span></span><br><span class="line"><span class="addition">+            from components.kotlin</span></span><br><span class="line"><span class="addition">+        &#125;</span></span><br><span class="line"><span class="addition">+    &#125;</span></span><br><span class="line"><span class="addition">+ 	//5. 设置发布仓库</span></span><br><span class="line"><span class="addition">+   repositories &#123;</span></span><br><span class="line"><span class="addition">+       // 6. 发布到本地 maven 仓库 </span></span><br><span class="line"><span class="addition">+       mavenLocal()</span></span><br><span class="line"><span class="addition">+   &#125;</span></span><br><span class="line"><span class="addition">+&#125;</span></span><br></pre></td></tr></table></figure>
 
@@ -690,7 +433,7 @@
 <li>Win：<code>C:\Users\当前用户名\.m2\repository</code></li>
 </ul>
 <p>我们可以在此目录下看到刚刚发布的插件，如下图所示</p>
-<p><img src="/uploads/gradle-plugin-dev-1.png" alt></p>
+<p><img src="/uploads/gradle-plugin-dev-1.png" alt=""></p>
 <h4 id="3-在其他项目中使用本地-maven-仓库中的-gradle-插件"><a href="#3-在其他项目中使用本地-maven-仓库中的-gradle-插件" class="headerlink" title="3. 在其他项目中使用本地 maven 仓库中的 gradle 插件"></a>3. 在其他项目中使用本地 maven 仓库中的 gradle 插件</h4><h5 id="3-1-新建-OtherProject项目"><a href="#3-1-新建-OtherProject项目" class="headerlink" title="3.1 新建 OtherProject项目"></a>3.1 新建 <code>OtherProject</code>项目</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir OtherProject</span><br><span class="line"><span class="built_in">cd</span> OtherProject</span><br><span class="line">touch build.gradle</span><br></pre></td></tr></table></figure>
 
 <p><code>build.gradle</code>的文件内容如下，相比 <strong>buildSrc</strong> 方式，应用时多了 11 行的 buildscript 相关的配置信息。</p>
@@ -703,391 +446,219 @@
 
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本文演示了 gradle 插件的三种创建方式，相关代码已上传至 github 中，<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dlZWs1bmFuL0dyYWRsZVBsdWdpbkRlbW8=" title="https://github.com/geek5nan/GradlePluginDemo">点此即可查看<i class="fa fa-external-link"></i></span>。行文匆忙难免疏忽，如有遗漏还请斧正。</p>
 
-      
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-      <div>
         
 
-
-
-
-  
-
-
-
+<div>
 <ul class="post-copyright">
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>Geek5Nan</li>
+    <strong>本文作者： </strong>Geek5Nan
+  </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    
     <a href="http://geek5nan.github.io/2019/09/07/Developing-Gradle-Plugin-1/" title="自定义 Gradle 插件开发(一)">http://geek5nan.github.io/2019/09/07/Developing-Gradle-Plugin-1/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
 </ul>
+</div>
 
-      </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+              <a href="/tags/Gradle/" rel="tag"># Gradle</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/08/31/Kotlin-Everywhere-Notes/" rel="prev" title="Kotlin/Everywhere BeijingGDG 见闻录">
+      <i class="fa fa-chevron-left"></i> Kotlin/Everywhere BeijingGDG 见闻录
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/09/Git-Branch-Management/" rel="next" title="聊聊分支管理">
+      聊聊分支管理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
     
-
-    <footer class="post-footer">
-      
-        
-          
-        
-        <div class="post-tags">
-          
-            <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
-          
-            <a href="/tags/Gradle/" rel="tag"># Gradle</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/08/31/Kotlin-Everywhere-Notes/" rel="next" title="Kotlin/Everywhere BeijingGDG 见闻录">
-                <i class="fa fa-chevron-left"></i> Kotlin/Everywhere BeijingGDG 见闻录
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/09/Git-Branch-Management/" rel="prev" title="聊聊分支管理">
-                聊聊分支管理 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-
-  </div>
 
 
           </div>
           
-
-  
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-      </div>
-    </div>
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
     </div>
   </div>
+  
 
-  <aside id="sidebar" class="sidebar">
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Gradle-插件简介"><span class="nav-number">1.</span> <span class="nav-text">Gradle 插件简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开始之前"><span class="nav-number">1.0.1.</span> <span class="nav-text">开始之前</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#牛刀小试"><span class="nav-number">1.0.2.</span> <span class="nav-text">牛刀小试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义-Gradle-插件"><span class="nav-number">1.1.</span> <span class="nav-text">自定义 Gradle 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构建脚本内建方式"><span class="nav-number">1.1.1.</span> <span class="nav-text">构建脚本内建方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建-BuildInDemo-目录"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1.创建 BuildInDemo 目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-在BuildInDemo目录内中新建-build-gradle-文件"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">2.在BuildInDemo目录内中新建 build.gradle 文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-在-BuildInDemo-build-gradle-内创建并应用-Gradle-插件，代码如下"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">3.在 BuildInDemo&#x2F;build.gradle 内创建并应用 Gradle 插件，代码如下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-构建此-build-gradle-文件"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">4.构建此 build.gradle 文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#buildSrc-模块方式"><span class="nav-number">1.1.2.</span> <span class="nav-text">buildSrc 模块方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建-PluginBuildSrcDemo-项目模块"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1. 创建 PluginBuildSrcDemo 项目模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-创建-buildSrc-子模块"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">2. 创建 buildSrc 子模块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-在-PluginBuildSrcDemo-目录下创建buildSrc目录"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">2.1 在 PluginBuildSrcDemo 目录下创建buildSrc目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-在-PluginBuildSrcDemo-buildSrc-目录下创建-buildSrc-子模块的构建脚本文件-build-gradle"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">2.2 在 PluginBuildSrcDemo&#x2F;buildSrc 目录下创建 buildSrc 子模块的构建脚本文件 build.gradle</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-创建-buildSrc-模块的源码目录"><span class="nav-number">1.1.2.2.3.</span> <span class="nav-text">2.3 创建 buildSrc 模块的源码目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-创建插件文件PluginBuildSrc-kt"><span class="nav-number">1.1.2.2.4.</span> <span class="nav-text">2.4 创建插件文件PluginBuildSrc.kt</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-5-声明-Gradle-插件的-ID-与实现类"><span class="nav-number">1.1.2.2.5.</span> <span class="nav-text">2.5 声明 Gradle 插件的 ID 与实现类</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#方式1-META-INF-方式"><span class="nav-number">1.1.2.2.5.1.</span> <span class="nav-text">方式1.  META-INF 方式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#方式2-java-gradle-plugin-插件方式"><span class="nav-number">1.1.2.2.5.2.</span> <span class="nav-text">方式2. java-gradle-plugin 插件方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-在-PruginBuildSrcDemo-项目模块中应用-buildSrc-中声明的-Gradle-插件"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">3. 在 PruginBuildSrcDemo 项目模块中应用 buildSrc 中声明的 Gradle 插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-创建-SubModule-子模块"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">4. 创建 SubModule 子模块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-创建-SubModule-目录与构建脚本"><span class="nav-number">1.1.2.4.1.</span> <span class="nav-text">4.1 创建 SubModule 目录与构建脚本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-将-SubModule-模块关联到-PluginBuildSrcDemo-项目中"><span class="nav-number">1.1.2.4.2.</span> <span class="nav-text">4.2 将 SubModule 模块关联到 PluginBuildSrcDemo 项目中</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-在-SubModule-模块执行构建命令"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">5. 在 SubModule 模块执行构建命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独立项目方式"><span class="nav-number">1.1.3.</span> <span class="nav-text">独立项目方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建-gradle-插件项目"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">1. 创建 gradle 插件项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-将-gradle-插件发布到-maven-仓库"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">2. 将 gradle 插件发布到 maven 仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-在StandaloneDemo-build-gradle-文件中配置发布信息"><span class="nav-number">1.1.3.2.1.</span> <span class="nav-text">2.1 在StandaloneDemo&#x2F;build.gradle 文件中配置发布信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-使用-publishMavenPublicationToMavenLocal-任务将插件发布到本地仓库"><span class="nav-number">1.1.3.2.2.</span> <span class="nav-text">2.2 使用 publishMavenPublicationToMavenLocal 任务将插件发布到本地仓库</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-在其他项目中使用本地-maven-仓库中的-gradle-插件"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">3. 在其他项目中使用本地 maven 仓库中的 gradle 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-新建-OtherProject项目"><span class="nav-number">1.1.3.3.1.</span> <span class="nav-text">3.1 新建 OtherProject项目</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-构建-OtherProject-项目"><span class="nav-number">1.1.3.3.2.</span> <span class="nav-text">3.2 构建 OtherProject 项目</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.2.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Geek5Nan">
-            
-              <p class="site-author-name" itemprop="name">Geek5Nan</p>
-              <div class="site-description motion-element" itemprop="description">每天进步一点。</div>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">26</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  
-                    
-                      <a href="/categories/">
-                    
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">7</span>
-                    <span class="site-state-item-name">分类</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  
-                    
-                      <a href="/tags/">
-                    
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">15</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  
-                  
-                  
-                    
-                  
-                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dlZWs1bmFu" title="GitHub &rarr; https://github.com/geek5nan"><i class="fa fa-fw fa-github"></i></span>
-                </span>
-              
-                <span class="links-of-author-item">
-                  
-                  
-                  
-                    
-                  
-                  <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vZ2VlazVuYW4=" title="Weibo &rarr; https://weibo.com/geek5nan"><i class="fa fa-fw fa-weibo"></i></span>
-                </span>
-              
-            </div>
-          
-
-          
-             <div class="cc-license motion-element" itemprop="license">
-              
-              
-                
-              
-              
-              
-              <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
-             </div>
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Geek5Nan"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">Geek5Nan</p>
+  <div class="site-description" itemprop="description">每天进步一点。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
       </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dlZWs1bmFu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;geek5nan"><i class="fa fa-fw fa-github"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vZ2VlazVuYW4=" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;geek5nan"><i class="fa fa-fw fa-weibo"></i></span>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
 
-            
-            
-            
-            
 
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Gradle-插件简介"><span class="nav-number">1.</span> <span class="nav-text">Gradle 插件简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开始之前"><span class="nav-number">1.0.1.</span> <span class="nav-text">开始之前</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#牛刀小试"><span class="nav-number">1.0.2.</span> <span class="nav-text">牛刀小试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义-Gradle-插件"><span class="nav-number">1.1.</span> <span class="nav-text">自定义 Gradle 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构建脚本内建方式"><span class="nav-number">1.1.1.</span> <span class="nav-text">构建脚本内建方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建-BuildInDemo-目录"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1.创建 BuildInDemo 目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-在BuildInDemo目录内中新建-build-gradle-文件"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">2.在BuildInDemo目录内中新建 build.gradle 文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-在-BuildInDemo-build-gradle-内创建并应用-Gradle-插件，代码如下"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">3.在 BuildInDemo/build.gradle 内创建并应用 Gradle 插件，代码如下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-构建此-build-gradle-文件"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">4.构建此 build.gradle 文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#buildSrc-模块方式"><span class="nav-number">1.1.2.</span> <span class="nav-text">buildSrc 模块方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建-PluginBuildSrcDemo-项目模块"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1. 创建 PluginBuildSrcDemo 项目模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-创建-buildSrc-子模块"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">2. 创建 buildSrc 子模块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-在-PluginBuildSrcDemo-目录下创建buildSrc目录"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">2.1 在 PluginBuildSrcDemo 目录下创建buildSrc目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-在-PluginBuildSrcDemo-buildSrc-目录下创建-buildSrc-子模块的构建脚本文件-build-gradle"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">2.2 在 PluginBuildSrcDemo/buildSrc 目录下创建 buildSrc 子模块的构建脚本文件 build.gradle</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-创建-buildSrc-模块的源码目录"><span class="nav-number">1.1.2.2.3.</span> <span class="nav-text">2.3 创建 buildSrc 模块的源码目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-创建插件文件PluginBuildSrc-kt"><span class="nav-number">1.1.2.2.4.</span> <span class="nav-text">2.4 创建插件文件PluginBuildSrc.kt</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-5-声明-Gradle-插件的-ID-与实现类"><span class="nav-number">1.1.2.2.5.</span> <span class="nav-text">2.5 声明 Gradle 插件的 ID 与实现类</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#方式1-META-INF-方式"><span class="nav-number">1.1.2.2.5.1.</span> <span class="nav-text">方式1.  META-INF 方式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#方式2-java-gradle-plugin-插件方式"><span class="nav-number">1.1.2.2.5.2.</span> <span class="nav-text">方式2. java-gradle-plugin 插件方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-在-PruginBuildSrcDemo-项目模块中应用-buildSrc-中声明的-Gradle-插件"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">3. 在 PruginBuildSrcDemo 项目模块中应用 buildSrc 中声明的 Gradle 插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-创建-SubModule-子模块"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">4. 创建 SubModule 子模块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-创建-SubModule-目录与构建脚本"><span class="nav-number">1.1.2.4.1.</span> <span class="nav-text">4.1 创建 SubModule 目录与构建脚本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-将-SubModule-模块关联到-PluginBuildSrcDemo-项目中"><span class="nav-number">1.1.2.4.2.</span> <span class="nav-text">4.2 将 SubModule 模块关联到 PluginBuildSrcDemo 项目中</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-在-SubModule-模块执行构建命令"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">5. 在 SubModule 模块执行构建命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独立项目方式"><span class="nav-number">1.1.3.</span> <span class="nav-text">独立项目方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建-gradle-插件项目"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">1. 创建 gradle 插件项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-将-gradle-插件发布到-maven-仓库"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">2. 将 gradle 插件发布到 maven 仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-在StandaloneDemo-build-gradle-文件中配置发布信息"><span class="nav-number">1.1.3.2.1.</span> <span class="nav-text">2.1 在StandaloneDemo/build.gradle 文件中配置发布信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-使用-publishMavenPublicationToMavenLocal-任务将插件发布到本地仓库"><span class="nav-number">1.1.3.2.2.</span> <span class="nav-text">2.2 使用 publishMavenPublicationToMavenLocal 任务将插件发布到本地仓库</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-在其他项目中使用本地-maven-仓库中的-gradle-插件"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">3. 在其他项目中使用本地 maven 仓库中的 gradle 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-新建-OtherProject项目"><span class="nav-number">1.1.3.3.1.</span> <span class="nav-text">3.1 新建 OtherProject项目</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-构建-OtherProject-项目"><span class="nav-number">1.1.3.3.2.</span> <span class="nav-text">3.2 构建 OtherProject 项目</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.2.</span> <span class="nav-text">小结</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
+      </div>
 
     </div>
   </aside>
-  
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2013 – <span itemprop="copyrightYear">2019</span>
-  <span class="with-love" id="animate">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2013 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Geek5Nan</span>
-
-  
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    
-    <span title="站点总字数">131k</span>
-  
-
-  
+    <span title="站点总字数">116k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    
-    <span title="站点阅读时长">1:59</span>
-  
+    <span title="站点阅读时长">1:45</span>
 </div>
-
-
-
-
-
-
-
-
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9taXN0LnRoZW1lLW5leHQub3Jn">NexT.Mist</span> 强力驱动
+  </div>
 
         
 <div class="busuanzi-count">
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-user"></i>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
     </span>
-    <span class="site-uv" title="总访客量">
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-    </span>
-  
-
-  
     <span class="post-meta-divider">|</span>
-  
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-eye"></i>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
     </span>
-    <span class="site-pv" title="总访问量">
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-    </span>
-  
 </div>
 
 
@@ -1097,40 +668,23 @@
 
 
 
-
-        
       </div>
     </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
 
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
+<script src="/js/utils.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -1152,61 +706,9 @@
 
 
   
-  <script src="/lib/jquery/index.js?v=3.4.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
-
 
   
 
-
-  <script src="/js/utils.js?v=7.1.2"></script>
-
-  <script src="/js/motion.js?v=7.1.2"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/schemes/muse.js?v=7.1.2"></script>
-
-
-
-
-  
-  <script src="/js/scrollspy.js?v=7.1.2"></script>
-<script src="/js/post-details.js?v=7.1.2"></script>
-
-
-
-  
-
-
-  <script src="/js/next-boot.js?v=7.1.2"></script>
-
-
-  
-  <script src="/js/js.cookie.js?v=7.1.2"></script>
-  <script src="/js/scroll-cookie.js?v=7.1.2"></script>
-
-
-  
-  <script src="/js/exturl.js?v=7.1.2"></script>
-
-
-  
-
-  
-  
 <script>
   function loadCount() {
     var d = document, s = d.createElement('script');
@@ -1217,157 +719,26 @@
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
 </script>
-
-
 <script>
   var disqus_config = function() {
     this.page.url = "http://geek5nan.github.io/2019/09/07/Developing-Gradle-Plugin-1/";
     this.page.identifier = "2019/09/07/Developing-Gradle-Plugin-1/";
-    this.page.title = '自定义 Gradle 插件开发(一)';
+    this.page.title = "自定义 Gradle 插件开发(一)";
     };
-  function loadComments() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://geek5nan.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', '' + +new Date());
-    (d.head || d.body).appendChild(s);
-  }
-  
-    window.addEventListener('load', loadComments, false);
-  
-</script>
-
-
-
-
-
-  
-
-
-  
-
-
-
-
-  
-
-  
-
-  
-  
-
-  
-  
-
-  
-    
-      <script type="text/x-mathjax-config">
-  
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
-        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
-      }
-    });
-  });
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://geek5nan.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
     }
   });
 </script>
-<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-    
-  
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-  
-  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
-  <script>pangu.spacingPage();</script>
-
-
-  
-
-  
-<script>
-  $('.highlight').not('.gist .highlight').each(function(i, e) {
-    var $wrap = $('<div>').addClass('highlight-wrap');
-    $(e).after($wrap);
-    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
-      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
-        return $(e).text();
-      }).toArray().join('\n');
-      var ta = document.createElement('textarea');
-      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
-      ta.style.top = yPosition + 'px'; // Prevent page scroll
-      ta.style.position = 'absolute';
-      ta.style.opacity = '0';
-      ta.readOnly = true;
-      ta.value = code;
-      document.body.appendChild(ta);
-      const selection = document.getSelection();
-      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
-      ta.select();
-      ta.setSelectionRange(0, code.length);
-      ta.readOnly = false;
-      var result = document.execCommand('copy');
-      
-        if (result) $(this).text('复制成功');
-        else $(this).text('复制失败');
-      
-      ta.blur(); // For iOS
-      $(this).blur();
-      if (selected) {
-        selection.removeAllRanges();
-        selection.addRange(selected);
-      }
-    })).on('mouseleave', function(e) {
-      var $b = $(this).find('.copy-btn');
-      setTimeout(function() {
-        $b.text('复制');
-      }, 300);
-    }).append(e);
-  })
-</script>
-
-
-  
-
-  
 
 </body>
 </html>

@@ -1,145 +1,35 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html class="theme-next mist" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-
-
-
-
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
-
-
-
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <meta http-equiv="Cache-Control" content="no-transform">
   <meta http-equiv="Cache-Control" content="no-siteapp">
 
+<link rel="stylesheet" href="/css/main.css">
 
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
-
-
-
-
-
-
-
-
-  
-  
-  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
-  
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-
-<link rel="stylesheet" href="/css/main.css?v=7.1.2">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '7.1.2',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
-    back2top: true,
-    back2top_sidebar: false,
-    fancybox: true,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"geek5nan.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta name="description" content="前言Android Architecture Blueprints 是谷歌官方开源的一组 Android 架构方案，项目以多个分支分别采用 MVP，MVVM 的概念以及 dagger、rxjava、databinding、livedata 等工具库，演示了一个简单的 TodoApp 在不同架构模式下的代码组织方式。这个项目中的代码非常规范，架构模式也非常有借鉴意义，是一个很有价值的学习素材。 本文">
-<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android MVP架构解析">
 <meta property="og:url" content="http://geek5nan.github.io/2018/07/08/Understand-Android-MVP-Architecture/index.html">
 <meta property="og:site_name" content="Geek5Nan">
 <meta property="og:description" content="前言Android Architecture Blueprints 是谷歌官方开源的一组 Android 架构方案，项目以多个分支分别采用 MVP，MVVM 的概念以及 dagger、rxjava、databinding、livedata 等工具库，演示了一个简单的 TodoApp 在不同架构模式下的代码组织方式。这个项目中的代码非常规范，架构模式也非常有借鉴意义，是一个很有价值的学习素材。 本文">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://geek5nan.github.io/uploads/todo-drawer.png">
 <meta property="og:image" content="http://geek5nan.github.io/uploads/todo-stats.png">
 <meta property="og:image" content="http://geek5nan.github.io/uploads/todo-tasks1.png">
@@ -153,47 +43,37 @@
 <meta property="og:image" content="http://geek5nan.github.io/uploads/todo-mvp-project-structure4.png">
 <meta property="og:image" content="http://geek5nan.github.io/uploads/todo-mvp-project-structure5.png">
 <meta property="og:image" content="http://geek5nan.github.io/uploads/todo-mvp-project-structure6.png">
-<meta property="og:updated_time" content="2019-12-11T14:04:51.807Z">
+<meta property="article:published_time" content="2018-07-08T15:22:13.000Z">
+<meta property="article:modified_time" content="2019-12-11T14:04:51.000Z">
+<meta property="article:author" content="Geek5Nan">
+<meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android MVP架构解析">
-<meta name="twitter:description" content="前言Android Architecture Blueprints 是谷歌官方开源的一组 Android 架构方案，项目以多个分支分别采用 MVP，MVVM 的概念以及 dagger、rxjava、databinding、livedata 等工具库，演示了一个简单的 TodoApp 在不同架构模式下的代码组织方式。这个项目中的代码非常规范，架构模式也非常有借鉴意义，是一个很有价值的学习素材。 本文">
 <meta name="twitter:image" content="http://geek5nan.github.io/uploads/todo-drawer.png">
 
+<link rel="canonical" href="http://geek5nan.github.io/2018/07/08/Understand-Android-MVP-Architecture/">
 
 
-
-
-  
-  
-  <link rel="canonical" href="http://geek5nan.github.io/2018/07/08/Understand-Android-MVP-Architecture/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
   <title>Android MVP架构解析 | Geek5Nan</title>
   
-
-
-
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49244994-2"></script>
-  <script>
-    var host = window.location.hostname;
-    if (host !== "localhost" || !true) {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-49244994-2');
-    }
-  </script>
-
-
-
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49244994-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49244994-2');
+      }
+    </script>
 
 
 
@@ -202,7 +82,6 @@
 
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -211,9 +90,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -227,128 +105,63 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Geek5Nan</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Geek5Nan</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-tags">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-      
-    
-
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-categories">
+        <li class="menu-item menu-item-tags">
 
-    
-    
-      
-    
-
-    
-
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
+        <li class="menu-item menu-item-categories">
 
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
 
   </li>
-
-      
-      
-    </ul>
-  
-
-  
-    
-
-  
-
-  
+  </ul>
 </nav>
 
-
-
-  
 
 
 
@@ -356,179 +169,110 @@
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
-          <div id="content" class="content">
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://geek5nan.github.io/2018/07/08/Understand-Android-MVP-Architecture/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
       <meta itemprop="name" content="Geek5Nan">
       <meta itemprop="description" content="每天进步一点。">
-      <meta itemprop="image" content="/uploads/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Geek5Nan">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">Android MVP架构解析
-
-              
-            
-          </h2>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Android MVP架构解析
+        </h1>
 
         <div class="post-meta">
-
-          
-          
-          
-
-          
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2018-07-08 23:22:13" itemprop="dateCreated datePublished" datetime="2018-07-08T23:22:13+08:00">2018-07-08</time>
             </span>
-          
-
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
+                <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-12-11 22:04:51" itemprop="dateModified" datetime="2019-12-11T22:04:51+08:00">2019-12-11</time>
               </span>
-            
-          
-
-          
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/develop/" itemprop="url" rel="index"><span itemprop="name">develop</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/develop/" itemprop="url" rel="index"><span itemprop="name">develop</span></a>
                 </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2018/07/08/Understand-Android-MVP-Architecture/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/08/Understand-Android-MVP-Architecture/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
+            </span>
 
           
-          
-
-          
-            <span class="post-meta-item">
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
-                 阅读次数： 
-                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
               </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
             </span>
-          
-
-          <br>
-          
-            <span class="post-meta-item">
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/07/08/Understand-Android-MVP-Architecture/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/08/Understand-Android-MVP-Architecture/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
               </span>
-              
                 <span class="post-meta-item-text">本文字数：</span>
-              
-              <span title="本文字数">18k</span>
+              <span>15k</span>
             </span>
-          
-
-          
-            <span class="post-meta-item">
+            <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
-              
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span title="阅读时长">17 分钟</span>
+              <span>14 分钟</span>
             </span>
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvb2dsZXNhbXBsZXMvYW5kcm9pZC1hcmNoaXRlY3R1cmU=" title="https://github.com/googlesamples/android-architecture">Android Architecture Blueprints<i class="fa fa-external-link"></i></span> 是谷歌官方开源的一组 Android 架构方案，项目以多个分支分别采用 <strong>MVP</strong>，<strong>MVVM</strong> 的概念以及 dagger、rxjava、databinding、livedata 等工具库，演示了一个简单的 <strong>TodoApp</strong> 在不同架构模式下的代码组织方式。这个项目中的代码非常规范，架构模式也非常有借鉴意义，是一个很有价值的学习素材。</p>
@@ -546,24 +290,24 @@
 <td>统计页</td>
 </tr>
 <tr>
-<td><img src="/uploads/todo-drawer.png" alt></td>
-<td><img src="/uploads/todo-stats.png" alt></td>
+<td><img src="/uploads/todo-drawer.png" alt=""></td>
+<td><img src="/uploads/todo-stats.png" alt=""></td>
 </tr>
 <tr>
 <td>列表页</td>
 <td></td>
 </tr>
 <tr>
-<td><img src="/uploads/todo-tasks1.png" alt></td>
-<td><img src="/uploads/todo-tasks2.png" alt></td>
+<td><img src="/uploads/todo-tasks1.png" alt=""></td>
+<td><img src="/uploads/todo-tasks2.png" alt=""></td>
 </tr>
 <tr>
 <td>详情页</td>
 <td>编辑页</td>
 </tr>
 <tr>
-<td><img src="/uploads/todo-detail.png" alt></td>
-<td><img src="/uploads/todo-edit.png" alt></td>
+<td><img src="/uploads/todo-detail.png" alt=""></td>
+<td><img src="/uploads/todo-edit.png" alt=""></td>
 </tr>
 </tbody></table>
 <p>知晓了项目功能后，再来看项目的组织。</p>
@@ -592,15 +336,14 @@ app/src/main/java 下的 data 目录表示 **Model** 层，Task 是经final修�
 <p>接下来便通过代码来找寻答案</p>
 <h1 id="架构组织与通信"><a href="#架构组织与通信" class="headerlink" title="架构组织与通信"></a>架构组织与通信</h1><h2 id="架构组织"><a href="#架构组织" class="headerlink" title="架构组织"></a>架构组织</h2><h3 id="1-从最简单的Base接口开始看"><a href="#1-从最简单的Base接口开始看" class="headerlink" title="1. 从最简单的Base接口开始看"></a>1. 从最简单的Base接口开始看</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//BaseView.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BaseView</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">// 规定View必须实现setPresenter方法，因此View必然持有Presenter的引用</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setPresenter</span><span class="params">(T presenter)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//BasePresenter.java    </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BasePresenter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-Tasks契约接口"><a href="#2-Tasks契约接口" class="headerlink" title="2. Tasks契约接口"></a>2. Tasks契约接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TasksContract.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TasksContract</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">View</span> <span class="keyword">extends</span> <span class="title">BaseView</span>&lt;<span class="title">Presenter</span>&gt; </span>&#123;</span><br><span class="line">        <span class="comment">//设置加载指示器是否显示</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setLoadingIndicator</span><span class="params">(<span class="keyword">boolean</span> active)</span></span>;</span><br><span class="line">        <span class="comment">//显示任务列表</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showTasks</span><span class="params">(List&lt;Task&gt; tasks)</span></span>;</span><br><span class="line">        <span class="comment">//进入新增任务页</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showAddTask</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//进入任务详情页</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showTaskDetailsUi</span><span class="params">(String taskId)</span></span>;</span><br><span class="line">        <span class="comment">//显示任务被标记为完成状态的提示</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showTaskMarkedComplete</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示任务被标记为活跃状态的提示</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showTaskMarkedActive</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示完成状态的任务被清除的提示</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showCompletedTasksCleared</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示任务加载失败的提示</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showLoadingTasksError</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示无任务视图</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showNoTasks</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示无活跃任务视图</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showNoActiveTasks</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示无完成任务视图</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showNoCompletedTasks</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//修改顶部Label文字</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showActiveFilterLabel</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showCompletedFilterLabel</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showAllFilterLabel</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示成功保存信息的提示</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showSuccessfullySavedMessage</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//判断Fragment是否活跃</span></span><br><span class="line">        <span class="function"><span class="keyword">boolean</span> <span class="title">isActive</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示过滤器菜单弹窗</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showFilteringPopUpMenu</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">Presenter</span> <span class="keyword">extends</span> <span class="title">BasePresenter</span> </span>&#123;</span><br><span class="line">        <span class="comment">//Fragment.onActivityResults回调</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">result</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode)</span></span>;</span><br><span class="line">        <span class="comment">//加载任务列表</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">loadTasks</span><span class="params">(<span class="keyword">boolean</span> forceUpdate)</span></span>;</span><br><span class="line">        <span class="comment">//添加新任务</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">addNewTask</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//打开任务详情</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">openTaskDetails</span><span class="params">(@NonNull Task requestedTask)</span></span>;</span><br><span class="line">        <span class="comment">//标记某任务已完成</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">completeTask</span><span class="params">(@NonNull Task completedTask)</span></span>;</span><br><span class="line">        <span class="comment">//标记某任务未完成</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">activateTask</span><span class="params">(@NonNull Task activeTask)</span></span>;</span><br><span class="line">        <span class="comment">//清除已完成任务</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">clearCompletedTasks</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//设置过滤器</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setFiltering</span><span class="params">(TasksFilterType requestType)</span></span>;</span><br><span class="line">        <span class="comment">//获取过滤器</span></span><br><span class="line">        <span class="function">TasksFilterType <span class="title">getFiltering</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="2-Tasks契约接口"><a href="#2-Tasks契约接口" class="headerlink" title="2. Tasks契约接口"></a>2. Tasks契约接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TasksContract.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TasksContract</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">View</span> <span class="keyword">extends</span> <span class="title">BaseView</span>&lt;<span class="title">Presenter</span>&gt; </span>&#123;</span><br><span class="line">        <span class="comment">//设置加载指示器是否显示</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setLoadingIndicator</span><span class="params">(<span class="keyword">boolean</span> active)</span></span>;</span><br><span class="line">        <span class="comment">//显示任务列表</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showTasks</span><span class="params">(List&lt;Task&gt; tasks)</span></span>;</span><br><span class="line">        <span class="comment">//进入新增任务页</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showAddTask</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//进入任务详情页</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showTaskDetailsUi</span><span class="params">(String taskId)</span></span>;</span><br><span class="line">        <span class="comment">//显示任务被标记为完成状态的提示</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showTaskMarkedComplete</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示任务被标记为活跃状态的提示</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showTaskMarkedActive</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示完成状态的任务被清除的提示</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showCompletedTasksCleared</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示任务加载失败的提示</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showLoadingTasksError</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示无任务视图</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showNoTasks</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示无活跃任务视图</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showNoActiveTasks</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示无完成任务视图</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showNoCompletedTasks</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//修改顶部Label文字</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showActiveFilterLabel</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showCompletedFilterLabel</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showAllFilterLabel</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示成功保存信息的提示</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showSuccessfullySavedMessage</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//判断Fragment是否活跃</span></span><br><span class="line">        <span class="function"><span class="keyword">boolean</span> <span class="title">isActive</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//显示过滤器菜单弹窗</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showFilteringPopUpMenu</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">Presenter</span> <span class="keyword">extends</span> <span class="title">BasePresenter</span> </span>&#123;</span><br><span class="line">        <span class="comment">//Fragment.onActivityResults回调</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">result</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode)</span></span>;</span><br><span class="line">        <span class="comment">//加载任务列表</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">loadTasks</span><span class="params">(<span class="keyword">boolean</span> forceUpdate)</span></span>;</span><br><span class="line">        <span class="comment">//添加新任务</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">addNewTask</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//打开任务详情</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">openTaskDetails</span><span class="params">(@NonNull Task requestedTask)</span></span>;</span><br><span class="line">        <span class="comment">//标记某任务已完成</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">completeTask</span><span class="params">(@NonNull Task completedTask)</span></span>;</span><br><span class="line">        <span class="comment">//标记某任务未完成</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">activateTask</span><span class="params">(@NonNull Task activeTask)</span></span>;</span><br><span class="line">        <span class="comment">//清除已完成任务</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">clearCompletedTasks</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="comment">//设置过滤器</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setFiltering</span><span class="params">(TasksFilterType requestType)</span></span>;</span><br><span class="line">        <span class="comment">//获取过滤器</span></span><br><span class="line">        <span class="function">TasksFilterType <span class="title">getFiltering</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvb2dsZXNhbXBsZXMvYW5kcm9pZC1hcmNoaXRlY3R1cmUvYmxvYi90b2RvLW12cC90b2RvYXBwL2FwcC9zcmMvbWFpbi9qYXZhL2NvbS9leGFtcGxlL2FuZHJvaWQvYXJjaGl0ZWN0dXJlL2JsdWVwcmludHMvdG9kb2FwcC90YXNrcy9UYXNrc0NvbnRyYWN0LmphdmE=" title="https://github.com/googlesamples/android-architecture/blob/todo-mvp/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksContract.java">TasksContract<i class="fa fa-external-link"></i></span> 采用内部接口的形式将 View 与 Presenter 结合在一处，使得 View 和 Presenter 中有哪些功能看起来一目了然，维护时也很方便。</p>
 <ul>
 <li>TasksContract.View 声明了任务列表所有的UI动态</li>
 <li>TasksContract.Presenter 声明了任务列表的所有业务事件</li>
 </ul>
 <h3 id="3-契约接口的实现类"><a href="#3-契约接口的实现类" class="headerlink" title="3. 契约接口的实现类"></a>3. 契约接口的实现类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TasksFragment.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TasksFragment</span> <span class="keyword">extends</span> <span class="title">Fragment</span> <span class="keyword">implements</span> <span class="title">TasksContract</span>.<span class="title">View</span> </span>&#123;</span><br><span class="line"><span class="comment">//TasksPresenter.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TasksPresenter</span> <span class="keyword">implements</span> <span class="title">TasksContract</span>.<span class="title">Presenter</span> </span>&#123;</span><br></pre></td></tr></table></figure>
-
 <p>TasksFragment 与 TasksPresenter 分别实现了 TasksContract.View 与 TasksContract.Presenter 接口。因此 TasksFragment 对应任务列表模块的 <strong>View</strong> 层，TasksPresenter 对应任务列表模块的 <strong>Presenter</strong> 层。</p>
 <ul>
 <li>TasksFragment 负责 View 层的视图改动，当有用户事件发生或者需要获取数据时，需交由 Presenter 处理</li>
@@ -608,25 +351,18 @@ app/src/main/java 下的 data 目录表示 **Model** 层，Task 是经final修�
 </ul>
 <h3 id="4-View-与-Presenter-如何建立联系"><a href="#4-View-与-Presenter-如何建立联系" class="headerlink" title="4. View 与 Presenter 如何建立联系"></a>4. View 与 Presenter 如何建立联系</h3><h4 id="从TasksActivity入手"><a href="#从TasksActivity入手" class="headerlink" title="从TasksActivity入手"></a>从TasksActivity入手</h4><p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvb2dsZXNhbXBsZXMvYW5kcm9pZC1hcmNoaXRlY3R1cmUvYmxvYi90b2RvLW12cC90b2RvYXBwL2FwcC9zcmMvbWFpbi9yZXMvbGF5b3V0L3Rhc2tzX2FjdC54bWw=" title="https://github.com/googlesamples/android-architecture/blob/todo-mvp/todoapp/app/src/main/res/layout/tasks_act.xml">tasks_act.xml<i class="fa fa-external-link"></i></span></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//tasks_act.xml</span><br><span class="line"><span class="tag">&lt;<span class="name">androidx.drawerlayout.widget.DrawerLayout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">com.google.android.material.appbar.AppBarLayout</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">androidx.coordinatorlayout.widget.CoordinatorLayout</span>&gt;</span></span><br><span class="line">            // Fragment 占位容器</span><br><span class="line">            <span class="tag">&lt;<span class="name">FrameLayout</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:id</span>=<span class="string">"@+id/contentFrame"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">com.google.android.material.floatingactionbutton.FloatingActionButton</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">androidx.coordinatorlayout.widget.CoordinatorLayout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.google.android.material.navigation.NavigationView</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">androidx.drawerlayout.widget.DrawerLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvb2dsZXNhbXBsZXMvYW5kcm9pZC1hcmNoaXRlY3R1cmUvYmxvYi90b2RvLW12cC90b2RvYXBwL2FwcC9zcmMvbWFpbi9qYXZhL2NvbS9leGFtcGxlL2FuZHJvaWQvYXJjaGl0ZWN0dXJlL2JsdWVwcmludHMvdG9kb2FwcC90YXNrcy9UYXNrc0FjdGl2aXR5LmphdmE=" title="https://github.com/googlesamples/android-architecture/blob/todo-mvp/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksActivity.java">TasksActivity<i class="fa fa-external-link"></i></span></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TasksActivity.java</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    TasksFragment tasksFragment =</span><br><span class="line">            (TasksFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);</span><br><span class="line">    <span class="keyword">if</span> (tasksFragment == <span class="keyword">null</span>) &#123;</span><br><span class="line">        tasksFragment = TasksFragment.newInstance();</span><br><span class="line">        <span class="comment">// 将TasksFragment 关联到 TasksActivity</span></span><br><span class="line">        ActivityUtils.addFragmentToActivity(</span><br><span class="line">                getSupportFragmentManager(), tasksFragment, R.id.contentFrame);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实例化Presenter时，将repository，fragment作为参数传入</span></span><br><span class="line">    mTasksPresenter = <span class="keyword">new</span> TasksPresenter(Injection.provideTasksRepository(getApplicationContext()), tasksFragment);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>在TasksActivity的onCreate方法内attach了TasksFragment，同时对TasksPresenter进行实例化，而TasksPresenter的构造函数与tasksFragment有很强的关联。 </p>
 <h4 id="追踪-TasksPresenter-的构造函数"><a href="#追踪-TasksPresenter-的构造函数" class="headerlink" title="追踪 TasksPresenter 的构造函数"></a>追踪 TasksPresenter 的构造函数</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TasksPresenter.java</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">TasksPresenter</span><span class="params">(@NonNull TasksRepository tasksRepository, @NonNull TasksContract.View tasksView)</span> </span>&#123;</span><br><span class="line">    mTasksRepository = checkNotNull(tasksRepository, <span class="string">"tasksRepository cannot be null"</span>);</span><br><span class="line">    <span class="comment">//采用断言检测参数是否为Null</span></span><br><span class="line">    mTasksView = checkNotNull(tasksView, <span class="string">"tasksView cannot be null!"</span>);</span><br><span class="line">    <span class="comment">//为View设置Presenter</span></span><br><span class="line">    mTasksView.setPresenter(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//BasePresenter 基类继承而来的方法，一旦被调用便执行 loadTasks</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    loadTasks(<span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//TasksFragment.java</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onResume();</span><br><span class="line">    <span class="comment">//当 Fragment 的生命周期到达 resume 状态时，调用 presenter 的 start 方法</span></span><br><span class="line">    mPresenter.start();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPresenter</span><span class="params">(@NonNull TasksContract.Presenter presenter)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//采用断言检测参数是否为Null，若非Null则将其赋值给 mPresenter</span></span><br><span class="line">    mPresenter = checkNotNull(presenter);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>在TasksPresenter的构造方法中，终于看到 Presenter 层与 View 层是如何关联的，至此，MVP之间的桥梁总算架通，接下来我们将视线转移到层次间的交互上。</p>
 <h2 id="组件通信：列表刷新的前世今生"><a href="#组件通信：列表刷新的前世今生" class="headerlink" title="组件通信：列表刷新的前世今生"></a>组件通信：列表刷新的前世今生</h2><h3 id="刷新事件发生时，TasksFragment-将其转交给-TasksPresenter-处理"><a href="#刷新事件发生时，TasksFragment-将其转交给-TasksPresenter-处理" class="headerlink" title="刷新事件发生时，TasksFragment 将其转交给 TasksPresenter 处理"></a>刷新事件发生时，TasksFragment 将其转交给 TasksPresenter 处理</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TasksFragment.java</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 用户点击菜单控件，Fragment收到点击事件</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (item.getItemId()) &#123;</span><br><span class="line">        <span class="keyword">case</span> R.id.menu_clear:</span><br><span class="line">            mPresenter.clearCompletedTasks();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> R.id.menu_filter:</span><br><span class="line">            showFilteringPopUpMenu();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> R.id.menu_refresh:</span><br><span class="line">            <span class="comment">//若用户点击的是刷新按钮，则交由presenter 的 loadTasks 方法进行处理</span></span><br><span class="line">            mPresenter.loadTasks(<span class="keyword">true</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h3 id="TasksPresenter-对-loadTastk-true-的响应"><a href="#TasksPresenter-对-loadTastk-true-的响应" class="headerlink" title="TasksPresenter 对 loadTastk(true) 的响应"></a>TasksPresenter 对 loadTastk(true) 的响应</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TasksPrenseter.java</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">loadTasks</span><span class="params">(<span class="keyword">boolean</span> forceUpdate)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// loadTasks(true) 时，下条语句可直接看做 loadTasks(true,true);</span></span><br><span class="line">    loadTasks(forceUpdate || mFirstLoad, <span class="keyword">true</span>);</span><br><span class="line">    mFirstLoad = <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadTasks</span><span class="params">(<span class="keyword">boolean</span> forceUpdate, <span class="keyword">final</span> <span class="keyword">boolean</span> showLoadingUI)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (showLoadingUI) &#123;</span><br><span class="line">        <span class="comment">//显示加载中动画</span></span><br><span class="line">        mTasksView.setLoadingIndicator(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (forceUpdate) &#123;</span><br><span class="line">        <span class="comment">//强制更新时，将repo的脏缓存标志设置为true，达到放弃缓存的目的</span></span><br><span class="line">        mTasksRepository.mCacheIsDirty = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    mTasksRepository.getTasks(<span class="keyword">new</span> TasksDataSource.LoadTasksCallback() &#123;</span><br><span class="line">        <span class="comment">//数据源成功回调</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTasksLoaded</span><span class="params">(List&lt;Task&gt; tasks)</span> </span>&#123;</span><br><span class="line">            List&lt;Task&gt; tasksToShow = <span class="keyword">new</span> ArrayList&lt;Task&gt;();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (Task task : tasks) &#123;</span><br><span class="line">                <span class="keyword">switch</span> (mCurrentFiltering) &#123;</span><br><span class="line">                    <span class="keyword">case</span> ALL_TASKS:</span><br><span class="line">                        tasksToShow.add(task);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> ACTIVE_TASKS:</span><br><span class="line">                        <span class="keyword">if</span> (task.isActive()) &#123;</span><br><span class="line">                            tasksToShow.add(task);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> COMPLETED_TASKS:</span><br><span class="line">                        <span class="keyword">if</span> (task.isCompleted()) &#123;</span><br><span class="line">                            tasksToShow.add(task);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">default</span>:</span><br><span class="line">                        tasksToShow.add(task);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 如果 TasksFragment 不活跃，则中止操作，直接返回</span></span><br><span class="line">            <span class="keyword">if</span> (!mTasksView.isActive()) &#123; <span class="keyword">return</span>; &#125;</span><br><span class="line">            <span class="comment">// 关闭加载动画</span></span><br><span class="line">            <span class="keyword">if</span> (showLoadingUI) &#123; mTasksView.setLoadingIndicator(<span class="keyword">false</span>); &#125;</span><br><span class="line">            <span class="keyword">if</span> (tasks.isEmpty()) &#123;</span><br><span class="line">            <span class="comment">// 当列表为空时，根据过滤器状态显示对应的空列表提示信息</span></span><br><span class="line">                <span class="keyword">switch</span> (mCurrentFiltering) &#123;</span><br><span class="line">                    <span class="keyword">case</span> ACTIVE_TASKS:</span><br><span class="line">                        <span class="comment">//将View层的变动交由mTasksView即TasksFragment处理</span></span><br><span class="line">                        mTasksView.showNoActiveTasks();</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> COMPLETED_TASKS:</span><br><span class="line">                        mTasksView.showNoCompletedTasks();</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">default</span>:</span><br><span class="line">                        mTasksView.showNoTasks();</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;       </span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 列表不为空时，调用mTasksView.showTasks来展示最新获取到的任务列表</span></span><br><span class="line">                mTasksView.showTasks(tasks);</span><br><span class="line">                showFilterLabel();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//数据源失败回调</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDataNotAvailable</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!mTasksView.isActive()) &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//显示加载失败提示</span></span><br><span class="line">            mTasksView.showLoadingTasksError();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>TasksPresenter通过TasksRepository获取数据，无论成功或失败，都会通过mTasksView即TasksFragment来完成View的更新。</p>
 <h3 id="TasksFragment-对-showTasks-的响应"><a href="#TasksFragment-对-showTasks-的响应" class="headerlink" title="TasksFragment 对 showTasks 的响应"></a>TasksFragment 对 showTasks 的响应</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TasksFragment.java</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showTasks</span><span class="params">(List&lt;Task&gt; tasks)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//通知adapter</span></span><br><span class="line">    mListAdapter.replaceData(tasks);</span><br><span class="line">    <span class="comment">//显示任务列表</span></span><br><span class="line">    mTasksView.setVisibility(View.VISIBLE);</span><br><span class="line">    <span class="comment">//隐藏无任务视图</span></span><br><span class="line">    mNoTasksView.setVisibility(View.GONE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//TasksFragment.TasksAdapter</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">replaceData</span><span class="params">(List&lt;Task&gt; tasks)</span> </span>&#123;</span><br><span class="line">    mTasks = checkNotNull(tasks);</span><br><span class="line">    <span class="comment">//通知ListView更新</span></span><br><span class="line">    notifyDataSetChanged();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="TasksRepository-对-getTasks-的响应"><a href="#TasksRepository-对-getTasks-的响应" class="headerlink" title="TasksRepository 对 getTasks 的响应"></a>TasksRepository 对 getTasks 的响应</h3><h4 id="1-Repository-的实现"><a href="#1-Repository-的实现" class="headerlink" title="1. Repository 的实现"></a>1. Repository 的实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TasksDataSource.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TasksDataSource</span> </span>&#123;</span><br><span class="line">    <span class="comment">//加载任务列表回调</span></span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">LoadTasksCallback</span> </span>&#123;</span><br><span class="line">        <span class="comment">//成功回调</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onTasksLoaded</span><span class="params">(List&lt;Task&gt; tasks)</span></span>;</span><br><span class="line">        <span class="comment">//失败回调</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onDataNotAvailable</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取单个任务回调</span></span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">GetTaskCallback</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onTaskLoaded</span><span class="params">(Task task)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onDataNotAvailable</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取任务列表</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getTasks</span><span class="params">(@NonNull LoadTasksCallback callback)</span></span>;</span><br><span class="line">    <span class="comment">//获取单个任务</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getTask</span><span class="params">(@NonNull String taskId, @NonNull GetTaskCallback callback)</span></span>;</span><br><span class="line">    <span class="comment">//保存单个任务</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">saveTask</span><span class="params">(@NonNull Task task)</span></span>;</span><br><span class="line">    <span class="comment">//完成单个任务</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">completeTask</span><span class="params">(@NonNull Task task)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">completeTask</span><span class="params">(@NonNull String taskId)</span></span>;</span><br><span class="line">    <span class="comment">//激活单个任务</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">activateTask</span><span class="params">(@NonNull Task task)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">activateTask</span><span class="params">(@NonNull String taskId)</span></span>;</span><br><span class="line">    <span class="comment">//清空已完成任务</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">clearCompletedTasks</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//刷新任务列表</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">refreshTasks</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//删除所有任务</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">deleteAllTasks</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//删除单个任务</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">deleteTask</span><span class="params">(@NonNull String taskId)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//TasksRepository.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TasksRepository</span> <span class="keyword">implements</span> <span class="title">TasksDataSource</span> </span>&#123;</span><br><span class="line">    <span class="comment">//单例模式</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> TasksRepository INSTANCE = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">//持有本地数据源与远程数据源</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> TasksDataSource mTasksRemoteDataSource;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> TasksDataSource mTasksLocalDataSource;</span><br><span class="line">    <span class="comment">//私有化构造方法，屏蔽 new 操作</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">TasksRepository</span><span class="params">(@NonNull TasksDataSource tasksRemoteDataSource,</span></span></span><br><span class="line"><span class="function"><span class="params">                            @NonNull TasksDataSource tasksLocalDataSource)</span> </span>&#123;</span><br><span class="line">        mTasksRemoteDataSource = checkNotNull(tasksRemoteDataSource);</span><br><span class="line">        mTasksLocalDataSource = checkNotNull(tasksLocalDataSource);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//单例方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TasksRepository <span class="title">getInstance</span><span class="params">(TasksDataSource tasksRemoteDataSource, TasksDataSource tasksLocalDataSource)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (INSTANCE == <span class="keyword">null</span>) &#123;</span><br><span class="line">            INSTANCE = <span class="keyword">new</span> TasksRepository(tasksRemoteDataSource, tasksLocalDataSource);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> INSTANCE;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
 <h4 id="2-Repository-内的缓存策略"><a href="#2-Repository-内的缓存策略" class="headerlink" title="2. Repository 内的缓存策略"></a>2. Repository 内的缓存策略</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取任务列表</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getTasks</span><span class="params">(@NonNull <span class="keyword">final</span> LoadTasksCallback callback)</span> </span>&#123;</span><br><span class="line">    checkNotNull(callback);</span><br><span class="line">    <span class="comment">// 如果缓存可用，则返回缓存内容</span></span><br><span class="line">    <span class="keyword">if</span> (mCachedTasks != <span class="keyword">null</span> &amp;&amp; !mCacheIsDirty) &#123;</span><br><span class="line">        callback.onTasksLoaded(<span class="keyword">new</span> ArrayList&lt;&gt;(mCachedTasks.values()));</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (mCacheIsDirty) &#123;</span><br><span class="line">        <span class="comment">// 如果存在脏缓存，则重新从远程获取数据</span></span><br><span class="line">        getTasksFromRemoteDataSource(callback);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 不存在脏缓存时，尝试从本地数据库内获取数据</span></span><br><span class="line">        mTasksLocalDataSource.getTasks(<span class="keyword">new</span> LoadTasksCallback() &#123;</span><br><span class="line">            <span class="comment">//若在本地数据库内成功获得数据，则将数据回调给 Presenter</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTasksLoaded</span><span class="params">(List&lt;Task&gt; tasks)</span> </span>&#123;</span><br><span class="line">                refreshCache(tasks);</span><br><span class="line">                callback.onTasksLoaded(<span class="keyword">new</span> ArrayList&lt;&gt;(mCachedTasks.values()));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//若在本地数据库获得失败，则重新从远程获取数据</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDataNotAvailable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                getTasksFromRemoteDataSource(callback);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//从远程获取数据</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">getTasksFromRemoteDataSource</span><span class="params">(@NonNull <span class="keyword">final</span> LoadTasksCallback callback)</span> </span>&#123;</span><br><span class="line">    mTasksRemoteDataSource.getTasks(<span class="keyword">new</span> LoadTasksCallback() &#123;</span><br><span class="line">        <span class="comment">//若成功获得数据，则将数据回调给 Presenter</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTasksLoaded</span><span class="params">(List&lt;Task&gt; tasks)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//刷新缓存标志</span></span><br><span class="line">            refreshCache(tasks);</span><br><span class="line">            <span class="comment">//刷新本地数据库</span></span><br><span class="line">            refreshLocalDataSource(tasks);</span><br><span class="line">            <span class="comment">//将数据回调给 Presenter</span></span><br><span class="line">            callback.onTasksLoaded(<span class="keyword">new</span> ArrayList&lt;&gt;(mCachedTasks.values()));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//若成功获得数据，则将将失败事件回调给 Presenter</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDataNotAvailable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            callback.onDataNotAvailable();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h2 id="组件作用"><a href="#组件作用" class="headerlink" title="组件作用"></a>组件作用</h2><h3 id="Contract-在-MVP-中的作用"><a href="#Contract-在-MVP-中的作用" class="headerlink" title="Contract 在 MVP 中的作用"></a>Contract 在 MVP 中的作用</h3><p>Contract 是每个模块的契约，对模块内的 View 和 Presenter 起到提纲擎领的作用，是编写代码前首先需要思考的内容，它的职责如下：</p>
 <ol>
 <li>整合 View 与 Presenter 接口，便于维护</li>
@@ -658,7 +394,7 @@ app/src/main/java 下的 data 目录表示 **Model** 层，Task 是经final修�
 <li>Repository 本身并未存储数据，它仅负责数据的缓存策略</li>
 <li>将来自 Presenter 的调用先进行 CURD 缓存策略的处理，再中转给实际的 LocalDataSource / RemoteDataSource，并将最终结果回调给 Presenter</li>
 </ol>
-<h3 id="MVP间的通信方式"><a href="#MVP间的通信方式" class="headerlink" title="MVP间的通信方式"></a>MVP间的通信方式</h3><p><img src="/uploads/todo-mvp-figure.png" alt></p>
+<h3 id="MVP间的通信方式"><a href="#MVP间的通信方式" class="headerlink" title="MVP间的通信方式"></a>MVP间的通信方式</h3><p><img src="/uploads/todo-mvp-figure.png" alt=""></p>
 <h2 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h2><ol>
 <li>项目的模块划分与代码结构非常清晰，使得项目易于理解与上手</li>
 <li>Activity 与 Fragment 的同时使用，带来了更好的分离性，Acitivity 作为模块入口兼控制器，负责view、presenter的创建与连接</li>
@@ -705,17 +441,14 @@ app/src/main/java 下的 data 目录表示 **Model** 层，Task 是经final修�
 </ol>
 <h2 id="一个依赖注入的细节"><a href="#一个依赖注入的细节" class="headerlink" title="一个依赖注入的细节"></a>一个依赖注入的细节</h2><p>TasksActivity 的 onCreate 在创建 TasksPresenter 时，通过 Injection 来获取 Repository。Injection 通常伴随强烈的依赖注入语义，此处必有蹊跷</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TasksActivity.java onCreate</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    mTasksPresenter = <span class="keyword">new</span> TasksPresenter(</span><br><span class="line">            Injection.provideTasksRepository(getApplicationContext()), </span><br><span class="line">            tasksFragment);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>回到项目组织，在 mock 与 prod 下，果然看到两个同名的 Injection 类<br><img alt="TodoMVP 项目目录" src="/uploads/todo-mvp-project-structure4.png" width="70%"><br>除 RemoteDataSourcew 外，两份Injection的代码完全一致，甚至连包名都一致</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/mock </span></span><br><span class="line"><span class="keyword">package</span> com.example.android.architecture.blueprints.todoapp;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Injection</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TasksRepository <span class="title">provideTasksRepository</span><span class="params">(@NonNull Context context)</span> </span>&#123;</span><br><span class="line">        checkNotNull(context);</span><br><span class="line">        ToDoDatabase database = ToDoDatabase.getInstance(context);</span><br><span class="line">        <span class="comment">// mock 环境使用 FakeTasksRemoteDataSource</span></span><br><span class="line">        <span class="keyword">return</span> TasksRepository.getInstance(FakeTasksRemoteDataSource.getInstance(),</span><br><span class="line">                TasksLocalDataSource.getInstance(<span class="keyword">new</span> AppExecutors(),</span><br><span class="line">                        database.taskDao()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// src/prod</span></span><br><span class="line"><span class="keyword">package</span> com.example.android.architecture.blueprints.todoapp;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Injection</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TasksRepository <span class="title">provideTasksRepository</span><span class="params">(@NonNull Context context)</span> </span>&#123;</span><br><span class="line">        checkNotNull(context);</span><br><span class="line">        ToDoDatabase database = ToDoDatabase.getInstance(context);</span><br><span class="line">        <span class="comment">// prod 环境使用 TasksRemoteDataSource</span></span><br><span class="line">        <span class="keyword">return</span> TasksRepository.getInstance(TasksRemoteDataSource.getInstance(),</span><br><span class="line">                TasksLocalDataSource.getInstance(<span class="keyword">new</span> AppExecutors(),</span><br><span class="line">                        database.taskDao()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>回到项目组织，打开Build Variant窗口，同时打开app下的 build.gradle文件</p>
-<img alt="TodoMVP 项目目录" src="/uploads/todo-mvp-project-structure5.png">
+<img alt="TodoMVP 项目目录" src="/uploads/todo-mvp-project-structure5.png" >
 
 <p>根据 mock/java 的蓝色文件夹图标可知，mock 下的 Injection.java 为当前源码集的一部分，项目编译时运行时会选用这个 Injection </p>
 <p>我们在Build Variant窗口的列表中，使用鼠标选中 prodDebug或prodRelease ，项目变回会自动进行 Gradle Sync 操作</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Executing tasks: [:app:generateProdDebugSources]</span><br><span class="line"></span><br><span class="line">&gt; Configure project :</span><br><span class="line">...省略</span><br><span class="line">&gt; Task :app:preProdDebugBuild UP-TO-DATE</span><br><span class="line">&gt; Task :app:compileProdDebugAidl NO-SOURCE</span><br><span class="line">&gt; Task :app:compileProdDebugRenderscript UP-TO-DATE</span><br><span class="line">&gt; Task :app:checkProdDebugManifest UP-TO-DATE</span><br><span class="line">&gt; Task :app:generateProdDebugBuildConfig UP-TO-DATE</span><br><span class="line">&gt; Task :app:generateProdDebugSources UP-TO-DATE</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL in 0s</span><br><span class="line">6 actionable tasks: 6 up-to-date</span><br></pre></td></tr></table></figure>
-
 <p>执行完成后再来观察项目组织，发现 prod/java 成为了源码集的一部分，mock/java 则变为了普通文件夹<br><img alt="TodoMVP 项目目录" src="/uploads/todo-mvp-project-structure6.png" width="70%"><br>此时若进行编译，便会将 prod/java 下的 Injection 编译到项目中，而 mock 下的文件夹则会被编译器忽略。</p>
 <h3 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h3><p>Injection 类通过 <span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYW5kcm9pZC5jb20vc3R1ZGlvL2J1aWxkL2J1aWxkLXZhcmlhbnRz" title="https://developer.android.com/studio/build/build-variants">build vartiant<i class="fa fa-external-link"></i></span> 改变源码集的方式来实现注入，避免了手动修改带来的潜在问题，使得 mock 与 prod 环境间的切换变得尤为方便，不失为一种优雅的方式。</p>
 <h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><ol>
@@ -727,389 +460,218 @@ app/src/main/java 下的 data 目录表示 **Model** 层，Task 是经final修�
 <p>参考链接：<br><span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC8zODljOWFlMWE4MmM=" title="https://www.jianshu.com/p/389c9ae1a82c">Android官方MVP架构项目解析<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvU09MSUQ=" title="https://en.wikipedia.org/wiki/SOLID">SOLID<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly9qaW5uaWFuc2hpbG9uZ25pYW4uaXRleWUuY29tL2Jsb2cvMTQxMzg0Ng==" title="https://jinnianshilongnian.iteye.com/blog/1413846">【第二章】 IoC 之 2.1 IoC基础 ——跟我学Spring3 <i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly9hbmRyb2lkLWRldmVsb3BlcnMuZ29vZ2xlYmxvZy5jb20vMjAxNS8xMi9sZXZlcmFnaW5nLXByb2R1Y3QtZmxhdm9ycy1pbi1hbmRyb2lkLmh0bWw=" title="https://android-developers.googleblog.com/2015/12/leveraging-product-flavors-in-android.html">Leveraging product flavors in Android Studio for hermetic testing
 <i class="fa fa-external-link"></i></span></p>
 
-      
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-      <div>
         
 
-
-
-
-  
-
-
-
+<div>
 <ul class="post-copyright">
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>Geek5Nan</li>
+    <strong>本文作者： </strong>Geek5Nan
+  </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    
     <a href="http://geek5nan.github.io/2018/07/08/Understand-Android-MVP-Architecture/" title="Android MVP架构解析">http://geek5nan.github.io/2018/07/08/Understand-Android-MVP-Architecture/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
 </ul>
+</div>
 
-      </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/06/27/coding-marathon-05/" rel="prev" title="编程马拉松 Day05 堆、二叉堆、堆排序">
+      <i class="fa fa-chevron-left"></i> 编程马拉松 Day05 堆、二叉堆、堆排序
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/07/17/Android-ActivityUtil/" rel="next" title="Android中同时finish多个Activity - 一次内存泄露的小记">
+      Android中同时finish多个Activity - 一次内存泄露的小记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
     
-
-    <footer class="post-footer">
-      
-        
-          
-        
-        <div class="post-tags">
-          
-            <a href="/tags/Android/" rel="tag"># Android</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/06/27/coding-marathon-05/" rel="next" title="编程马拉松 Day05 堆、二叉堆、堆排序">
-                <i class="fa fa-chevron-left"></i> 编程马拉松 Day05 堆、二叉堆、堆排序
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/17/Android-ActivityUtil/" rel="prev" title="Android中同时finish多个Activity - 一次内存泄露的小记">
-                Android中同时finish多个Activity - 一次内存泄露的小记 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-
-  </div>
 
 
           </div>
           
-
-  
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-      </div>
-    </div>
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
     </div>
   </div>
+  
 
-  <aside id="sidebar" class="sidebar">
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目概览"><span class="nav-number">2.</span> <span class="nav-text">项目概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目组织"><span class="nav-number">3.</span> <span class="nav-text">项目组织</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#总览"><span class="nav-number">3.1.</span> <span class="nav-text">总览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.2.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构组织与通信"><span class="nav-number">4.</span> <span class="nav-text">架构组织与通信</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构组织"><span class="nav-number">4.1.</span> <span class="nav-text">架构组织</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-从最简单的Base接口开始看"><span class="nav-number">4.1.1.</span> <span class="nav-text">1. 从最简单的Base接口开始看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Tasks契约接口"><span class="nav-number">4.1.2.</span> <span class="nav-text">2. Tasks契约接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-契约接口的实现类"><span class="nav-number">4.1.3.</span> <span class="nav-text">3. 契约接口的实现类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-View-与-Presenter-如何建立联系"><span class="nav-number">4.1.4.</span> <span class="nav-text">4. View 与 Presenter 如何建立联系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#从TasksActivity入手"><span class="nav-number">4.1.4.1.</span> <span class="nav-text">从TasksActivity入手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#追踪-TasksPresenter-的构造函数"><span class="nav-number">4.1.4.2.</span> <span class="nav-text">追踪 TasksPresenter 的构造函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件通信：列表刷新的前世今生"><span class="nav-number">4.2.</span> <span class="nav-text">组件通信：列表刷新的前世今生</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#刷新事件发生时，TasksFragment-将其转交给-TasksPresenter-处理"><span class="nav-number">4.2.1.</span> <span class="nav-text">刷新事件发生时，TasksFragment 将其转交给 TasksPresenter 处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TasksPresenter-对-loadTastk-true-的响应"><span class="nav-number">4.2.2.</span> <span class="nav-text">TasksPresenter 对 loadTastk(true) 的响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TasksFragment-对-showTasks-的响应"><span class="nav-number">4.2.3.</span> <span class="nav-text">TasksFragment 对 showTasks 的响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TasksRepository-对-getTasks-的响应"><span class="nav-number">4.2.4.</span> <span class="nav-text">TasksRepository 对 getTasks 的响应</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Repository-的实现"><span class="nav-number">4.2.4.1.</span> <span class="nav-text">1. Repository 的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Repository-内的缓存策略"><span class="nav-number">4.2.4.2.</span> <span class="nav-text">2. Repository 内的缓存策略</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件作用"><span class="nav-number">4.3.</span> <span class="nav-text">组件作用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Contract-在-MVP-中的作用"><span class="nav-number">4.3.1.</span> <span class="nav-text">Contract 在 MVP 中的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity-在-MVP-中的作用"><span class="nav-number">4.3.2.</span> <span class="nav-text">Activity 在 MVP 中的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fragment-在-MVP-中的作用"><span class="nav-number">4.3.3.</span> <span class="nav-text">Fragment 在 MVP 中的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Presenter-在-MVP-中的作用"><span class="nav-number">4.3.4.</span> <span class="nav-text">Presenter 在 MVP 中的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repository-在-MVP-中的作用"><span class="nav-number">4.3.5.</span> <span class="nav-text">Repository 在 MVP 中的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVP间的通信方式"><span class="nav-number">4.3.6.</span> <span class="nav-text">MVP间的通信方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结-1"><span class="nav-number">4.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式"><span class="nav-number">5.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象设计的-S-O-L-I-D-原则"><span class="nav-number">5.1.</span> <span class="nav-text">面向对象设计的 S.O.L.I.D 原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#todo-mvp-中设计原则的体现"><span class="nav-number">5.2.</span> <span class="nav-text">todo-mvp 中设计原则的体现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个依赖注入的细节"><span class="nav-number">5.3.</span> <span class="nav-text">一个依赖注入的细节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-2"><span class="nav-number">5.3.1.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后记"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Geek5Nan">
-            
-              <p class="site-author-name" itemprop="name">Geek5Nan</p>
-              <div class="site-description motion-element" itemprop="description">每天进步一点。</div>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">26</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  
-                    
-                      <a href="/categories/">
-                    
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">7</span>
-                    <span class="site-state-item-name">分类</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  
-                    
-                      <a href="/tags/">
-                    
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">15</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  
-                  
-                  
-                    
-                  
-                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dlZWs1bmFu" title="GitHub &rarr; https://github.com/geek5nan"><i class="fa fa-fw fa-github"></i></span>
-                </span>
-              
-                <span class="links-of-author-item">
-                  
-                  
-                  
-                    
-                  
-                  <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vZ2VlazVuYW4=" title="Weibo &rarr; https://weibo.com/geek5nan"><i class="fa fa-fw fa-weibo"></i></span>
-                </span>
-              
-            </div>
-          
-
-          
-             <div class="cc-license motion-element" itemprop="license">
-              
-              
-                
-              
-              
-              
-              <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
-             </div>
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Geek5Nan"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">Geek5Nan</p>
+  <div class="site-description" itemprop="description">每天进步一点。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
       </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dlZWs1bmFu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;geek5nan"><i class="fa fa-fw fa-github"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vZ2VlazVuYW4=" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;geek5nan"><i class="fa fa-fw fa-weibo"></i></span>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
 
-            
-            
-            
-            
 
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目概览"><span class="nav-number">2.</span> <span class="nav-text">项目概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目组织"><span class="nav-number">3.</span> <span class="nav-text">项目组织</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#总览"><span class="nav-number">3.1.</span> <span class="nav-text">总览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.2.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构组织与通信"><span class="nav-number">4.</span> <span class="nav-text">架构组织与通信</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构组织"><span class="nav-number">4.1.</span> <span class="nav-text">架构组织</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-从最简单的Base接口开始看"><span class="nav-number">4.1.1.</span> <span class="nav-text">1. 从最简单的Base接口开始看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Tasks契约接口"><span class="nav-number">4.1.2.</span> <span class="nav-text">2. Tasks契约接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-契约接口的实现类"><span class="nav-number">4.1.3.</span> <span class="nav-text">3. 契约接口的实现类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-View-与-Presenter-如何建立联系"><span class="nav-number">4.1.4.</span> <span class="nav-text">4. View 与 Presenter 如何建立联系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#从TasksActivity入手"><span class="nav-number">4.1.4.1.</span> <span class="nav-text">从TasksActivity入手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#追踪-TasksPresenter-的构造函数"><span class="nav-number">4.1.4.2.</span> <span class="nav-text">追踪 TasksPresenter 的构造函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件通信：列表刷新的前世今生"><span class="nav-number">4.2.</span> <span class="nav-text">组件通信：列表刷新的前世今生</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#刷新事件发生时，TasksFragment-将其转交给-TasksPresenter-处理"><span class="nav-number">4.2.1.</span> <span class="nav-text">刷新事件发生时，TasksFragment 将其转交给 TasksPresenter 处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TasksPresenter-对-loadTastk-true-的响应"><span class="nav-number">4.2.2.</span> <span class="nav-text">TasksPresenter 对 loadTastk(true) 的响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TasksFragment-对-showTasks-的响应"><span class="nav-number">4.2.3.</span> <span class="nav-text">TasksFragment 对 showTasks 的响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TasksRepository-对-getTasks-的响应"><span class="nav-number">4.2.4.</span> <span class="nav-text">TasksRepository 对 getTasks 的响应</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Repository-的实现"><span class="nav-number">4.2.4.1.</span> <span class="nav-text">1. Repository 的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Repository-内的缓存策略"><span class="nav-number">4.2.4.2.</span> <span class="nav-text">2. Repository 内的缓存策略</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件作用"><span class="nav-number">4.3.</span> <span class="nav-text">组件作用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Contract-在-MVP-中的作用"><span class="nav-number">4.3.1.</span> <span class="nav-text">Contract 在 MVP 中的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity-在-MVP-中的作用"><span class="nav-number">4.3.2.</span> <span class="nav-text">Activity 在 MVP 中的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fragment-在-MVP-中的作用"><span class="nav-number">4.3.3.</span> <span class="nav-text">Fragment 在 MVP 中的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Presenter-在-MVP-中的作用"><span class="nav-number">4.3.4.</span> <span class="nav-text">Presenter 在 MVP 中的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repository-在-MVP-中的作用"><span class="nav-number">4.3.5.</span> <span class="nav-text">Repository 在 MVP 中的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVP间的通信方式"><span class="nav-number">4.3.6.</span> <span class="nav-text">MVP间的通信方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结-1"><span class="nav-number">4.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式"><span class="nav-number">5.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象设计的-S-O-L-I-D-原则"><span class="nav-number">5.1.</span> <span class="nav-text">面向对象设计的 S.O.L.I.D 原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#todo-mvp-中设计原则的体现"><span class="nav-number">5.2.</span> <span class="nav-text">todo-mvp 中设计原则的体现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个依赖注入的细节"><span class="nav-number">5.3.</span> <span class="nav-text">一个依赖注入的细节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-2"><span class="nav-number">5.3.1.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后记"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
+      </div>
 
     </div>
   </aside>
-  
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2013 – <span itemprop="copyrightYear">2019</span>
-  <span class="with-love" id="animate">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2013 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Geek5Nan</span>
-
-  
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    
-    <span title="站点总字数">131k</span>
-  
-
-  
+    <span title="站点总字数">116k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    
-    <span title="站点阅读时长">1:59</span>
-  
+    <span title="站点阅读时长">1:45</span>
 </div>
-
-
-
-
-
-
-
-
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9taXN0LnRoZW1lLW5leHQub3Jn">NexT.Mist</span> 强力驱动
+  </div>
 
         
 <div class="busuanzi-count">
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-user"></i>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
     </span>
-    <span class="site-uv" title="总访客量">
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-    </span>
-  
-
-  
     <span class="post-meta-divider">|</span>
-  
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-eye"></i>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
     </span>
-    <span class="site-pv" title="总访问量">
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-    </span>
-  
 </div>
 
 
@@ -1119,40 +681,23 @@ app/src/main/java 下的 data 目录表示 **Model** 层，Task 是经final修�
 
 
 
-
-        
       </div>
     </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
 
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
+<script src="/js/utils.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -1174,61 +719,9 @@ app/src/main/java 下的 data 目录表示 **Model** 层，Task 是经final修�
 
 
   
-  <script src="/lib/jquery/index.js?v=3.4.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
-
 
   
 
-
-  <script src="/js/utils.js?v=7.1.2"></script>
-
-  <script src="/js/motion.js?v=7.1.2"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/schemes/muse.js?v=7.1.2"></script>
-
-
-
-
-  
-  <script src="/js/scrollspy.js?v=7.1.2"></script>
-<script src="/js/post-details.js?v=7.1.2"></script>
-
-
-
-  
-
-
-  <script src="/js/next-boot.js?v=7.1.2"></script>
-
-
-  
-  <script src="/js/js.cookie.js?v=7.1.2"></script>
-  <script src="/js/scroll-cookie.js?v=7.1.2"></script>
-
-
-  
-  <script src="/js/exturl.js?v=7.1.2"></script>
-
-
-  
-
-  
-  
 <script>
   function loadCount() {
     var d = document, s = d.createElement('script');
@@ -1239,157 +732,26 @@ app/src/main/java 下的 data 目录表示 **Model** 层，Task 是经final修�
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
 </script>
-
-
 <script>
   var disqus_config = function() {
     this.page.url = "http://geek5nan.github.io/2018/07/08/Understand-Android-MVP-Architecture/";
     this.page.identifier = "2018/07/08/Understand-Android-MVP-Architecture/";
-    this.page.title = 'Android MVP架构解析';
+    this.page.title = "Android MVP架构解析";
     };
-  function loadComments() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://geek5nan.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', '' + +new Date());
-    (d.head || d.body).appendChild(s);
-  }
-  
-    window.addEventListener('load', loadComments, false);
-  
-</script>
-
-
-
-
-
-  
-
-
-  
-
-
-
-
-  
-
-  
-
-  
-  
-
-  
-  
-
-  
-    
-      <script type="text/x-mathjax-config">
-  
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
-        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
-      }
-    });
-  });
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://geek5nan.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
     }
   });
 </script>
-<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-    
-  
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-  
-  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
-  <script>pangu.spacingPage();</script>
-
-
-  
-
-  
-<script>
-  $('.highlight').not('.gist .highlight').each(function(i, e) {
-    var $wrap = $('<div>').addClass('highlight-wrap');
-    $(e).after($wrap);
-    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
-      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
-        return $(e).text();
-      }).toArray().join('\n');
-      var ta = document.createElement('textarea');
-      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
-      ta.style.top = yPosition + 'px'; // Prevent page scroll
-      ta.style.position = 'absolute';
-      ta.style.opacity = '0';
-      ta.readOnly = true;
-      ta.value = code;
-      document.body.appendChild(ta);
-      const selection = document.getSelection();
-      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
-      ta.select();
-      ta.setSelectionRange(0, code.length);
-      ta.readOnly = false;
-      var result = document.execCommand('copy');
-      
-        if (result) $(this).text('复制成功');
-        else $(this).text('复制失败');
-      
-      ta.blur(); // For iOS
-      $(this).blur();
-      if (selected) {
-        selection.removeAllRanges();
-        selection.addRange(selected);
-      }
-    })).on('mouseleave', function(e) {
-      var $b = $(this).find('.copy-btn');
-      setTimeout(function() {
-        $b.text('复制');
-      }, 300);
-    }).append(e);
-  })
-</script>
-
-
-  
-
-  
 
 </body>
 </html>

@@ -1,190 +1,71 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html class="theme-next mist" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-
-
-
-
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
-
-
-
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <meta http-equiv="Cache-Control" content="no-transform">
   <meta http-equiv="Cache-Control" content="no-siteapp">
 
+<link rel="stylesheet" href="/css/main.css">
 
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
-
-
-
-
-
-
-
-
-  
-  
-  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
-  
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-
-<link rel="stylesheet" href="/css/main.css?v=7.1.2">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '7.1.2',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
-    back2top: true,
-    back2top_sidebar: false,
-    fancybox: true,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"geek5nan.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta name="description" content="随着移动端设备增量的放缓和市场上各行各业 App 的饱和，连笔者的手机都很久未安装过新 App，更不用提更换手机的频率。与此同时，移动开发也由上半场拼点子拼速度的快捷玩法，进入到下半场拼质量拼生态的高阶玩法。作为一名一线开发人员，大环境的走向与业务形态的发展虽由不得我们控制，但核心技术的掌握则是我们可以身体力行的( 笑~)。 AOSP 是 Android 系统的代码，囊括了 Andorid 系统的">
-<meta name="keywords" content="Android,AOSP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 macOS 10.14 编译 Android 9.0">
 <meta property="og:url" content="http://geek5nan.github.io/2019/06/10/build-android-pie-in-macOS-Mojave/index.html">
 <meta property="og:site_name" content="Geek5Nan">
 <meta property="og:description" content="随着移动端设备增量的放缓和市场上各行各业 App 的饱和，连笔者的手机都很久未安装过新 App，更不用提更换手机的频率。与此同时，移动开发也由上半场拼点子拼速度的快捷玩法，进入到下半场拼质量拼生态的高阶玩法。作为一名一线开发人员，大环境的走向与业务形态的发展虽由不得我们控制，但核心技术的掌握则是我们可以身体力行的( 笑~)。 AOSP 是 Android 系统的代码，囊括了 Andorid 系统的">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://geek5nan.github.io/uploads/aosp1-1.png">
 <meta property="og:image" content="http://geek5nan.github.io/uploads/aosp1-2.png">
 <meta property="og:image" content="http://geek5nan.github.io/uploads/aosp1-3.png">
 <meta property="og:image" content="http://geek5nan.github.io/uploads/aosp1-4.png">
-<meta property="og:updated_time" content="2019-12-11T14:04:51.808Z">
+<meta property="article:published_time" content="2019-06-10T15:15:01.000Z">
+<meta property="article:modified_time" content="2019-12-11T14:04:51.000Z">
+<meta property="article:author" content="Geek5Nan">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="AOSP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用 macOS 10.14 编译 Android 9.0">
-<meta name="twitter:description" content="随着移动端设备增量的放缓和市场上各行各业 App 的饱和，连笔者的手机都很久未安装过新 App，更不用提更换手机的频率。与此同时，移动开发也由上半场拼点子拼速度的快捷玩法，进入到下半场拼质量拼生态的高阶玩法。作为一名一线开发人员，大环境的走向与业务形态的发展虽由不得我们控制，但核心技术的掌握则是我们可以身体力行的( 笑~)。 AOSP 是 Android 系统的代码，囊括了 Andorid 系统的">
 <meta name="twitter:image" content="http://geek5nan.github.io/uploads/aosp1-1.png">
 
+<link rel="canonical" href="http://geek5nan.github.io/2019/06/10/build-android-pie-in-macOS-Mojave/">
 
 
-
-
-  
-  
-  <link rel="canonical" href="http://geek5nan.github.io/2019/06/10/build-android-pie-in-macOS-Mojave/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
   <title>使用 macOS 10.14 编译 Android 9.0 | Geek5Nan</title>
   
-
-
-
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49244994-2"></script>
-  <script>
-    var host = window.location.hostname;
-    if (host !== "localhost" || !true) {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-49244994-2');
-    }
-  </script>
-
-
-
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49244994-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49244994-2');
+      }
+    </script>
 
 
 
@@ -193,7 +74,6 @@
 
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -202,9 +82,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -218,128 +97,63 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Geek5Nan</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Geek5Nan</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-tags">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-      
-    
-
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-categories">
+        <li class="menu-item menu-item-tags">
 
-    
-    
-      
-    
-
-    
-
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
+        <li class="menu-item menu-item-categories">
 
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
 
   </li>
-
-      
-      
-    </ul>
-  
-
-  
-    
-
-  
-
-  
+  </ul>
 </nav>
 
-
-
-  
 
 
 
@@ -347,171 +161,105 @@
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
-          <div id="content" class="content">
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://geek5nan.github.io/2019/06/10/build-android-pie-in-macOS-Mojave/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
       <meta itemprop="name" content="Geek5Nan">
       <meta itemprop="description" content="每天进步一点。">
-      <meta itemprop="image" content="/uploads/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Geek5Nan">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">使用 macOS 10.14 编译 Android 9.0
-
-              
-            
-          </h2>
-        
+        <h1 class="post-title" itemprop="name headline">
+          使用 macOS 10.14 编译 Android 9.0
+        </h1>
 
         <div class="post-meta">
-
-          
-          
-          
-
-          
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2019-06-10 23:15:01" itemprop="dateCreated datePublished" datetime="2019-06-10T23:15:01+08:00">2019-06-10</time>
             </span>
-          
-
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
+                <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-12-11 22:04:51" itemprop="dateModified" datetime="2019-12-11T22:04:51+08:00">2019-12-11</time>
               </span>
-            
-          
-
-          
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android-9-系统源代码情景分析/" itemprop="url" rel="index"><span itemprop="name">Android 9 系统源代码情景分析</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android-9-%E7%B3%BB%E7%BB%9F%E6%BA%90%E4%BB%A3%E7%A0%81%E6%83%85%E6%99%AF%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">Android 9 系统源代码情景分析</span></a>
                 </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/06/10/build-android-pie-in-macOS-Mojave/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/10/build-android-pie-in-macOS-Mojave/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
+            </span>
 
           
-          
-
-          
-            <span class="post-meta-item">
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
-                 阅读次数： 
-                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
               </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
             </span>
-          
-
-          <br>
-          
-            <span class="post-meta-item">
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/06/10/build-android-pie-in-macOS-Mojave/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/10/build-android-pie-in-macOS-Mojave/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
               </span>
-              
                 <span class="post-meta-item-text">本文字数：</span>
-              
-              <span title="本文字数">5.1k</span>
+              <span>4.9k</span>
             </span>
-          
-
-          
-            <span class="post-meta-item">
+            <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
-              
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span title="阅读时长">5 分钟</span>
+              <span>4 分钟</span>
             </span>
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
@@ -519,15 +267,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>随着移动端设备增量的放缓和市场上各行各业 App 的饱和，连笔者的手机都很久未安装过新 App，更不用提更换手机的频率。与此同时，移动开发也由上半场拼点子拼速度的快捷玩法，进入到下半场拼质量拼生态的高阶玩法。作为一名一线开发人员，大环境的走向与业务形态的发展虽由不得我们控制，但核心技术的掌握则是我们可以身体力行的( 笑~)。</p>
 <p>AOSP 是 Android 系统的代码，囊括了 Andorid 系统的全部内容，从应用开发 Framework 层到 Android 虚拟机 ART/Dalvik 层再到 Linux 内核层，所有的疑惑都能在源码中找到答案，其源码的重要性不言而喻。本文作为系列的开篇，主要对 AOSP 的下载、编译过程进行阐述，同时记录下过程中遇到的问题及解决方案。</p>
 <p>笔者的系统版本为 macOS 10.14.5，截止文章发布时仍是最新的操作系统，AOSP-android-9.0.0_r42 的源码加编译产物需要 200G 的磁盘空间，请提前预留好磁盘空间。若主机磁盘空间不足，可使用外置移动硬盘来解决。</p>
 <p><img src="/uploads/aosp1-1.png" alt="编译后将近 200G "></p>
 <h2 id="1-Xcode-的安装"><a href="#1-Xcode-的安装" class="headerlink" title="1. Xcode 的安装"></a>1. Xcode 的安装</h2><p>Xcode 包含了编译过程所需的各种工具，如 git、clang、make 等，在编译之前，我们先处理好 Xcode 相关的问题。</p>
-<p>截止到2019年6月，<span style="color:red">AOSP 仍不支持使用 Xcode 10 编译</span>。虽可在 AOSP 配置文件增加 10.14 字段绕过该限制，但后续编译时仍会出现莫名其妙的错误。因此，建议直接使用 Xcode9.4 来避免此类问题。Xcode9.4 的下载地址为<span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYXBwbGUuY29tL2Rvd25sb2FkL21vcmUvPz14Y29kZQ==" title="https://developer.apple.com/download/more/?=xcode">Apple Developer Download<i class="fa fa-external-link"></i></span>，登录苹果账号后选中 Xcode 9.4 条目即可看到下载按钮。</p>
+<p>截止到2019年6月，<span style='color:red'>AOSP 仍不支持使用 Xcode 10 编译</span>。虽可在 AOSP 配置文件增加 10.14 字段绕过该限制，但后续编译时仍会出现莫名其妙的错误。因此，建议直接使用 Xcode9.4 来避免此类问题。Xcode9.4 的下载地址为<span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYXBwbGUuY29tL2Rvd25sb2FkL21vcmUvPz14Y29kZQ==" title="https://developer.apple.com/download/more/?=xcode">Apple Developer Download<i class="fa fa-external-link"></i></span>，登录苹果账号后选中 Xcode 9.4 条目即可看到下载按钮。</p>
 <p>若之前已安装 Xcode10 或更高版本，建议在 Xcode9.4 下载成功后进行以下操作：</p>
 <ol>
 <li>将原有 Xcode.app 更名为 Xcode10.app 或其他</li>
@@ -548,16 +293,16 @@
 <p>添加成功后，在终端内输入 <code>mountAndroid</code> 或 <code>umountAndroid</code> 即可快速挂载和卸载 AOSP 磁盘空间。</p>
 <h2 id="3-AOSP-源码下载"><a href="#3-AOSP-源码下载" class="headerlink" title="3. AOSP 源码下载"></a>3. AOSP 源码下载</h2><p>最新的 AOSP 的源码约35G，数据量较大，建议从国内镜像获取，本小节使用<span class="exturl" data-url="aHR0cHM6Ly9sdWcudXN0Yy5lZHUuY24vd2lraS9taXJyb3JzL2hlbHAvYW9zcA==" title="https://lug.ustc.edu.cn/wiki/mirrors/help/aosp">科大镜像源<i class="fa fa-external-link"></i></span>演示下载流程。</p>
 <h3 id="3-1-安装-repo"><a href="#3-1-安装-repo" class="headerlink" title="3.1 安装 repo"></a>3.1 安装 repo</h3><p>最新的 AOSP 项目下含有 700+ 个git仓库，若用 git-submodule，git-subtree 管理的话非常复杂，为此谷歌专门编写了 repo 工具，用来管理多个 git 仓库间的代码同步。<br><strong>0. 在当前用户目录下创建 bin 目录</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~&#x2F;bin</span><br></pre></td></tr></table></figure>
 
 <p><strong>1. 下载 repo 到当前用户下的 bin 目录</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL  &apos;https://gerrit-googlesource.proxy.ustclug.org/git-repo/+/master/repo?format=TEXT&apos; |base64 -d &gt; ~/bin/repo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL  &#39;https:&#x2F;&#x2F;gerrit-googlesource.proxy.ustclug.org&#x2F;git-repo&#x2F;+&#x2F;master&#x2F;repo?format&#x3D;TEXT&#39; |base64 -d &gt; ~&#x2F;bin&#x2F;repo</span><br></pre></td></tr></table></figure>
 
 <p><strong>2. 为 repo 赋予可执行权限</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x ~/bin/repo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x ~&#x2F;bin&#x2F;repo</span><br></pre></td></tr></table></figure>
 
 <p><strong>3. 将 bin 目录注册到终端环境</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># zsh</span><br><span class="line">echo &apos;export PATH=~/bin:$PATH&apos;&gt;&gt;~/.zshrc</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># zsh</span><br><span class="line">echo &#39;export PATH&#x3D;~&#x2F;bin:$PATH&#39;&gt;&gt;~&#x2F;.zshrc</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-2-下载-AOSP-源码"><a href="#3-2-下载-AOSP-源码" class="headerlink" title="3.2 下载 AOSP 源码"></a>3.2 下载 AOSP 源码</h3><p><strong>0. 初始化 AOSP 仓库清单</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 挂载 AOSP 磁盘空间</span></span><br><span class="line">mountAndroid</span><br><span class="line"><span class="comment"># 进入 AOSP 磁盘空间</span></span><br><span class="line"><span class="built_in">cd</span> /Volumes/AOSP</span><br><span class="line"><span class="comment"># 初始化 AOSP 仓库清单</span></span><br><span class="line">repo init -u git://mirrors.ustc.edu.cn/aosp/platform/manifest -b android-9.0.0_r42</span><br></pre></td></tr></table></figure>
@@ -566,13 +311,15 @@
 <p>首次使用 git ，需按提示填写 git.username 与 git.email 信息</p>
 </blockquote>
 <p>执行以上命令，会将<span class="exturl" data-url="Z2l0Oi8vbWlycm9ycy51c3RjLmVkdS5jbi9hb3NwL3BsYXRmb3JtL21hbmlmZXN0" title="git://mirrors.ustc.edu.cn/aosp/platform/manifest">AOSP清单仓库<i class="fa fa-external-link"></i></span>拉取到<code>/Volumes/AOSP/.repo</code>目录下，其中的 <code>manifest.xml</code>是一个软链接，链接到<code>/Volumes/AOSP/.repo/manifests/default.xml</code> 文件，文件中存储的即为 <code>AOSP</code>当前分支下所有仓库的清单文件。</p>
-<p><img src="/uploads/aosp1-2.png" alt></p>
+<p><img src="/uploads/aosp1-2.png" alt=""></p>
 <p><code>/Volumes/AOSP/manifest.xml</code>清单文件内容</p>
 <p><img src="/uploads/aosp1-3.png" alt="清单文件内容"></p>
 <p>清单中列出了 AOSP 当前分支所需的全部仓库，仓库以 <strong>project</strong> 条目的形式描述，其中 <strong>path</strong> 属性表示下载到本地后的文件目录，<strong>name</strong> 属性表示远程仓库的相对路径。</p>
 <p><img src="/uploads/aosp1-4.png" alt="Manifest.git_config"></p>
 <p><code>/Volumes/AOSP/.repo/manifests/.git/config</code>是一个指向<code>/Volumes/AOSP/.repo/manifests.git/config</code>文件的软链接，config 文件记录了 AOSP 清单仓库的基本信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># /Volumes/AOSP/.repo/manifests/.git/config</span><br><span class="line">[core]</span><br><span class="line">    repositoryformatversion = 0</span><br><span class="line">    filemode = true</span><br><span class="line">    precomposeunicode = true</span><br><span class="line">[filter &quot;lfs&quot;]</span><br><span class="line">    smudge = git-lfs smudge --skip -- %f</span><br><span class="line">    process = git-lfs filter-process --skip</span><br><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">    url = git://mirrors.ustc.edu.cn/aosp/platform/manifest</span><br><span class="line">    fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">[branch &quot;default&quot;]</span><br><span class="line">    remote = origin</span><br><span class="line">    merge = refs/heads/android-9.0.0_r42</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># &#x2F;Volumes&#x2F;AOSP&#x2F;.repo&#x2F;manifests&#x2F;.git&#x2F;config</span><br><span class="line">[core]</span><br><span class="line">    repositoryformatversion &#x3D; 0</span><br><span class="line">    filemode &#x3D; true</span><br><span class="line">    precomposeunicode &#x3D; true</span><br><span class="line">[filter &quot;lfs&quot;]</span><br><span class="line">    smudge &#x3D; git-lfs smudge --skip -- %f</span><br><span class="line">    process &#x3D; git-lfs filter-process --skip</span><br><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">    url &#x3D; git:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;aosp&#x2F;platform&#x2F;manifest</span><br><span class="line">    fetch &#x3D; +refs&#x2F;heads&#x2F;*:refs&#x2F;remotes&#x2F;origin&#x2F;*</span><br><span class="line">[branch &quot;default&quot;]</span><br><span class="line">    remote &#x3D; origin</span><br><span class="line">    merge &#x3D; refs&#x2F;heads&#x2F;android-9.0.0_r42</span><br></pre></td></tr></table></figure>
+
+
 
 <p><strong>1. 下载 AOSP 代码</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repo sync</span><br></pre></td></tr></table></figure>
@@ -607,391 +354,219 @@
 </blockquote>
 <p>与问题1一样，可通过步骤1 更换 Xcode 9.4 为默认 Xcode 解决。</p>
 
-      
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-      <div>
         
 
-
-
-
-  
-
-
-
+<div>
 <ul class="post-copyright">
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>Geek5Nan</li>
+    <strong>本文作者： </strong>Geek5Nan
+  </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    
     <a href="http://geek5nan.github.io/2019/06/10/build-android-pie-in-macOS-Mojave/" title="使用 macOS 10.14 编译 Android 9.0">http://geek5nan.github.io/2019/06/10/build-android-pie-in-macOS-Mojave/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
 </ul>
+</div>
 
-      </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/AOSP/" rel="tag"># AOSP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/19/export-data-of-qiniu/" rel="prev" title="导出七牛云存储的数据">
+      <i class="fa fa-chevron-left"></i> 导出七牛云存储的数据
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/06/23/how-to-reading-AOSP-with-Android-Studio/" rel="next" title="使用 Android Studio 阅读 AOSP 源码">
+      使用 Android Studio 阅读 AOSP 源码 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
     
-
-    <footer class="post-footer">
-      
-        
-          
-        
-        <div class="post-tags">
-          
-            <a href="/tags/Android/" rel="tag"># Android</a>
-          
-            <a href="/tags/AOSP/" rel="tag"># AOSP</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/03/19/export-data-of-qiniu/" rel="next" title="导出七牛云存储的数据">
-                <i class="fa fa-chevron-left"></i> 导出七牛云存储的数据
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/23/how-to-reading-AOSP-with-Android-Studio/" rel="prev" title="使用 Android Studio 阅读 AOSP 源码">
-                使用 Android Studio 阅读 AOSP 源码 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-
-  </div>
 
 
           </div>
           
-
-  
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-      </div>
-    </div>
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
     </div>
   </div>
+  
 
-  <aside id="sidebar" class="sidebar">
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Xcode-的安装"><span class="nav-number">1.</span> <span class="nav-text">1. Xcode 的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-macOS-大小写敏感磁盘的创建"><span class="nav-number">2.</span> <span class="nav-text">2. macOS 大小写敏感磁盘的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-AOSP-源码下载"><span class="nav-number">3.</span> <span class="nav-text">3. AOSP 源码下载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-安装-repo"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 安装 repo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-下载-AOSP-源码"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 下载 AOSP 源码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-编译-AOSP"><span class="nav-number">4.</span> <span class="nav-text">4. 编译 AOSP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-常见问题"><span class="nav-number">5.</span> <span class="nav-text">5. 常见问题</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Geek5Nan">
-            
-              <p class="site-author-name" itemprop="name">Geek5Nan</p>
-              <div class="site-description motion-element" itemprop="description">每天进步一点。</div>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">26</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  
-                    
-                      <a href="/categories/">
-                    
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">7</span>
-                    <span class="site-state-item-name">分类</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  
-                    
-                      <a href="/tags/">
-                    
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">15</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  
-                  
-                  
-                    
-                  
-                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dlZWs1bmFu" title="GitHub &rarr; https://github.com/geek5nan"><i class="fa fa-fw fa-github"></i></span>
-                </span>
-              
-                <span class="links-of-author-item">
-                  
-                  
-                  
-                    
-                  
-                  <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vZ2VlazVuYW4=" title="Weibo &rarr; https://weibo.com/geek5nan"><i class="fa fa-fw fa-weibo"></i></span>
-                </span>
-              
-            </div>
-          
-
-          
-             <div class="cc-license motion-element" itemprop="license">
-              
-              
-                
-              
-              
-              
-              <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
-             </div>
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Geek5Nan"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">Geek5Nan</p>
+  <div class="site-description" itemprop="description">每天进步一点。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
       </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dlZWs1bmFu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;geek5nan"><i class="fa fa-fw fa-github"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vZ2VlazVuYW4=" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;geek5nan"><i class="fa fa-fw fa-weibo"></i></span>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
 
-            
-            
-            
-            
 
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Xcode-的安装"><span class="nav-number">1.</span> <span class="nav-text">1. Xcode 的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-macOS-大小写敏感磁盘的创建"><span class="nav-number">2.</span> <span class="nav-text">2. macOS 大小写敏感磁盘的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-AOSP-源码下载"><span class="nav-number">3.</span> <span class="nav-text">3. AOSP 源码下载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-安装-repo"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 安装 repo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-下载-AOSP-源码"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 下载 AOSP 源码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-编译-AOSP"><span class="nav-number">4.</span> <span class="nav-text">4. 编译 AOSP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-常见问题"><span class="nav-number">5.</span> <span class="nav-text">5. 常见问题</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
+      </div>
 
     </div>
   </aside>
-  
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2013 – <span itemprop="copyrightYear">2019</span>
-  <span class="with-love" id="animate">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2013 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Geek5Nan</span>
-
-  
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    
-    <span title="站点总字数">131k</span>
-  
-
-  
+    <span title="站点总字数">116k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    
-    <span title="站点阅读时长">1:59</span>
-  
+    <span title="站点阅读时长">1:45</span>
 </div>
-
-
-
-
-
-
-
-
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9taXN0LnRoZW1lLW5leHQub3Jn">NexT.Mist</span> 强力驱动
+  </div>
 
         
 <div class="busuanzi-count">
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-user"></i>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
     </span>
-    <span class="site-uv" title="总访客量">
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-    </span>
-  
-
-  
     <span class="post-meta-divider">|</span>
-  
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-eye"></i>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
     </span>
-    <span class="site-pv" title="总访问量">
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-    </span>
-  
 </div>
 
 
@@ -1001,40 +576,23 @@
 
 
 
-
-        
       </div>
     </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
 
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
+<script src="/js/utils.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -1056,61 +614,9 @@
 
 
   
-  <script src="/lib/jquery/index.js?v=3.4.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
-
 
   
 
-
-  <script src="/js/utils.js?v=7.1.2"></script>
-
-  <script src="/js/motion.js?v=7.1.2"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/schemes/muse.js?v=7.1.2"></script>
-
-
-
-
-  
-  <script src="/js/scrollspy.js?v=7.1.2"></script>
-<script src="/js/post-details.js?v=7.1.2"></script>
-
-
-
-  
-
-
-  <script src="/js/next-boot.js?v=7.1.2"></script>
-
-
-  
-  <script src="/js/js.cookie.js?v=7.1.2"></script>
-  <script src="/js/scroll-cookie.js?v=7.1.2"></script>
-
-
-  
-  <script src="/js/exturl.js?v=7.1.2"></script>
-
-
-  
-
-  
-  
 <script>
   function loadCount() {
     var d = document, s = d.createElement('script');
@@ -1121,157 +627,26 @@
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
 </script>
-
-
 <script>
   var disqus_config = function() {
     this.page.url = "http://geek5nan.github.io/2019/06/10/build-android-pie-in-macOS-Mojave/";
     this.page.identifier = "2019/06/10/build-android-pie-in-macOS-Mojave/";
-    this.page.title = '使用 macOS 10.14 编译 Android 9.0';
+    this.page.title = "使用 macOS 10.14 编译 Android 9.0";
     };
-  function loadComments() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://geek5nan.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', '' + +new Date());
-    (d.head || d.body).appendChild(s);
-  }
-  
-    window.addEventListener('load', loadComments, false);
-  
-</script>
-
-
-
-
-
-  
-
-
-  
-
-
-
-
-  
-
-  
-
-  
-  
-
-  
-  
-
-  
-    
-      <script type="text/x-mathjax-config">
-  
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
-        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
-      }
-    });
-  });
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://geek5nan.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
     }
   });
 </script>
-<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-    
-  
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-  
-  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
-  <script>pangu.spacingPage();</script>
-
-
-  
-
-  
-<script>
-  $('.highlight').not('.gist .highlight').each(function(i, e) {
-    var $wrap = $('<div>').addClass('highlight-wrap');
-    $(e).after($wrap);
-    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
-      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
-        return $(e).text();
-      }).toArray().join('\n');
-      var ta = document.createElement('textarea');
-      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
-      ta.style.top = yPosition + 'px'; // Prevent page scroll
-      ta.style.position = 'absolute';
-      ta.style.opacity = '0';
-      ta.readOnly = true;
-      ta.value = code;
-      document.body.appendChild(ta);
-      const selection = document.getSelection();
-      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
-      ta.select();
-      ta.setSelectionRange(0, code.length);
-      ta.readOnly = false;
-      var result = document.execCommand('copy');
-      
-        if (result) $(this).text('复制成功');
-        else $(this).text('复制失败');
-      
-      ta.blur(); // For iOS
-      $(this).blur();
-      if (selected) {
-        selection.removeAllRanges();
-        selection.addRange(selected);
-      }
-    })).on('mouseleave', function(e) {
-      var $b = $(this).find('.copy-btn');
-      setTimeout(function() {
-        $b.text('复制');
-      }, 300);
-    }).append(e);
-  })
-</script>
-
-
-  
-
-  
 
 </body>
 </html>
