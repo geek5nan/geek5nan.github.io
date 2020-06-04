@@ -1035,9 +1035,7 @@ pre code {
 .pagination .space {
   display: inline-block;
   margin: 0 10px;
-  padding: 0 11px;
-  position: relative;
-  top: -1px;
+  padding: 0 10px;
 }
 @media (max-width: 767px) {
   .pagination .prev,
@@ -1067,24 +1065,9 @@ pre code {
 .pagination .page-number:hover {
   border-top-color: var(--link-hover-color);
 }
-.pagination .space {
-  margin: 0;
-  padding: 0;
-}
-.pagination .prev {
-  margin-left: 0;
-}
-.pagination .next {
-  margin-right: 0;
-}
-.pagination .page-number.current {
-  background: #ccc;
-  border-top-color: #ccc;
-  color: var(--content-bg-color);
-}
 @media (max-width: 767px) {
   .pagination {
-    border-top: none;
+    border-top: 0;
   }
   .pagination .prev,
   .pagination .next,
@@ -1092,13 +1075,21 @@ pre code {
     border-bottom: 1px solid #eee;
     border-top: 0;
     margin-bottom: 10px;
-    padding: 0 10px;
   }
   .pagination .prev:hover,
   .pagination .next:hover,
   .pagination .page-number:hover {
     border-bottom-color: var(--link-hover-color);
   }
+}
+.pagination .space {
+  margin: 0;
+  padding: 0;
+}
+.pagination .page-number.current {
+  background: #ccc;
+  border-top-color: #ccc;
+  color: var(--content-bg-color);
 }
 .comments {
   margin-top: 60px;
@@ -1391,7 +1382,7 @@ pre code {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #c8b0ff;
+  background: #eb7aff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2584,9 +2575,6 @@ hr {
 .posts-expand .post-title,
 .posts-expand .post-meta {
   text-align: center;
-}
-.posts-expand .post-body img {
-  margin-left: 0;
 }
 .posts-expand .post-tags {
   text-align: left;
