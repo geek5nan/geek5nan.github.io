@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"blog.devwu.com","root":"/","scheme":"Mist","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前不久，七牛收回了其测试域名，导致先前创建的外链失效，关联的图片也因此而无法加载。继续使用七牛云的话，需要绑定一个已备案的域名。我没有域名，只能选择将七牛中的数据迁出，本文记录了我的迁出方案，仅供参考。 七牛控制台登录七牛控制台，看到之前上传的文件都还在，不由松了一口气。  但因七牛提供的测试域名已被收回，这些文件无法直接下载。七牛官方有提供命令行工具 qshell 用来管理七牛云存储中的数据，下">
+  <meta name="description" content="前不久，七牛收回了其测试域名，导致先前创建的外链失效，关联的图片也因此而无法加载。继续使用七牛云的话，需要绑定一个已备案的域名。我没有域名，只能选择将七牛中的数据迁出，本文记录了我的迁出方案，仅供参考。 七牛控制台登录七牛控制台，看到之前上传的文件都还在，不由松了一口气。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="导出七牛云存储的数据">
 <meta property="og:url" content="http://blog.devwu.com/2019/03/19/export-data-of-qiniu/index.html">
 <meta property="og:site_name" content="Geek5Nan">
-<meta property="og:description" content="前不久，七牛收回了其测试域名，导致先前创建的外链失效，关联的图片也因此而无法加载。继续使用七牛云的话，需要绑定一个已备案的域名。我没有域名，只能选择将七牛中的数据迁出，本文记录了我的迁出方案，仅供参考。 七牛控制台登录七牛控制台，看到之前上传的文件都还在，不由松了一口气。  但因七牛提供的测试域名已被收回，这些文件无法直接下载。七牛官方有提供命令行工具 qshell 用来管理七牛云存储中的数据，下">
+<meta property="og:description" content="前不久，七牛收回了其测试域名，导致先前创建的外链失效，关联的图片也因此而无法加载。继续使用七牛云的话，需要绑定一个已备案的域名。我没有域名，只能选择将七牛中的数据迁出，本文记录了我的迁出方案，仅供参考。 七牛控制台登录七牛控制台，看到之前上传的文件都还在，不由松了一口气。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://blog.devwu.com/uploads/qiniuPortal.png">
 <meta property="og:image" content="http://blog.devwu.com/uploads/patchGet.sh.jpg">
@@ -51,14 +51,21 @@
 
   <title>导出七牛云存储的数据 | Geek5Nan</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49244994-2"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-49244994-2');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-49244994-2',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -240,21 +247,7 @@
     </a>
   </span>
   
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
+  
 
         </div>
       </header>
@@ -468,16 +461,6 @@
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Geek5Nan</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
-    </span>
-    <span title="站点总字数">116k</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="站点阅读时长">1:45</span>
 </div>
 
         
@@ -547,9 +530,6 @@
   
 
   
-      
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-
 
   
 

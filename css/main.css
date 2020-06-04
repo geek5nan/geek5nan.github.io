@@ -1391,7 +1391,7 @@ pre code {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #a395cf;
+  background: #cfffdd;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2408,6 +2408,13 @@ ul.breadcrumb li + li:last-child {
 .tag-cloud-10 {
   border-bottom-color: #111;
   color: #111;
+}
+mjx-container[jax="CHTML"][display="true"],
+.has-jax {
+  overflow: auto hidden;
+}
+mjx-container + br {
+  display: none;
 }
 hr {
   height: 2px;

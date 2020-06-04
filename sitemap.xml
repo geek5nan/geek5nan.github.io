@@ -9,21 +9,14 @@
   </url>
   
   <url>
-    <loc>http://blog.devwu.com/2013/11/03/function-pointer-and-class-member-pointer/</loc>
-    
-    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.devwu.com/2014/01/14/use-block-in-iOS-dev/</loc>
-    
-    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.devwu.com/2013/11/03/pointer-of-const-and-const-of-pointer/</loc>
+    
+    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.devwu.com/2013/11/03/function-pointer-and-class-member-pointer/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
     
@@ -37,14 +30,7 @@
   </url>
   
   <url>
-    <loc>http://blog.devwu.com/2014/07/24/2d-array--pointer/</loc>
-    
-    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.devwu.com/2014/07/28/stack/</loc>
+    <loc>http://blog.devwu.com/2014/01/14/use-block-in-iOS-dev/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
     
@@ -58,6 +44,13 @@
   </url>
   
   <url>
+    <loc>http://blog.devwu.com/2014/07/24/2d-array--pointer/</loc>
+    
+    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.devwu.com/2014/08/15/variadic-param/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
@@ -65,7 +58,21 @@
   </url>
   
   <url>
+    <loc>http://blog.devwu.com/2014/07/28/stack/</loc>
+    
+    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.devwu.com/2014/08/17/objcruntime-explore2/</loc>
+    
+    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.devwu.com/2014/08/19/objcruntime-explore4/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
     
@@ -86,7 +93,7 @@
   </url>
   
   <url>
-    <loc>http://blog.devwu.com/2014/08/19/objcruntime-explore4/</loc>
+    <loc>http://blog.devwu.com/2018/06/21/coding-marathon-01/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
     
@@ -100,7 +107,7 @@
   </url>
   
   <url>
-    <loc>http://blog.devwu.com/2018/06/21/coding-marathon-01/</loc>
+    <loc>http://blog.devwu.com/2018/06/27/coding-marathon-05/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
     
@@ -121,20 +128,6 @@
   </url>
   
   <url>
-    <loc>http://blog.devwu.com/2018/06/27/coding-marathon-05/</loc>
-    
-    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.devwu.com/2018/07/09/Understand-Android-MVP-Architecture/</loc>
-    
-    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.devwu.com/2018/07/17/Android-ActivityUtil/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
@@ -143,6 +136,13 @@
   
   <url>
     <loc>http://blog.devwu.com/2019/03/19/export-data-of-qiniu/</loc>
+    
+    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.devwu.com/2018/07/09/Understand-Android-MVP-Architecture/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
     
@@ -163,13 +163,6 @@
   </url>
   
   <url>
-    <loc>http://blog.devwu.com/2019/06/25/Insight-into-MultiType/</loc>
-    
-    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.devwu.com/2019/09/01/Kotlin-Everywhere-Notes/</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
@@ -184,6 +177,13 @@
   </url>
   
   <url>
+    <loc>http://blog.devwu.com/2019/06/25/Insight-into-MultiType/</loc>
+    
+    <lastmod>2019-12-11T14:04:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.devwu.com/about/index.html</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
@@ -191,14 +191,14 @@
   </url>
   
   <url>
-    <loc>http://blog.devwu.com/categories/index.html</loc>
+    <loc>http://blog.devwu.com/tags/index.html</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.devwu.com/tags/index.html</loc>
+    <loc>http://blog.devwu.com/categories/index.html</loc>
     
     <lastmod>2019-12-11T14:04:51.000Z</lastmod>
     
